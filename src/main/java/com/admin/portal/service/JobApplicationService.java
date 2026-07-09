@@ -14,6 +14,12 @@ public class JobApplicationService {
     @Autowired
     private JobApplicationRepository repository;
 
+    @Autowired
+    private JobService jobService;
+
+    @Autowired
+    private EmailService emailService;
+
     public JobApplication save(JobApplication application) {
 
         // Applied date is today
@@ -38,6 +44,24 @@ public class JobApplicationService {
         // Default status
         application.setStatus("PENDING");
 
-        return repository.save(application);
+        JobApplication savedApp = repository.save(application);
+
+        // Retrieve job title
+        String jobTitle = null;
+        if (savedApp.getJobId() != null) {
+            jobTitle = jobService.getJobById(savedApp.getJobId())
+                    .map(job -> job.getTitle())
+                    .orElse(null);
+        }
+
+        // Send acknowledgment email to candidate
+        try {
+            emailService.sendAcknowledgementEmail(savedApp, jobTitle);
+        } catch (Exception e) {
+            // Log and swallow so application submission isn't blocked by mail errors
+            System.err.println("Error sending job application acknowledgment email: " + e.getMessage());
+        }
+
+        return savedApp;
     }
 }

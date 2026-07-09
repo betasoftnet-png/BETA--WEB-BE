@@ -1,5 +1,6 @@
 package com.admin.portal.controller;
 
+import com.admin.portal.dto.request.QuestionDTO;
 import com.admin.portal.entity.Question;
 import com.admin.portal.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ public class QuestionController {
         return questionService.createQuestion(question);
     }
 
+    @PostMapping("/bulk")
+    public List<Question> createQuestions(@RequestBody List<Question> questions) {
+        return questionService.createQuestions(questions);
+    }
+
     // Update question
     @PutMapping("/{id}")
     public Question updateQuestion(@PathVariable Long id,
@@ -38,5 +44,10 @@ public class QuestionController {
     public String deleteQuestion(@PathVariable Long id) {
         questionService.deleteQuestion(id);
         return "Question deleted successfully";
+    }
+
+    @GetMapping("/candidate")
+    public List<QuestionDTO> getQuestionsForCandidate() {
+        return questionService.getQuestionsForCandidate();
     }
 }

@@ -1,7 +1,7 @@
 package com.admin.portal.controller;
 
 import com.admin.portal.dto.request.AssessmentRequest;
-import com.admin.portal.entity.Question;
+import com.admin.portal.dto.request.QuestionDTO;
 import com.admin.portal.service.AssessmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,17 +18,21 @@ public class AssessmentController {
     // HR sends assessment
     @PostMapping("/send")
     public String sendAssessment(@RequestBody AssessmentRequest request) {
-
+        Integer duration = request.getDuration();
+        if (duration == null) {
+            duration = 30;
+        }
         assessmentService.assignQuestions(
                 request.getCandidateId(),
-                request.getQuestionIds());
+                request.getQuestionIds(),
+                duration);
 
         return "Assessment sent successfully";
     }
 
     // Candidate gets assigned questions
     @GetMapping("/{candidateId}")
-    public List<Question> getQuestions(@PathVariable Long candidateId) {
+    public List<QuestionDTO> getQuestions(@PathVariable Long candidateId) {
 
         return assessmentService.getQuestionsForCandidate(candidateId);
     }

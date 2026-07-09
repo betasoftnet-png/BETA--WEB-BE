@@ -11,4 +11,6 @@ public interface AssessmentRepository extends JpaRepository<Assessment, Long> {
 
     List<Assessment> findByCandidateId(Long candidateId);
 
+    void deleteByCandidateId(Long candidateId);
+
 }

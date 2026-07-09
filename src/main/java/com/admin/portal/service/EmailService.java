@@ -80,6 +80,7 @@ public class EmailService {
         String body = "";
 
         if ("ACCEPTED".equalsIgnoreCase(status)) {
+            subject = "BETA Recruitment – Task Round Invitation";
             body = getAcceptanceEmailTemplate(candidateName, app.getEmail(), displayJobTitle);
         } else if ("REJECTED".equalsIgnoreCase(status)) {
             body = getRejectionEmailTemplate(candidateName, app.getEmail(), displayJobTitle);
@@ -179,10 +180,10 @@ public class EmailService {
                 "<html>\n" +
                 "<head>\n" +
                 "  <meta charset=\"utf-8\">\n" +
-                "  <title>Application Status Update - Accepted</title>\n" +
+                "  <title>BETA Recruitment – Task Round Invitation</title>\n" +
                 "</head>\n" +
                 "<body style=\"margin: 0; padding: 0; background-color: #f4f5f7; font-family: 'Roboto', Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n" +
-                "  <table role=\"presentation\" border=\"0;\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f4f5f7; padding: 40px 0;\">\n" +
+                "  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f4f5f7; padding: 40px 0;\">\n" +
                 "    <tr>\n" +
                 "      <td align=\"center\">\n" +
                 "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 40px;\">\n" +
@@ -202,19 +203,33 @@ public class EmailService {
                 "          <!-- Content Body -->\n" +
                 "          <tr>\n" +
                 "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.6; text-align: left;\">\n" +
-                "              <h2 style=\"margin: 0 0 20px 0; color: #0f766e; font-size: 20px; font-weight: 600;\">Application Accepted</h2>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
                 "                Dear <strong>" + escapeHtml(candidateName) + "</strong>,\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
-                "                We are thrilled to inform you that your application for the <strong>" + escapeHtml(jobTitle) + "</strong> position has been <strong>accepted</strong>! We were highly impressed by your qualifications and interview performance.\n" +
+                "                We are delighted to have received your application.\n" +
+                "              </p>\n" +
+                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "                We are pleased to inform you that your profile has been reviewed and shortlisted for the next stage of our recruitment process.\n" +
+                "              </p>\n" +
+                "              <p style=\"margin: 0 0 10px 0;\">\n" +
+                "                Our hiring process consists of the following four stages:\n" +
+                "              </p>\n" +
+                "              <ol style=\"margin: 0 0 20px 0; padding-left: 20px;\">\n" +
+                "                <li style=\"margin-bottom: 5px;\">Task Round</li>\n" +
+                "                <li style=\"margin-bottom: 5px;\">Online Round</li>\n" +
+                "                <li style=\"margin-bottom: 5px;\">Technical Interview</li>\n" +
+                "                <li style=\"margin-bottom: 5px;\">HR Interview</li>\n" +
+                "              </ol>\n" +
+                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "                The Task Round details and assessment link will be shared with you soon via <strong>BNXmail</strong>.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 30px 0;\">\n" +
-                "                Our HR team will reach out to you shortly with the official offer letter and next steps regarding the onboarding process.\n" +
+                "                We appreciate your interest in <strong>BETA</strong> and wish you every success.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0;\">\n" +
-                "                Best regards,<br><br>\n" +
-                "                <strong>The Hiring Team</strong>\n" +
+                "                Best Regards,<br><br>\n" +
+                "                <strong>The BETA Team</strong>\n" +
                 "              </p>\n" +
                 "            </td>\n" +
                 "          </tr>\n" +

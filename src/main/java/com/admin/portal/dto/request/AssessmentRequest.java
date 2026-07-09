@@ -6,6 +6,7 @@ public class AssessmentRequest {
 
     private Long candidateId;
     private List<Long> questionIds;
+    private Integer duration;
 
     public Long getCandidateId() {
         return candidateId;
@@ -21,5 +22,13 @@ public class AssessmentRequest {
 
     public void setQuestionIds(List<Long> questionIds) {
         this.questionIds = questionIds;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 }

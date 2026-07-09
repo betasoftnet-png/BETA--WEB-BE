@@ -27,6 +27,10 @@ public class Question {
     @Column(name = "correct_answer")
     private String correctAnswer;
 
+    // Default constructor (required by JPA/Jackson)
+    public Question() {
+    }
+
     public Long getId() {
         return id;
     }

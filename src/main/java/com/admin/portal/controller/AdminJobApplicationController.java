@@ -9,18 +9,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:5173")
 public class AdminJobApplicationController {
 
     @Autowired
     private AdminJobApplicationService service;
 
-    @GetMapping("/admin/applications")
+    @GetMapping({"/admin/applications", "/applications"})
     public List<JobApplication> getAllApplications() {
         return service.getAllApplications();
     }
 
-    @PutMapping("/applications/{id}/status")
+    @PutMapping({"/admin/applications/{id}/status", "/applications/{id}/status"})
     public JobApplication updateApplicationStatus(@PathVariable Long id, @RequestBody java.util.Map<String, String> payload) {
         String status = payload.get("status");
         return service.updateStatus(id, status);

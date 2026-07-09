@@ -7,6 +7,7 @@ import com.admin.portal.repository.AssessmentRepository;
 import com.admin.portal.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class AssessmentService {
     private QuestionRepository questionRepository;
 
     // Save selected questions for a candidate
+    @Transactional
     public void assignQuestions(Long candidateId, List<Long> questionIds, Integer duration) {
 
         // Delete previous assessment for this candidate

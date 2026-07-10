@@ -58,10 +58,13 @@ public class AssessmentController {
                 }
             }
             
+            int attempts = (app != null) ? app.getAssessmentAttempts() : 0;
             return ResponseEntity.ok(java.util.Map.of(
+                "candidateId", candidateId,
                 "candidateName", fullName,
                 "jobTitle", jobTitle,
-                "questions", questions
+                "questions", questions,
+                "attempts", attempts
             ));
         } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());

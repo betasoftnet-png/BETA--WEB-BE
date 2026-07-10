@@ -56,6 +56,11 @@ public class AssessmentService {
         JobApplication application = jobApplicationRepository.findById(candidateId)
                 .orElseThrow(() -> new RuntimeException("Candidate application not found."));
 
+        List<Assessment> assessments = assessmentRepository.findByCandidateId(candidateId);
+        if (assessments.isEmpty()) {
+            throw new RuntimeException("No assessment has been assigned to you yet. Please wait for the recruitment team to assign your assessment.");
+        }
+
         if (Boolean.TRUE.equals(application.getAssessmentSubmitted())) {
             throw new RuntimeException("You have already submitted this assessment. Submission is allowed only once.");
         }
@@ -67,8 +72,6 @@ public class AssessmentService {
         // Increment attempts on fetching questions (initial start/access)
         application.setAssessmentAttempts(application.getAssessmentAttempts() + 1);
         jobApplicationRepository.save(application);
-
-        List<Assessment> assessments = assessmentRepository.findByCandidateId(candidateId);
 
         List<QuestionDTO> questionDTOs = new ArrayList<>();
 

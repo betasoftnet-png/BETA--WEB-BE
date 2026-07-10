@@ -24,4 +24,12 @@ public class AdminJobApplicationController {
         String status = payload.get("status");
         return service.updateStatus(id, status);
     }
+
+    @PutMapping({"/admin/applications/{id}/schedule", "/applications/{id}/schedule"})
+    public JobApplication scheduleInterview(@PathVariable Long id, @RequestBody java.util.Map<String, String> payload) {
+        String date = payload.get("date");
+        String time = payload.get("time");
+        String link = payload.get("link");
+        return service.scheduleInterview(id, date, time, link);
+    }
 }

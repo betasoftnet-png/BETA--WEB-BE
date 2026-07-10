@@ -2,6 +2,10 @@ package com.admin.portal.controller;
 
 import com.admin.portal.dto.request.AssessmentRequest;
 import com.admin.portal.dto.request.QuestionDTO;
+import com.admin.portal.entity.JobApplication;
+import com.admin.portal.entity.Job;
+import com.admin.portal.repository.JobApplicationRepository;
+import com.admin.portal.service.JobService;
 import com.admin.portal.service.AssessmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +19,12 @@ public class AssessmentController {
 
     @Autowired
     private AssessmentService assessmentService;
+
+    @Autowired
+    private JobApplicationRepository jobApplicationRepository;
+
+    @Autowired
+    private JobService jobService;
 
     // HR sends assessment
     @PostMapping("/send")
@@ -36,7 +46,23 @@ public class AssessmentController {
     public ResponseEntity<?> getQuestions(@PathVariable Long candidateId) {
         try {
             List<QuestionDTO> questions = assessmentService.getQuestionsForCandidate(candidateId);
-            return ResponseEntity.ok(questions);
+            
+            JobApplication app = jobApplicationRepository.findById(candidateId).orElse(null);
+            String fullName = (app != null) ? app.getFullName() : "Guest Candidate";
+            String jobTitle = "BNX Mail Strategist";
+            
+            if (app != null && app.getJobId() != null) {
+                Job job = jobService.getJobById(app.getJobId()).orElse(null);
+                if (job != null) {
+                    jobTitle = job.getTitle();
+                }
+            }
+            
+            return ResponseEntity.ok(java.util.Map.of(
+                "candidateName", fullName,
+                "jobTitle", jobTitle,
+                "questions", questions
+            ));
         } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
@@ -57,8 +83,8 @@ public class AssessmentController {
     @PostMapping("/{candidateId}/submit")
     public ResponseEntity<?> submitAssessment(@PathVariable Long candidateId) {
         try {
-            assessmentService.submitAssessment(candidateId);
-            return ResponseEntity.ok("Assessment submitted successfully.");
+            Integer score = assessmentService.submitAssessment(candidateId);
+            return ResponseEntity.ok(java.util.Map.of("message", "Assessment submitted successfully.", "score", score));
         } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }

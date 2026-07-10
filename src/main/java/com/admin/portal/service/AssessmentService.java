@@ -7,6 +7,8 @@ import com.admin.portal.entity.JobApplication;
 import com.admin.portal.repository.AssessmentRepository;
 import com.admin.portal.repository.QuestionRepository;
 import com.admin.portal.repository.JobApplicationRepository;
+import com.admin.portal.repository.AnswerRepository;
+import com.admin.portal.entity.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,9 @@ public class AssessmentService {
 
     @Autowired
     private JobApplicationRepository jobApplicationRepository;
+
+    @Autowired
+    private AnswerRepository answerRepository;
 
     // Save selected questions for a candidate
     @Transactional
@@ -116,11 +121,66 @@ public class AssessmentService {
     }
 
     @Transactional
-    public void submitAssessment(Long candidateId) {
+    public Integer submitAssessment(Long candidateId) {
         JobApplication application = jobApplicationRepository.findById(candidateId)
                 .orElseThrow(() -> new RuntimeException("Candidate application not found."));
 
+        if (Boolean.TRUE.equals(application.getAssessmentSubmitted())) {
+            throw new RuntimeException("Assessment already submitted.");
+        }
+
+        // Calculate score based on actual correct answers
+        List<Assessment> assessments = assessmentRepository.findByCandidateId(candidateId);
+        List<Answer> answers = answerRepository.findByCandidateId(candidateId);
+
+        int totalQuestions = assessments.size();
+        int correctCount = 0;
+
+        for (Assessment assessment : assessments) {
+            Question question = questionRepository.findById(assessment.getQuestionId()).orElse(null);
+            if (question != null) {
+                // Find candidate's answer for this question
+                Answer candidateAnswer = answers.stream()
+                        .filter(ans -> ans.getQuestionId().equals(question.getId()))
+                        .findFirst()
+                        .orElse(null);
+
+                if (candidateAnswer != null && candidateAnswer.getSelectedAnswer() != null && question.getCorrectAnswer() != null) {
+                    String selected = candidateAnswer.getSelectedAnswer().trim();
+                    String correct = question.getCorrectAnswer().trim();
+                    if (isCorrectAnswer(selected, correct)) {
+                        correctCount++;
+                    }
+                }
+            }
+        }
+
+        int scorePercent = totalQuestions > 0 ? (int) Math.round((correctCount * 100.0) / totalQuestions) : 0;
+        application.setAptitudeScore(scorePercent);
         application.setAssessmentSubmitted(true);
         jobApplicationRepository.save(application);
+        return scorePercent;
+    }
+
+    private boolean isCorrectAnswer(String selected, String correct) {
+        if (selected == null || correct == null) return false;
+        
+        String selNorm = selected.trim().toLowerCase();
+        String corrNorm = correct.trim().toLowerCase();
+        
+        if (selNorm.equals(corrNorm)) return true;
+        
+        // Support mapping "optiona" -> "a" or vice versa
+        if (selNorm.equals("optiona") && corrNorm.equals("a")) return true;
+        if (selNorm.equals("optionb") && corrNorm.equals("b")) return true;
+        if (selNorm.equals("optionc") && corrNorm.equals("c")) return true;
+        if (selNorm.equals("optiond") && corrNorm.equals("d")) return true;
+        
+        if (selNorm.equals("a") && corrNorm.equals("optiona")) return true;
+        if (selNorm.equals("b") && corrNorm.equals("optionb")) return true;
+        if (selNorm.equals("c") && corrNorm.equals("optionc")) return true;
+        if (selNorm.equals("d") && corrNorm.equals("optiond")) return true;
+        
+        return false;
     }
 }

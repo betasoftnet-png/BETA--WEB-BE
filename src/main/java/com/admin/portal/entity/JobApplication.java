@@ -35,6 +35,9 @@ public class JobApplication {
 
     private String interviewTime;
 
+    @Column(name = "interview_link")
+    private String interviewLink;
+
     private String status;
 
     @Column(name = "assessment_attempts")
@@ -42,6 +45,9 @@ public class JobApplication {
 
     @Column(name = "assessment_submitted")
     private Boolean assessmentSubmitted = false;
+
+    @Column(name = "aptitude_score")
+    private Integer aptitudeScore;
 
     public JobApplication() {
     }
@@ -156,5 +162,21 @@ public class JobApplication {
 
     public void setAssessmentSubmitted(Boolean assessmentSubmitted) {
         this.assessmentSubmitted = assessmentSubmitted;
+    }
+
+    public Integer getAptitudeScore() {
+        return aptitudeScore;
+    }
+
+    public void setAptitudeScore(Integer aptitudeScore) {
+        this.aptitudeScore = aptitudeScore;
+    }
+
+    public String getInterviewLink() {
+        return interviewLink;
+    }
+
+    public void setInterviewLink(String interviewLink) {
+        this.interviewLink = interviewLink;
     }
 }

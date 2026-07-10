@@ -37,6 +37,12 @@ public class JobApplication {
 
     private String status;
 
+    @Column(name = "assessment_attempts")
+    private Integer assessmentAttempts = 0;
+
+    @Column(name = "assessment_submitted")
+    private Boolean assessmentSubmitted = false;
+
     public JobApplication() {
     }
 
@@ -134,5 +140,21 @@ public class JobApplication {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getAssessmentAttempts() {
+        return assessmentAttempts != null ? assessmentAttempts : 0;
+    }
+
+    public void setAssessmentAttempts(Integer assessmentAttempts) {
+        this.assessmentAttempts = assessmentAttempts;
+    }
+
+    public Boolean getAssessmentSubmitted() {
+        return assessmentSubmitted != null ? assessmentSubmitted : false;
+    }
+
+    public void setAssessmentSubmitted(Boolean assessmentSubmitted) {
+        this.assessmentSubmitted = assessmentSubmitted;
     }
 }

@@ -3,8 +3,10 @@ package com.admin.portal.service;
 import com.admin.portal.dto.request.QuestionDTO;
 import com.admin.portal.entity.Assessment;
 import com.admin.portal.entity.Question;
+import com.admin.portal.entity.JobApplication;
 import com.admin.portal.repository.AssessmentRepository;
 import com.admin.portal.repository.QuestionRepository;
+import com.admin.portal.repository.JobApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,9 @@ public class AssessmentService {
 
     @Autowired
     private QuestionRepository questionRepository;
+
+    @Autowired
+    private JobApplicationRepository jobApplicationRepository;
 
     // Save selected questions for a candidate
     @Transactional
@@ -46,7 +51,22 @@ public class AssessmentService {
     }
 
     // Get assigned questions for a candidate (without correct answers)
+    @Transactional
     public List<QuestionDTO> getQuestionsForCandidate(Long candidateId) {
+        JobApplication application = jobApplicationRepository.findById(candidateId)
+                .orElseThrow(() -> new RuntimeException("Candidate application not found."));
+
+        if (Boolean.TRUE.equals(application.getAssessmentSubmitted())) {
+            throw new RuntimeException("You have already submitted this assessment. Submission is allowed only once.");
+        }
+
+        if (application.getAssessmentAttempts() >= 2) {
+            throw new RuntimeException("You have already started or accessed this assessment 2 times. You are not allowed to attend or submit again.");
+        }
+
+        // Increment attempts on fetching questions (initial start/access)
+        application.setAssessmentAttempts(application.getAssessmentAttempts() + 1);
+        jobApplicationRepository.save(application);
 
         List<Assessment> assessments = assessmentRepository.findByCandidateId(candidateId);
 
@@ -75,5 +95,29 @@ public class AssessmentService {
         }
 
         return questionDTOs;
+    }
+
+    @Transactional
+    public Integer incrementAssessmentAttempts(Long candidateId) {
+        JobApplication application = jobApplicationRepository.findById(candidateId)
+                .orElseThrow(() -> new RuntimeException("Candidate application not found."));
+
+        if (Boolean.TRUE.equals(application.getAssessmentSubmitted())) {
+            throw new RuntimeException("Assessment already submitted.");
+        }
+
+        int newAttempts = application.getAssessmentAttempts() + 1;
+        application.setAssessmentAttempts(newAttempts);
+        jobApplicationRepository.save(application);
+        return newAttempts;
+    }
+
+    @Transactional
+    public void submitAssessment(Long candidateId) {
+        JobApplication application = jobApplicationRepository.findById(candidateId)
+                .orElseThrow(() -> new RuntimeException("Candidate application not found."));
+
+        application.setAssessmentSubmitted(true);
+        jobApplicationRepository.save(application);
     }
 }

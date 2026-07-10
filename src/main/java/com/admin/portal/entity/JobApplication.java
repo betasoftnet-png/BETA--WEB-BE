@@ -49,6 +49,9 @@ public class JobApplication {
     @Column(name = "aptitude_score")
     private Integer aptitudeScore;
 
+    @Column(name = "aptitude_status")
+    private String aptitudeStatus = "Pending";
+
     public JobApplication() {
     }
 
@@ -178,5 +181,13 @@ public class JobApplication {
 
     public void setInterviewLink(String interviewLink) {
         this.interviewLink = interviewLink;
+    }
+
+    public String getAptitudeStatus() {
+        return aptitudeStatus;
+    }
+
+    public void setAptitudeStatus(String aptitudeStatus) {
+        this.aptitudeStatus = aptitudeStatus;
     }
 }

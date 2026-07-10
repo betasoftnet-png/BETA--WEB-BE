@@ -14,6 +14,14 @@ public class AnswerService {
     private AnswerRepository answerRepository;
 
     public Answer saveAnswer(Answer answer) {
+        // Upsert: update existing answer for this candidate+question, or insert new
+        List<Answer> existing = answerRepository.findByCandidateId(answer.getCandidateId());
+        for (Answer ex : existing) {
+            if (ex.getQuestionId().equals(answer.getQuestionId())) {
+                ex.setSelectedAnswer(answer.getSelectedAnswer());
+                return answerRepository.save(ex);
+            }
+        }
         return answerRepository.save(answer);
     }
 

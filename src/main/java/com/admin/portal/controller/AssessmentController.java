@@ -43,29 +43,50 @@ public class AssessmentController {
 
     // Candidate gets assigned questions
     @GetMapping("/{candidateId}")
-    public ResponseEntity<?> getQuestions(@PathVariable Long candidateId) {
+    public ResponseEntity<?> getQuestions(
+            @PathVariable Long candidateId,
+            @RequestParam(value = "increment", defaultValue = "true") boolean increment) {
         try {
-            List<QuestionDTO> questions = assessmentService.getQuestionsForCandidate(candidateId);
-            
             JobApplication app = jobApplicationRepository.findById(candidateId).orElse(null);
+            if (app != null && Boolean.TRUE.equals(app.getAssessmentSubmitted())) {
+                String fullName = app.getFullName();
+                String jobTitle = "BNX Mail Strategist";
+                if (app.getJobId() != null) {
+                    Job job = jobService.getJobById(app.getJobId()).orElse(null);
+                    if (job != null) {
+                        jobTitle = job.getTitle();
+                    }
+                }
+                return ResponseEntity.ok(java.util.Map.of(
+                        "candidateId", candidateId,
+                        "candidateName", (fullName != null) ? fullName : "Guest Candidate",
+                        "jobTitle", jobTitle,
+                        "questions", java.util.Collections.emptyList(),
+                        "attempts", app.getAssessmentAttempts() != null ? app.getAssessmentAttempts() : 0,
+                        "submitted", true,
+                        "score", app.getAptitudeScore() != null ? app.getAptitudeScore() : 0));
+            }
+
+            List<QuestionDTO> questions = assessmentService.getQuestionsForCandidate(candidateId, increment);
+
+            app = jobApplicationRepository.findById(candidateId).orElse(null);
             String fullName = (app != null) ? app.getFullName() : "Guest Candidate";
             String jobTitle = "BNX Mail Strategist";
-            
+
             if (app != null && app.getJobId() != null) {
                 Job job = jobService.getJobById(app.getJobId()).orElse(null);
                 if (job != null) {
                     jobTitle = job.getTitle();
                 }
             }
-            
+
             int attempts = (app != null) ? app.getAssessmentAttempts() : 0;
             return ResponseEntity.ok(java.util.Map.of(
-                "candidateId", candidateId,
-                "candidateName", fullName,
-                "jobTitle", jobTitle,
-                "questions", questions,
-                "attempts", attempts
-            ));
+                    "candidateId", candidateId,
+                    "candidateName", fullName,
+                    "jobTitle", jobTitle,
+                    "questions", questions,
+                    "attempts", attempts));
         } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }

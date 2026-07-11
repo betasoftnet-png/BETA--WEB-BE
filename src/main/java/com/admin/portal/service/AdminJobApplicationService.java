@@ -19,6 +19,9 @@ public class AdminJobApplicationService {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private NotificationService notificationService;
+
     public List<JobApplication> getAllApplications() {
         return repository.findAll();
     }
@@ -45,6 +48,37 @@ public class AdminJobApplicationService {
                 // Log the exception but do not fail the database transaction
                 System.err.println("Error sending status email notification: " + e.getMessage());
             }
+        }
+
+        // Create notification
+        try {
+            String friendly = getFriendlyStatus(status);
+            String title = "Application Status Update";
+            String message = "Your job application status has been updated to: " + friendly + ".";
+            
+            if ("ACCEPTED".equalsIgnoreCase(status)) {
+                title = "Application Accepted";
+                message = "Congratulations! Your application has been accepted.";
+            } else if ("REJECTED".equalsIgnoreCase(status)) {
+                title = "Application Rejected";
+                message = "We regret to inform you that we are moving forward with other candidates.";
+            } else if ("SHORTLISTED".equalsIgnoreCase(status)) {
+                title = "Application Shortlisted";
+                message = "Great news! Your profile has been shortlisted for the next stage.";
+            } else if ("SCHEDULED".equalsIgnoreCase(status)) {
+                title = "Interview Scheduled";
+                message = "Your interview has been scheduled. Please check your dashboard for details.";
+            } else if ("REVIEWED".equalsIgnoreCase(status)) {
+                title = "Interview Completed";
+                message = "Your interview has been completed and is under review.";
+            } else if ("JOINED".equalsIgnoreCase(status)) {
+                title = "Onboarding Started";
+                message = "Welcome to the team! Your onboarding process has started.";
+            }
+            
+            notificationService.createNotification(savedApp.getId(), title, message);
+        } catch (Exception e) {
+            System.err.println("Failed to create status update notification: " + e.getMessage());
         }
 
         return savedApp;
@@ -98,6 +132,32 @@ public class AdminJobApplicationService {
             System.err.println("Error sending interview scheduling email: " + e.getMessage());
         }
 
+        // Create notification
+        try {
+            String linkInfo = (savedApp.getInterviewLink() != null) ? " Meeting Link: " + savedApp.getInterviewLink() : "";
+            notificationService.createNotification(
+                savedApp.getId(), 
+                "Interview Scheduled", 
+                "Your interview has been scheduled for " + savedApp.getInterviewDate() + " at " + savedApp.getInterviewTime() + "." + linkInfo
+            );
+        } catch (Exception e) {
+            System.err.println("Failed to create interview scheduled notification: " + e.getMessage());
+        }
+
         return savedApp;
+    }
+
+    private String getFriendlyStatus(String status) {
+        if (status == null) return "Updated";
+        switch (status.toUpperCase()) {
+            case "ACCEPTED": return "Accepted";
+            case "REJECTED": return "Rejected";
+            case "SHORTLISTED": return "Shortlisted";
+            case "SCHEDULED": return "Interview Scheduled";
+            case "REVIEWED": return "Interview Completed";
+            case "JOINED": return "Joined";
+            case "PENDING": return "Candidates";
+            default: return status;
+        }
     }
 }

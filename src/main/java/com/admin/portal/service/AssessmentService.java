@@ -32,6 +32,12 @@ public class AssessmentService {
     @Autowired
     private AnswerRepository answerRepository;
 
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private NotificationService notificationService;
+
     // Save selected questions for a candidate
     @Transactional
     public void assignQuestions(Long candidateId, List<Long> questionIds, Integer duration) {
@@ -58,7 +64,24 @@ public class AssessmentService {
         application.setAptitudeStatus("Assessment Sent");
         application.setAssessmentAttempts(0);
         application.setAssessmentSubmitted(false);
-        jobApplicationRepository.save(application);
+        JobApplication savedApp = jobApplicationRepository.save(application);
+
+        try {
+            emailService.sendAssessmentEmail(savedApp);
+        } catch (Exception e) {
+            System.err.println("Error sending assessment link email: " + e.getMessage());
+        }
+
+        // Create notification
+        try {
+            notificationService.createNotification(
+                savedApp.getId(),
+                "Assessment Assigned",
+                "A new Test Round assessment has been assigned to you. Please check your dashboard or email for details."
+            );
+        } catch (Exception e) {
+            System.err.println("Failed to create assessment assigned notification: " + e.getMessage());
+        }
     }
 
     // Get assigned questions for a candidate (without correct answers)
@@ -179,6 +202,18 @@ public class AssessmentService {
         application.setAssessmentSubmitted(true);
         application.setAptitudeStatus("Completed");
         jobApplicationRepository.save(application);
+
+        // Create notification
+        try {
+            notificationService.createNotification(
+                candidateId,
+                "Assessment Completed",
+                "You have successfully completed your Test Round assessment. Your score is " + scorePercent + "%."
+            );
+        } catch (Exception e) {
+            System.err.println("Failed to create assessment completed notification: " + e.getMessage());
+        }
+
         return scorePercent;
     }
 

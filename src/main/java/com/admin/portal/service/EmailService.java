@@ -80,9 +80,10 @@ public class EmailService {
         String body = "";
 
         if ("ACCEPTED".equalsIgnoreCase(status)) {
-            subject = "BETA Recruitment – Task Round Invitation";
+            subject = "BETA Recruitment – Test Round Invitation";
             body = getAcceptanceEmailTemplate(candidateName, app.getEmail(), displayJobTitle);
         } else if ("REJECTED".equalsIgnoreCase(status)) {
+            subject = "Update on Your Job Application – BETA Recruitment";
             body = getRejectionEmailTemplate(candidateName, app.getEmail(), displayJobTitle);
         } else {
             // No email is sent for other/intermediate statuses like PENDING
@@ -180,7 +181,7 @@ public class EmailService {
                 "<html>\n" +
                 "<head>\n" +
                 "  <meta charset=\"utf-8\">\n" +
-                "  <title>BETA Recruitment – Task Round Invitation</title>\n" +
+                "  <title>BETA Recruitment – Test Round Invitation</title>\n" +
                 "</head>\n" +
                 "<body style=\"margin: 0; padding: 0; background-color: #f4f5f7; font-family: 'Roboto', Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n" +
                 "  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f4f5f7; padding: 40px 0;\">\n" +
@@ -216,13 +217,13 @@ public class EmailService {
                 "                Our hiring process consists of the following four stages:\n" +
                 "              </p>\n" +
                 "              <ol style=\"margin: 0 0 20px 0; padding-left: 20px;\">\n" +
-                "                <li style=\"margin-bottom: 5px;\">Task Round</li>\n" +
+                "                <li style=\"margin-bottom: 5px;\">Test Round</li>\n" +
                 "                <li style=\"margin-bottom: 5px;\">Online Round</li>\n" +
                 "                <li style=\"margin-bottom: 5px;\">Technical Interview</li>\n" +
                 "                <li style=\"margin-bottom: 5px;\">HR Interview</li>\n" +
                 "              </ol>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
-                "                The Task Round details and assessment link will be shared with you soon via <strong>BNXmail</strong>.\n" +
+                "                The Test Round details and assessment link will be shared with you soon via <strong>BNXmail</strong>.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 30px 0;\">\n" +
                 "                We appreciate your interest in <strong>BETA</strong> and wish you every success.\n" +
@@ -261,7 +262,7 @@ public class EmailService {
                 "<html>\n" +
                 "<head>\n" +
                 "  <meta charset=\"utf-8\">\n" +
-                "  <title>Application Status Update</title>\n" +
+                "  <title>Update on Your Job Application – BETA Recruitment</title>\n" +
                 "</head>\n" +
                 "<body style=\"margin: 0; padding: 0; background-color: #f4f5f7; font-family: 'Roboto', Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n" +
                 "  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f4f5f7; padding: 40px 0;\">\n" +
@@ -284,22 +285,113 @@ public class EmailService {
                 "          <!-- Content Body -->\n" +
                 "          <tr>\n" +
                 "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.6; text-align: left;\">\n" +
-                "              <h2 style=\"margin: 0 0 20px 0; color: #374151; font-size: 20px; font-weight: 600;\">Application Update</h2>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
                 "                Dear <strong>" + escapeHtml(candidateName) + "</strong>,\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
-                "                Thank you for your interest in the <strong>" + escapeHtml(jobTitle) + "</strong> position and for taking the time to connect with us. We truly appreciate the opportunity to learn more about your skills and experience.\n" +
+                "                Thank you for your interest in pursuing a career with <strong>BETA</strong>.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
-                "                After careful consideration, we regret to inform you that we have decided to move forward with other candidates whose experience more closely aligns with our current needs for this role.\n" +
+                "                After carefully reviewing your profile, we regret to inform you that you have not been shortlisted for the next stage of our recruitment process.\n" +
+                "              </p>\n" +
+                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "                This decision was made after evaluating your profile against the current requirements of the role. We encourage you to continue developing your skills and wish you success in your future career.\n" +
+                "              </p>\n" +
+                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "                We appreciate the time and effort you invested in applying to <strong>BETA</strong> and thank you for considering us as part of your professional journey.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 30px 0;\">\n" +
-                "                We will keep your resume on file and reach out if any future opportunities matching your background open up. We wish you the very best in your job search and your future professional endeavors.\n" +
+                "                We wish you all the best in your future endeavors.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0;\">\n" +
-                "                Best regards,<br><br>\n" +
-                "                <strong>The Hiring Team</strong>\n" +
+                "                Best Regards,<br><br>\n" +
+                "                <strong>The BETA Team</strong>\n" +
+                "              </p>\n" +
+                "            </td>\n" +
+                "          </tr>\n" +
+                "          <!-- Footer Divider -->\n" +
+                "          <tr>\n" +
+                "            <td style=\"padding: 30px 0 15px 0;\">\n" +
+                "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
+                "            </td>\n" +
+                "          </tr>\n" +
+                "          <!-- Footer -->\n" +
+                "          <tr>\n" +
+                "            <td align=\"center\" style=\"color: #70757a; font-family: 'Roboto', Arial, sans-serif; font-size: 12px; line-height: 1.5; text-align: center;\">\n" +
+                "              This is an automated notification. Please do not reply directly to this email.<br>\n" +
+                "              &copy; " + year + " " + escapeHtml(fromName) + ". All rights reserved.\n" +
+                "            </td>\n" +
+                "          </tr>\n" +
+                "        </table>\n" +
+                "      </td>\n" +
+                "    </tr>\n" +
+                "  </table>\n" +
+                "</body>\n" +
+                "</html>";
+    }
+
+    public void sendAssessmentEmail(JobApplication app) {
+        String candidateName = app.getFullName() != null ? app.getFullName() : "Candidate";
+        String candidateEmail = app.getEmail();
+        String assessmentLink = "http://localhost:5173/careers/assessment?id=" + app.getId();
+        String subject = "Test Round – Assessment Link";
+
+        String body = getAssessmentEmailTemplate(candidateName, candidateEmail, assessmentLink);
+
+        sendEmail(candidateEmail, subject, body, true);
+    }
+
+    private String getAssessmentEmailTemplate(String candidateName, String candidateEmail, String assessmentLink) {
+        int year = LocalDate.now().getYear();
+
+        return "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "  <meta charset=\"utf-8\">\n" +
+                "  <title>Test Round – Assessment Link</title>\n" +
+                "</head>\n" +
+                "<body style=\"margin: 0; padding: 0; background-color: #f4f5f7; font-family: 'Roboto', Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n" +
+                "  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f4f5f7; padding: 40px 0;\">\n" +
+                "    <tr>\n" +
+                "      <td align=\"center\">\n" +
+                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 40px;\">\n" +
+                "          <!-- Centered Logo -->\n" +
+                "          <tr>\n" +
+                "            <td align=\"center\" style=\"padding-bottom: 10px;\">\n" +
+                "              <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 60px; width: auto; display: block; margin: 0 auto;\" />\n" +
+                "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 8px; font-family: 'Roboto', Arial, sans-serif;\">" + escapeHtml(candidateEmail) + "</span>\n" +
+                "            </td>\n" +
+                "          </tr>\n" +
+                "          <!-- Divider -->\n" +
+                "          <tr>\n" +
+                "            <td style=\"padding: 10px 0 20px 0;\">\n" +
+                "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
+                "            </td>\n" +
+                "          </tr>\n" +
+                "          <!-- Content Body -->\n" +
+                "          <tr>\n" +
+                "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.6; text-align: left;\">\n" +
+                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "                Dear <strong>" + escapeHtml(candidateName) + "</strong>,\n" +
+                "              </p>\n" +
+                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "                As the first stage in our recruitment process, please complete the Test Round assessment using the link below.\n" +
+                "              </p>\n" +
+                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "                <strong>Assessment Link:</strong> <a href=\"" + assessmentLink + "\" style=\"color: #004AAD; text-decoration: underline;\">" + assessmentLink + "</a>\n" +
+                "              </p>\n" +
+                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "                <strong>Important:</strong> This assessment link is valid for <strong>24 hours</strong> from the time this email is sent. Once the 24-hour period expires, the link will be automatically deactivated and will no longer be accessible. Please ensure that you complete and submit your assessment within the allotted time.\n" +
+                "              </p>\n" +
+                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "                Candidates who successfully complete the Test Round will receive further instructions via <strong>BNXmail</strong>.\n" +
+                "              </p>\n" +
+                "              <p style=\"margin: 0 0 30px 0;\">\n" +
+                "                We wish you the very best for the Test Round.\n" +
+                "              </p>\n" +
+                "              <p style=\"margin: 0;\">\n" +
+                "                Best Regards,<br><br>\n" +
+                "                <strong>The BETA Team</strong>\n" +
                 "              </p>\n" +
                 "            </td>\n" +
                 "          </tr>\n" +

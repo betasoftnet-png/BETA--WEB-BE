@@ -126,24 +126,47 @@ public class AdminJobApplicationService {
                 jobTitle = "the Applied Position";
             }
             
-            String subject = "Interview Scheduled - Beta Softnet";
-            
-            // Build highly professional HTML email body
-            String emailBody = "<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px;\">" +
-                    "<h2 style=\"color: #004AAD;\">Interview Scheduled</h2>" +
-                    "<p>Dear <strong>" + savedApp.getFullName() + "</strong>,</p>" +
-                    "<p>We are pleased to invite you for an interview for the <strong>" + jobTitle + "</strong> position.</p>" +
-                    "<div style=\"background-color: #f8fafc; padding: 15px; border-radius: 8px; border-left: 4px solid #004AAD; margin: 20px 0;\">" +
-                    "<p style=\"margin: 5px 0;\"><strong>Date:</strong> " + savedApp.getInterviewDate() + "</p>" +
-                    "<p style=\"margin: 5px 0;\"><strong>Time:</strong> " + savedApp.getInterviewTime() + "</p>" +
-                    "<p style=\"margin: 5px 0;\"><strong>Meeting Link:</strong> <a href=\"" + savedApp.getInterviewLink() + "\" style=\"color: #004AAD; text-decoration: underline;\">" + savedApp.getInterviewLink() + "</a></p>" +
+            String dateFormatted = "";
+            if (savedApp.getInterviewDate() != null) {
+                dateFormatted = savedApp.getInterviewDate().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            }
+
+            String timeFormatted = savedApp.getInterviewTime() != null ? savedApp.getInterviewTime() : "";
+            if (timeFormatted != null && timeFormatted.contains(":")) {
+                try {
+                    java.time.LocalTime timeObj = java.time.LocalTime.parse(timeFormatted.trim());
+                    timeFormatted = timeObj.format(java.time.format.DateTimeFormatter.ofPattern("hh:mm a"));
+                } catch (Exception ex) {
+                    // Fallback to raw string
+                }
+            }
+
+            String meetingLink = savedApp.getInterviewLink() != null ? savedApp.getInterviewLink() : "";
+
+            String subject = "BETA | Selected for the Next Round";
+
+            String emailBody = "<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px; line-height: 1.6; color: #334155;\">" +
+                    "<p>Dear Candidate,</p>" +
+                    "<p>Congratulations!</p>" +
+                    "<p>We are pleased to inform you that you have successfully cleared the <strong>Test Round</strong> of our recruitment process.</p>" +
+                    "<p>We are pleased to invite you to the <strong>Technical Interview</strong>. Please find your interview details below:</p>" +
+                    "<div style=\"background-color: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin: 20px 0;\">" +
+                    "<p style=\"margin: 5px 0;\"><strong>Interview Date:</strong> " + dateFormatted + "</p>" +
+                    "<p style=\"margin: 5px 0;\"><strong>Interview Time:</strong> " + timeFormatted + "</p>" +
+                    "<p style=\"margin: 5px 0;\"><strong>Platform:</strong> Google Meet</p>" +
+                    "<p style=\"margin: 5px 0;\"><strong>Meeting Link:</strong> <a href=\"" + meetingLink + "\" style=\"color: #004AAD; text-decoration: underline;\">" + meetingLink + "</a></p>" +
                     "</div>" +
-                    "<p>Please click the meeting link above at the scheduled time to join the interview. If you have any questions, please feel free to reach out.</p>" +
-                    "<br/>" +
-                    "<p>Best regards,</p>" +
-                    "<p><strong>Beta Softnet Recruitment Team</strong></p>" +
+                    "<p><strong>Important Instructions:</strong></p>" +
+                    "<ul>" +
+                    "<li>Join the meeting <strong>10 minutes before</strong> the scheduled time.</li>" +
+                    "<li>Ensure you have a stable internet connection, a working microphone, and a camera.</li>" +
+                    "<li>If you are unable to attend at the scheduled time, please inform us in advance by replying to this email.</li>" +
+                    "</ul>" +
+                    "<p>We appreciate your effort and wish you continued success in the upcoming stage of the recruitment process.</p>" +
+                    "<p>Best Regards,</p>" +
+                    "<p><strong>The BETA Team</strong></p>" +
                     "</div>";
-            
+
             emailService.sendEmail(savedApp.getEmail(), subject, emailBody, true);
         } catch (Exception e) {
             System.err.println("Error sending interview scheduling email: " + e.getMessage());

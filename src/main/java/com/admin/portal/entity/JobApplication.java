@@ -67,6 +67,15 @@ public class JobApplication {
     @Column(name = "aptitude_status")
     private String aptitudeStatus = "Pending";
 
+    @Column(name = "assessment_start_time")
+    private java.time.LocalDateTime assessmentStartTime;
+
+    @Column(name = "assessment_end_time")
+    private java.time.LocalDateTime assessmentEndTime;
+
+    @Column(name = "assessment_time_taken")
+    private String assessmentTimeTaken;
+
     public JobApplication() {
     }
 
@@ -244,5 +253,29 @@ public class JobApplication {
 
     public void setTaskAssigned(Boolean taskAssigned) {
         this.taskAssigned = taskAssigned;
+    }
+
+    public java.time.LocalDateTime getAssessmentStartTime() {
+        return assessmentStartTime;
+    }
+
+    public void setAssessmentStartTime(java.time.LocalDateTime assessmentStartTime) {
+        this.assessmentStartTime = assessmentStartTime;
+    }
+
+    public java.time.LocalDateTime getAssessmentEndTime() {
+        return assessmentEndTime;
+    }
+
+    public void setAssessmentEndTime(java.time.LocalDateTime assessmentEndTime) {
+        this.assessmentEndTime = assessmentEndTime;
+    }
+
+    public String getAssessmentTimeTaken() {
+        return assessmentTimeTaken;
+    }
+
+    public void setAssessmentTimeTaken(String assessmentTimeTaken) {
+        this.assessmentTimeTaken = assessmentTimeTaken;
     }
 }

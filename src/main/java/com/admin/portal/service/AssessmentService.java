@@ -109,6 +109,9 @@ public class AssessmentService {
                 throw new RuntimeException("You have already started or accessed this assessment 2 times. You are not allowed to attend or submit again.");
             }
             application.setAssessmentAttempts(application.getAssessmentAttempts() + 1);
+            if (application.getAssessmentStartTime() == null) {
+                application.setAssessmentStartTime(java.time.LocalDateTime.now());
+            }
             jobApplicationRepository.save(application);
         } else {
             if (application.getAssessmentAttempts() > 2) {
@@ -201,6 +204,19 @@ public class AssessmentService {
         application.setAptitudeScore(scorePercent);
         application.setAssessmentSubmitted(true);
         application.setAptitudeStatus("Completed");
+
+        java.time.LocalDateTime endTime = java.time.LocalDateTime.now();
+        application.setAssessmentEndTime(endTime);
+        if (application.getAssessmentStartTime() != null) {
+            java.time.Duration duration = java.time.Duration.between(application.getAssessmentStartTime(), endTime);
+            long totalSecs = duration.getSeconds();
+            long mins = totalSecs / 60;
+            long secs = totalSecs % 60;
+            application.setAssessmentTimeTaken(mins + "m " + secs + "s");
+        } else {
+            application.setAssessmentTimeTaken("N/A");
+        }
+
         jobApplicationRepository.save(application);
 
         // Create notification

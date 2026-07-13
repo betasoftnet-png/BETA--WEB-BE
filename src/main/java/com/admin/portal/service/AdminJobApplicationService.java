@@ -23,7 +23,17 @@ public class AdminJobApplicationService {
     private NotificationService notificationService;
 
     public List<JobApplication> getAllApplications() {
-        return repository.findAll();
+        List<JobApplication> apps = repository.findAll();
+        for (JobApplication app : apps) {
+            if (app.getJobId() != null) {
+                jobService.getJobById(app.getJobId()).ifPresent(job -> {
+                    app.setJobTitle(job.getTitle());
+                    app.setJobDepartment(job.getDepartment());
+                    app.setJobLocation(job.getLocation());
+                });
+            }
+        }
+        return apps;
     }
 
     public JobApplication updateStatus(Long id, String status) {
@@ -81,6 +91,13 @@ public class AdminJobApplicationService {
             System.err.println("Failed to create status update notification: " + e.getMessage());
         }
 
+        if (savedApp.getJobId() != null) {
+            jobService.getJobById(savedApp.getJobId()).ifPresent(job -> {
+                savedApp.setJobTitle(job.getTitle());
+                savedApp.setJobDepartment(job.getDepartment());
+                savedApp.setJobLocation(job.getLocation());
+            });
+        }
         return savedApp;
     }
 
@@ -144,6 +161,13 @@ public class AdminJobApplicationService {
             System.err.println("Failed to create interview scheduled notification: " + e.getMessage());
         }
 
+        if (savedApp.getJobId() != null) {
+            jobService.getJobById(savedApp.getJobId()).ifPresent(job -> {
+                savedApp.setJobTitle(job.getTitle());
+                savedApp.setJobDepartment(job.getDepartment());
+                savedApp.setJobLocation(job.getLocation());
+            });
+        }
         return savedApp;
     }
 

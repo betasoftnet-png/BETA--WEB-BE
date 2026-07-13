@@ -27,4 +27,13 @@ public class TaskAssessmentController {
                 taskService.assignTask(candidateId, request));
     }
 
+    @GetMapping("/{candidateId}")
+    public ResponseEntity<TaskAssessment> getTask(@PathVariable Long candidateId) {
+        try {
+            return ResponseEntity.ok(taskService.getTask(candidateId));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

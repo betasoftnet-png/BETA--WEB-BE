@@ -361,7 +361,7 @@ public class EmailService {
     public void sendAssessmentEmail(JobApplication app) {
         String candidateName = app.getFullName() != null ? app.getFullName() : "Candidate";
         String candidateEmail = app.getEmail();
-        String assessmentLink = "https://apply.beta-softnet.com/careers/assessment?id=" + app.getId();
+        String assessmentLink = "https://www.beta-softnet.com/careers/assessment/?id=" + app.getId();
         String subject = "Test Round – Assessment Link";
 
         String body = getAssessmentEmailTemplate(candidateName, candidateEmail, assessmentLink);

@@ -84,4 +84,27 @@ public class JobApplicationController {
 
         return ResponseEntity.ok("Application submitted successfully.");
     }
+
+    @GetMapping("/my-applications")
+    public ResponseEntity<?> getMyApplications(@RequestParam("email") String email) {
+        if (email == null || email.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Email is required.");
+        }
+        return ResponseEntity.ok(jobApplicationService.getApplicationsByEmail(email.trim()));
+    }
+
+    @PutMapping("/applications/{id}/github")
+    public ResponseEntity<?> submitGithubLink(
+            @PathVariable Long id,
+            @RequestParam("githubLink") String githubLink) {
+        if (githubLink == null || githubLink.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("GitHub link is required.");
+        }
+        try {
+            JobApplication app = jobApplicationService.submitGithubLink(id, githubLink.trim());
+            return ResponseEntity.ok(app);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

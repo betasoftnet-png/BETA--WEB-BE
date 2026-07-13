@@ -30,6 +30,21 @@ public class JobApplication {
 
     private LocalDate appliedDate;
 
+    @Transient
+    private String jobTitle;
+
+    @Transient
+    private String jobDepartment;
+
+    @Transient
+    private String jobLocation;
+
+    @Column(name = "github_link")
+    private String githubLink;
+
+    @Transient
+    private Boolean taskAssigned;
+
     // New Fields
     private LocalDate interviewDate;
 
@@ -189,5 +204,45 @@ public class JobApplication {
 
     public void setAptitudeStatus(String aptitudeStatus) {
         this.aptitudeStatus = aptitudeStatus;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public String getJobDepartment() {
+        return jobDepartment;
+    }
+
+    public void setJobDepartment(String jobDepartment) {
+        this.jobDepartment = jobDepartment;
+    }
+
+    public String getJobLocation() {
+        return jobLocation;
+    }
+
+    public void setJobLocation(String jobLocation) {
+        this.jobLocation = jobLocation;
+    }
+
+    public String getGithubLink() {
+        return githubLink;
+    }
+
+    public void setGithubLink(String githubLink) {
+        this.githubLink = githubLink;
+    }
+
+    public Boolean getTaskAssigned() {
+        return taskAssigned != null ? taskAssigned : false;
+    }
+
+    public void setTaskAssigned(Boolean taskAssigned) {
+        this.taskAssigned = taskAssigned;
     }
 }

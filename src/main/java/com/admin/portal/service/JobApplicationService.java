@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
+import com.admin.portal.repository.TaskAssessmentRepository;
 
 @Service
 public class JobApplicationService {
@@ -19,6 +21,9 @@ public class JobApplicationService {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private TaskAssessmentRepository taskRepository;
 
     public JobApplication save(JobApplication application) {
 
@@ -63,5 +68,32 @@ public class JobApplicationService {
         }
 
         return savedApp;
+    }
+
+    public List<JobApplication> getApplicationsByEmail(String email) {
+        List<JobApplication> apps = repository.findByEmailIgnoreCase(email);
+        for (JobApplication app : apps) {
+            populateJobDetails(app);
+        }
+        return apps;
+    }
+
+    public void populateJobDetails(JobApplication app) {
+        if (app.getJobId() != null) {
+            jobService.getJobById(app.getJobId()).ifPresent(job -> {
+                app.setJobTitle(job.getTitle());
+                app.setJobDepartment(job.getDepartment());
+                app.setJobLocation(job.getLocation());
+            });
+        }
+        boolean assigned = taskRepository.findByCandidate_Id(app.getId()).isPresent();
+        app.setTaskAssigned(assigned);
+    }
+
+    public JobApplication submitGithubLink(Long id, String githubLink) {
+        JobApplication app = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Application not found"));
+        app.setGithubLink(githubLink);
+        return repository.save(app);
     }
 }

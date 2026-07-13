@@ -83,7 +83,7 @@ public class EmailService {
             subject = "BETA Recruitment – Test Round Invitation";
             body = getAcceptanceEmailTemplate(candidateName, app.getEmail(), displayJobTitle);
         } else if ("REJECTED".equalsIgnoreCase(status)) {
-            subject = "Update on Your Job Application – BETA Recruitment";
+            subject = "BETA – Thank You for Your Interest";
             body = getRejectionEmailTemplate(candidateName, app.getEmail(), displayJobTitle);
         } else {
             // No email is sent for other/intermediate statuses like PENDING
@@ -280,23 +280,18 @@ public class EmailService {
                 "<html>\n" +
                 "<head>\n" +
                 "  <meta charset=\"utf-8\">\n" +
-                "  <title>Update on Your Job Application – BETA Recruitment</title>\n" +
+                "  <title>BETA – Thank You for Your Interest</title>\n" +
                 "</head>\n" +
-                "<body style=\"margin: 0; padding: 0; background-color: #f4f5f7; font-family: 'Roboto', Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n"
-                +
-                "  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f4f5f7; padding: 40px 0;\">\n"
-                +
+                "<body style=\"margin: 0; padding: 0; background-color: #f4f5f7; font-family: 'Roboto', Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n" +
+                "  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f4f5f7; padding: 40px 0;\">\n" +
                 "    <tr>\n" +
                 "      <td align=\"center\">\n" +
-                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 40px;\">\n"
-                +
+                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 40px;\">\n" +
                 "          <!-- Centered Logo -->\n" +
                 "          <tr>\n" +
                 "            <td align=\"center\" style=\"padding-bottom: 10px;\">\n" +
-                "              <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 60px; width: auto; display: block; margin: 0 auto;\" />\n"
-                +
-                "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 8px; font-family: 'Roboto', Arial, sans-serif;\">"
-                + escapeHtml(candidateEmail) + "</span>\n" +
+                "              <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 60px; width: auto; display: block; margin: 0 auto;\" />\n" +
+                "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 8px; font-family: 'Roboto', Arial, sans-serif;\">" + escapeHtml(candidateEmail) + "</span>\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
                 "          <!-- Divider -->\n" +
@@ -307,28 +302,21 @@ public class EmailService {
                 "          </tr>\n" +
                 "          <!-- Content Body -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.6; text-align: left;\">\n"
-                +
+                "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.6; text-align: left;\">\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
-                "                Dear <strong>" + escapeHtml(candidateName) + "</strong>,\n" +
+                "                Dear Candidate,\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
-                "                Thank you for your interest in pursuing a career with <strong>BETA</strong>.\n" +
+                "                Thank you for your interest in <strong>BETA</strong> and for taking the time to participate in our recruitment process.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
-                "                After carefully reviewing your profile, we regret to inform you that you have not been shortlisted for the next stage of our recruitment process.\n"
-                +
+                "                After careful consideration, we regret to inform you that you have not been selected to proceed further in the recruitment process.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
-                "                This decision was made after evaluating your profile against the current requirements of the role. We encourage you to continue developing your skills and wish you success in your future career.\n"
-                +
-                "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
-                "                We appreciate the time and effort you invested in applying to <strong>BETA</strong> and thank you for considering us as part of your professional journey.\n"
-                +
+                "                We sincerely appreciate the time, effort, and interest you have shown in joining our organization. While we are unable to move forward with your application at this time, we encourage you to apply for future opportunities at <strong>BETA</strong> that match your skills and experience.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 30px 0;\">\n" +
-                "                We wish you all the best in your future endeavors.\n" +
+                "                We wish you every success in your future career and thank you once again for considering <strong>BETA</strong>.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0;\">\n" +
                 "                Best Regards,<br><br>\n" +
@@ -344,8 +332,7 @@ public class EmailService {
                 "          </tr>\n" +
                 "          <!-- Footer -->\n" +
                 "          <tr>\n" +
-                "            <td align=\"center\" style=\"color: #70757a; font-family: 'Roboto', Arial, sans-serif; font-size: 12px; line-height: 1.5; text-align: center;\">\n"
-                +
+                "            <td align=\"center\" style=\"color: #70757a; font-family: 'Roboto', Arial, sans-serif; font-size: 12px; line-height: 1.5; text-align: center;\">\n" +
                 "              This is an automated notification. Please do not reply directly to this email.<br>\n" +
                 "              &copy; " + year + " " + escapeHtml(fromName) + ". All rights reserved.\n" +
                 "            </td>\n" +

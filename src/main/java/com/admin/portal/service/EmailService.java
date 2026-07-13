@@ -362,7 +362,7 @@ public class EmailService {
         String candidateName = app.getFullName() != null ? app.getFullName() : "Candidate";
         String candidateEmail = app.getEmail();
         String assessmentLink = "https://www.beta-softnet.com/careers/assessment/?id=" + app.getId();
-        String subject = "Test Round – Assessment Link";
+        String subject = "BETA Recruitment – Test Round Invitation";
 
         String body = getAssessmentEmailTemplate(candidateName, candidateEmail, assessmentLink);
 
@@ -376,7 +376,7 @@ public class EmailService {
                 "<html>\n" +
                 "<head>\n" +
                 "  <meta charset=\"utf-8\">\n" +
-                "  <title>Test Round – Assessment Link</title>\n" +
+                "  <title>BETA Recruitment – Test Round Invitation</title>\n" +
                 "</head>\n" +
                 "<body style=\"margin: 0; padding: 0; background-color: #f4f5f7; font-family: 'Roboto', Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n"
                 +
@@ -409,7 +409,23 @@ public class EmailService {
                 "                Dear <strong>" + escapeHtml(candidateName) + "</strong>,\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
-                "                As the first stage in our recruitment process, please complete the Test Round assessment using the link below.\n"
+                "                We are delighted to have received your application.\n" +
+                "              </p>\n" +
+                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "                We are pleased to inform you that your profile has been reviewed and shortlisted for the next stage of our recruitment process.\n"
+                +
+                "              </p>\n" +
+                "              <p style=\"margin: 0 0 10px 0;\">\n" +
+                "                Our hiring process consists of the following four stages:\n" +
+                "              </p>\n" +
+                "              <ol style=\"margin: 0 0 20px 0; padding-left: 20px;\">\n" +
+                "                <li style=\"margin-bottom: 5px;\">Test Round</li>\n" +
+                "                <li style=\"margin-bottom: 5px;\">Online Round</li>\n" +
+                "                <li style=\"margin-bottom: 5px;\">Technical Interview</li>\n" +
+                "                <li style=\"margin-bottom: 5px;\">HR Interview</li>\n" +
+                "              </ol>\n" +
+                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "                Please complete the Test Round using the assessment link provided below.\n"
                 +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
@@ -417,7 +433,7 @@ public class EmailService {
                 + "\" style=\"color: #004AAD; text-decoration: underline;\">" + assessmentLink + "</a>\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
-                "                <strong>Important:</strong> This assessment link is valid for <strong>24 hours</strong> from the time this email is sent. Once the 24-hour period expires, the link will be automatically deactivated and will no longer be accessible. Please ensure that you complete and submit your assessment within the allotted time.\n"
+                "                <strong>Important:</strong> This assessment link is valid for <strong>24 hours</strong> from the time this email is sent. Once the 24-hour period expires, the link will be automatically deactivated and will no longer be accessible. Please complete and submit your task within the allotted time.\n"
                 +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +

@@ -51,7 +51,7 @@ public class AdminJobApplicationService {
         }
 
         // Send status update notification email asynchronously or synchronously
-        if ("ACCEPTED".equalsIgnoreCase(status) || "REJECTED".equalsIgnoreCase(status)) {
+        if ("REJECTED".equalsIgnoreCase(status)) {
             try {
                 emailService.sendApplicationStatusEmail(savedApp, jobTitle);
             } catch (Exception e) {

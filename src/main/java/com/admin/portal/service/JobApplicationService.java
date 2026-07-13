@@ -94,6 +94,12 @@ public class JobApplicationService {
         JobApplication app = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Application not found"));
         app.setGithubLink(githubLink);
+
+        taskRepository.findByCandidate_Id(id).ifPresent(task -> {
+            task.setStatus("SUBMITTED");
+            taskRepository.save(task);
+        });
+
         return repository.save(app);
     }
 }

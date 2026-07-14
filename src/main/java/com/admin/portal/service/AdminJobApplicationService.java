@@ -204,7 +204,12 @@ public class AdminJobApplicationService {
         }
         
         app.setHrInterviewTime(timeStr != null ? timeStr.trim() : null);
-        app.setHrInterviewLocation(locationStr != null ? locationStr.trim() : null);
+        
+        String finalLocation = locationStr;
+        if (finalLocation == null || finalLocation.trim().isEmpty() || "BETA Office".equalsIgnoreCase(finalLocation.trim())) {
+            finalLocation = "Beta Towers, No. 12, Main Road, Tiruvallur, Tamil Nadu 602001, India";
+        }
+        app.setHrInterviewLocation(finalLocation.trim());
         
         JobApplication savedApp = repository.save(app);
         
@@ -225,7 +230,10 @@ public class AdminJobApplicationService {
                 }
             }
 
-            String locationFormatted = savedApp.getHrInterviewLocation() != null ? savedApp.getHrInterviewLocation() : "BETA Office";
+            String locationFormatted = savedApp.getHrInterviewLocation();
+            if (locationFormatted == null || locationFormatted.trim().isEmpty() || "BETA Office".equalsIgnoreCase(locationFormatted.trim())) {
+                locationFormatted = "Beta Towers, No. 12, Main Road, Tiruvallur, Tamil Nadu 602001, India";
+            }
             String mapsUrl = "https://maps.google.com/?q=";
             try {
                 mapsUrl += java.net.URLEncoder.encode(locationFormatted, "UTF-8");

@@ -31,6 +31,11 @@ public class JobApplicationController {
             @RequestParam("interviewTime") String interviewTime,
             @RequestParam("resume") MultipartFile resume) throws IOException {
 
+        if (jobApplicationService.hasAlreadyApplied(jobId, email)) {
+            return ResponseEntity.badRequest()
+                    .body("You have already applied for this job opening with this email address.");
+        }
+
         // Create uploads folder
         String uploadDir = "uploads";
         Path uploadPath = Paths.get(uploadDir);

@@ -70,6 +70,11 @@ public class JobApplicationService {
         return savedApp;
     }
 
+    public boolean hasAlreadyApplied(Long jobId, String email) {
+        if (jobId == null || email == null) return false;
+        return repository.existsByJobIdAndEmailIgnoreCase(jobId, email.trim());
+    }
+
     public List<JobApplication> getApplicationsByEmail(String email) {
         List<JobApplication> apps = repository.findByEmailIgnoreCase(email);
         for (JobApplication app : apps) {

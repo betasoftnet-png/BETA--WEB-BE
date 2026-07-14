@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface JobApplicationRepository extends JpaRepository<JobApplication, Long> {
     List<JobApplication> findByEmailIgnoreCase(String email);
+    boolean existsByJobIdAndEmailIgnoreCase(Long jobId, String email);
 }

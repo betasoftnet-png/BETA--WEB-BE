@@ -50,6 +50,14 @@ public class JobApplication {
 
     private String interviewTime;
 
+    private LocalDate hrInterviewDate;
+
+    private String hrInterviewTime;
+
+    @Column(name = "hr_interview_location")
+    private String hrInterviewLocation;
+
+
     @Column(name = "interview_link")
     private String interviewLink;
 
@@ -277,5 +285,29 @@ public class JobApplication {
 
     public void setAssessmentTimeTaken(String assessmentTimeTaken) {
         this.assessmentTimeTaken = assessmentTimeTaken;
+    }
+
+    public LocalDate getHrInterviewDate() {
+        return hrInterviewDate;
+    }
+
+    public void setHrInterviewDate(LocalDate hrInterviewDate) {
+        this.hrInterviewDate = hrInterviewDate;
+    }
+
+    public String getHrInterviewTime() {
+        return hrInterviewTime;
+    }
+
+    public void setHrInterviewTime(String hrInterviewTime) {
+        this.hrInterviewTime = hrInterviewTime;
+    }
+
+    public String getHrInterviewLocation() {
+        return hrInterviewLocation;
+    }
+
+    public void setHrInterviewLocation(String hrInterviewLocation) {
+        this.hrInterviewLocation = hrInterviewLocation;
     }
 }

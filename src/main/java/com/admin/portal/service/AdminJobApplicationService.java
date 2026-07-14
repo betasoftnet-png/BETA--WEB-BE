@@ -194,6 +194,77 @@ public class AdminJobApplicationService {
         return savedApp;
     }
 
+    public JobApplication saveHrInterview(Long id, String dateStr, String timeStr, String locationStr) {
+        JobApplication app = repository.findById(id).orElseThrow(() -> new RuntimeException("Application not found"));
+        
+        if (dateStr != null && !dateStr.trim().isEmpty()) {
+            app.setHrInterviewDate(java.time.LocalDate.parse(dateStr.trim()));
+        } else {
+            app.setHrInterviewDate(null);
+        }
+        
+        app.setHrInterviewTime(timeStr != null ? timeStr.trim() : null);
+        app.setHrInterviewLocation(locationStr != null ? locationStr.trim() : null);
+        
+        JobApplication savedApp = repository.save(app);
+        
+        // Format date/time and send HR interview email
+        try {
+            String dateFormatted = "";
+            if (savedApp.getHrInterviewDate() != null) {
+                dateFormatted = savedApp.getHrInterviewDate().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            }
+
+            String timeFormatted = savedApp.getHrInterviewTime() != null ? savedApp.getHrInterviewTime() : "";
+            if (timeFormatted != null && timeFormatted.contains(":")) {
+                try {
+                    java.time.LocalTime timeObj = java.time.LocalTime.parse(timeFormatted.trim());
+                    timeFormatted = timeObj.format(java.time.format.DateTimeFormatter.ofPattern("hh:mm a"));
+                } catch (Exception ex) {
+                    // Fallback to raw string
+                }
+            }
+
+            String locationFormatted = savedApp.getHrInterviewLocation() != null ? savedApp.getHrInterviewLocation() : "BETA Office";
+
+            String subject = "BETA – HR Round Interview Invitation";
+
+            String emailBody = "<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px; line-height: 1.6; color: #334155;\">" +
+                    "<p>Dear Candidate,</p>" +
+                    "<p>Congratulations!</p>" +
+                    "<p>We are pleased to inform you that we have reviewed your <strong>Task Assessment</strong>, and based on your submission.</p>" +
+                    "<p>Following the successful review of your Task Assessment, you have been shortlisted for the <strong>HR Round</strong>. The interview will be conducted in person at our office.</p>" +
+                    "<div style=\"background-color: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin: 20px 0;\">" +
+                    "<p style=\"margin: 5px 0;\"><strong>Interview Date:</strong> " + dateFormatted + "</p>" +
+                    "<p style=\"margin: 5px 0;\"><strong>Interview Time:</strong> " + timeFormatted + "</p>" +
+                    "<p style=\"margin: 5px 0;\"><strong>Venue:</strong> " + locationFormatted + "</p>" +
+                    "</div>" +
+                    "<p><strong>Important Instructions:</strong></p>" +
+                    "<ul>" +
+                    "<li>Please report to the venue <strong>10 minutes before</strong> the scheduled interview time.</li>" +
+                    "<li>Carry your laptop for the interview.</li>" +
+                    "<li>Bring an updated copy of your resume.</li>" +
+                    "</ul>" +
+                    "<p>We look forward to meeting you in the HR Round.</p>" +
+                    "<p>Best Regards,</p>" +
+                    "<p><strong>The BETA Team</strong></p>" +
+                    "</div>";
+
+            emailService.sendEmail(savedApp.getEmail(), subject, emailBody, true);
+        } catch (Exception e) {
+            System.err.println("Error sending HR interview email: " + e.getMessage());
+        }
+        
+        if (savedApp.getJobId() != null) {
+            jobService.getJobById(savedApp.getJobId()).ifPresent(job -> {
+                savedApp.setJobTitle(job.getTitle());
+                savedApp.setJobDepartment(job.getDepartment());
+                savedApp.setJobLocation(job.getLocation());
+            });
+        }
+        return savedApp;
+    }
+
     private String getFriendlyStatus(String status) {
         if (status == null) return "Updated";
         switch (status.toUpperCase()) {

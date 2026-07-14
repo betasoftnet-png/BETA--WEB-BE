@@ -32,4 +32,12 @@ public class AdminJobApplicationController {
         String link = payload.get("link");
         return service.scheduleInterview(id, date, time, link);
     }
+
+    @PutMapping({"/admin/applications/{id}/hr-interview", "/applications/{id}/hr-interview"})
+    public JobApplication saveHrInterview(@PathVariable Long id, @RequestBody java.util.Map<String, String> payload) {
+        String date = payload.get("date");
+        String time = payload.get("time");
+        String location = payload.get("location");
+        return service.saveHrInterview(id, date, time, location);
+    }
 }

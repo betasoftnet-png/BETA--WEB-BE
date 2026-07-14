@@ -105,9 +105,11 @@ public class AssessmentController {
 
     // Candidate submits/finalizes assessment
     @PostMapping("/{candidateId}/submit")
-    public ResponseEntity<?> submitAssessment(@PathVariable Long candidateId) {
+    public ResponseEntity<?> submitAssessment(
+            @PathVariable Long candidateId,
+            @RequestParam(value = "timeTaken", required = false) String timeTaken) {
         try {
-            Integer score = assessmentService.submitAssessment(candidateId);
+            Integer score = assessmentService.submitAssessment(candidateId, timeTaken);
             return ResponseEntity.ok(java.util.Map.of("message", "Assessment submitted successfully.", "score", score));
         } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());

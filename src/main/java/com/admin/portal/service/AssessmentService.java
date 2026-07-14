@@ -162,7 +162,7 @@ public class AssessmentService {
     }
 
     @Transactional
-    public Integer submitAssessment(Long candidateId) {
+    public Integer submitAssessment(Long candidateId, String timeTaken) {
         JobApplication application = jobApplicationRepository.findById(candidateId)
                 .orElseThrow(() -> new RuntimeException("Candidate application not found."));
 
@@ -207,9 +207,11 @@ public class AssessmentService {
 
         java.time.LocalDateTime endTime = java.time.LocalDateTime.now();
         application.setAssessmentEndTime(endTime);
-        if (application.getAssessmentStartTime() != null) {
+        if (timeTaken != null && !timeTaken.trim().isEmpty()) {
+            application.setAssessmentTimeTaken(timeTaken);
+        } else if (application.getAssessmentStartTime() != null) {
             java.time.Duration duration = java.time.Duration.between(application.getAssessmentStartTime(), endTime);
-            long totalSecs = duration.getSeconds();
+            long totalSecs = Math.abs(duration.getSeconds());
             long mins = totalSecs / 60;
             long secs = totalSecs % 60;
             application.setAssessmentTimeTaken(mins + "m " + secs + "s");

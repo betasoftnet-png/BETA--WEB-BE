@@ -226,6 +226,12 @@ public class AdminJobApplicationService {
             }
 
             String locationFormatted = savedApp.getHrInterviewLocation() != null ? savedApp.getHrInterviewLocation() : "BETA Office";
+            String mapsUrl = "https://maps.google.com/?q=";
+            try {
+                mapsUrl += java.net.URLEncoder.encode(locationFormatted, "UTF-8");
+            } catch (Exception encodeEx) {
+                mapsUrl += locationFormatted;
+            }
 
             String subject = "BETA – HR Round Interview Invitation";
 
@@ -237,7 +243,7 @@ public class AdminJobApplicationService {
                     "<div style=\"background-color: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin: 20px 0;\">" +
                     "<p style=\"margin: 5px 0;\"><strong>Interview Date:</strong> " + dateFormatted + "</p>" +
                     "<p style=\"margin: 5px 0;\"><strong>Interview Time:</strong> " + timeFormatted + "</p>" +
-                    "<p style=\"margin: 5px 0;\"><strong>Venue:</strong> " + locationFormatted + "</p>" +
+                    "<p style=\"margin: 5px 0;\"><strong>Venue:</strong> <a href=\"" + mapsUrl + "\" style=\"color: #004AAD; text-decoration: underline;\">" + locationFormatted + "</a></p>" +
                     "</div>" +
                     "<p><strong>Important Instructions:</strong></p>" +
                     "<ul>" +

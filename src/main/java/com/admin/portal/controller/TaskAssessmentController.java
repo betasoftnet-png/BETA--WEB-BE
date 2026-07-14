@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/task-assessment")
-@CrossOrigin(origins = "*")
 public class TaskAssessmentController {
 
     private final TaskAssessmentService taskService;
@@ -36,4 +35,12 @@ public class TaskAssessmentController {
         }
     }
 
+    @PostMapping("/{candidateId}/submit")
+    public ResponseEntity<TaskAssessment> submitTask(
+            @PathVariable Long candidateId,
+            @RequestBody java.util.Map<String, String> payload) {
+        String githubLink = payload.get("githubLink");
+        return ResponseEntity.ok(
+                taskService.submitTask(candidateId, githubLink));
+    }
 }

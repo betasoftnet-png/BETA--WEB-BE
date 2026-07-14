@@ -23,6 +23,8 @@ public class TaskAssessment {
 
     private LocalDateTime assignedAt;
 
+    private LocalDateTime submittedAt;
+
     public TaskAssessment() {
         this.assignedAt = LocalDateTime.now();
         this.status = "ASSIGNED";
@@ -62,5 +64,13 @@ public class TaskAssessment {
 
     public void setAssignedAt(LocalDateTime assignedAt) {
         this.assignedAt = assignedAt;
+    }
+
+    public LocalDateTime getSubmittedAt() {
+        return submittedAt;
+    }
+
+    public void setSubmittedAt(LocalDateTime submittedAt) {
+        this.submittedAt = submittedAt;
     }
 }

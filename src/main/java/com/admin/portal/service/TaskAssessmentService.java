@@ -28,10 +28,19 @@ public class TaskAssessmentService {
         JobApplication candidate = jobRepository.findById(candidateId)
                 .orElseThrow(() -> new RuntimeException("Candidate not found"));
 
-        TaskAssessment task = new TaskAssessment();
-        task.setCandidate(candidate);
+        TaskAssessment task = taskRepository.findByCandidate_Id(candidateId)
+                .orElseGet(() -> {
+                    TaskAssessment t = new TaskAssessment();
+                    t.setCandidate(candidate);
+                    return t;
+                });
         task.setTaskDescription(request.getTaskDescription());
         task.setStatus("ASSIGNED");
+        task.setAssignedAt(java.time.LocalDateTime.now());
+        task.setSubmittedAt(null);
+
+        candidate.setGithubLink(null);
+        jobRepository.save(candidate);
 
         TaskAssessment savedTask = taskRepository.save(task);
 
@@ -45,5 +54,22 @@ public class TaskAssessmentService {
 
         return taskRepository.findByCandidate_Id(candidateId)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
+    }
+
+    public TaskAssessment submitTask(Long candidateId, String githubLink) {
+        TaskAssessment task = taskRepository.findByCandidate_Id(candidateId)
+                .orElseThrow(() -> new RuntimeException("Task assessment not found for candidate"));
+
+        if ("SUBMITTED".equalsIgnoreCase(task.getStatus())) {
+            throw new RuntimeException("Task has already been submitted");
+        }
+
+        JobApplication candidate = task.getCandidate();
+        candidate.setGithubLink(githubLink);
+        jobRepository.save(candidate);
+
+        task.setStatus("SUBMITTED");
+        task.setSubmittedAt(java.time.LocalDateTime.now());
+        return taskRepository.save(task);
     }
 }

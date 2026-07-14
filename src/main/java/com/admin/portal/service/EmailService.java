@@ -232,12 +232,12 @@ public class EmailService {
                 "              <p style=\"margin: 0 0 10px 0;\">\n" +
                 "                Our hiring process consists of the following four stages:\n" +
                 "              </p>\n" +
-                "              <ol style=\"margin: 0 0 20px 0; padding-left: 20px;\">\n" +
+                "              <ul style=\"margin: 0 0 20px 0; padding-left: 20px;\">\n" +
                 "                <li style=\"margin-bottom: 5px;\">Test Round</li>\n" +
                 "                <li style=\"margin-bottom: 5px;\">Online Round</li>\n" +
                 "                <li style=\"margin-bottom: 5px;\">Technical Interview</li>\n" +
                 "                <li style=\"margin-bottom: 5px;\">HR Interview</li>\n" +
-                "              </ol>\n" +
+                "              </ul>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
                 "                The Test Round details and assessment link will be shared with you soon via <strong>BNXmail</strong>.\n"
                 +
@@ -416,12 +416,12 @@ public class EmailService {
                 "              <p style=\"margin: 0 0 10px 0;\">\n" +
                 "                Our hiring process consists of the following four stages:\n" +
                 "              </p>\n" +
-                "              <ol style=\"margin: 0 0 20px 0; padding-left: 20px;\">\n" +
+                "              <ul style=\"margin: 0 0 20px 0; padding-left: 20px;\">\n" +
                 "                <li style=\"margin-bottom: 5px;\">Test Round</li>\n" +
                 "                <li style=\"margin-bottom: 5px;\">Technical Interview</li>\n" +
                 "                <li style=\"margin-bottom: 5px;\">Task Assessment</li>\n" +
                 "                <li style=\"margin-bottom: 5px;\">HR Interview</li>\n" +
-                "              </ol>\n" +
+                "              </ul>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
                 "                Please complete the Test Round using the assessment link provided below.\n" +
                 "              </p>\n" +
@@ -491,7 +491,7 @@ public class EmailService {
     public void sendTaskAssessmentEmail(JobApplication app, String taskDescription) {
         String subject = "BETA - You Have Successfully Cleared the Technical Interview";
         int year = java.time.LocalDate.now().getYear();
-        String taskLink = "https://www.beta-softnet.com/careers/task-assessment?id=" + app.getId();
+        String taskLink = "https://www.beta-softnet.com/careers?id=" + app.getId();
 
         String body = "<!DOCTYPE html>\n" +
                 "<html>\n" +

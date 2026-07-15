@@ -31,6 +31,15 @@ public class Job {
     private LocalDate postedDate;
 
     private String status;
+    private String experience;
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
 
     // getters
     public Long getId() {

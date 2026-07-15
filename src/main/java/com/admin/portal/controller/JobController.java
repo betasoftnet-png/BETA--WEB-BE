@@ -21,10 +21,13 @@ public class JobController {
         return jobService.createJob(job);
     }
 
-    // Get All Jobs
+    // Get All Jobs (with optional status filter)
     @GetMapping
-    public List<Job> getAllJobs() {
-        return jobService.getAllJobs();
+    public List<Job> getAllJobs(@RequestParam(required = false) String status) {
+        if (status != null) {
+            return jobService.getJobsByStatus(status);
+        }
+        return jobService.getActiveJobs();
     }
 
     // Get Job By ID

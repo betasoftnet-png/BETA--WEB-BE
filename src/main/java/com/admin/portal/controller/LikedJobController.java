@@ -10,7 +10,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/liked-jobs")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class LikedJobController {
 
     @Autowired

@@ -146,27 +146,75 @@ public class AdminJobApplicationService {
             String candidateName = savedApp.getFullName() != null ? savedApp.getFullName() : "Candidate";
             String subject = "BETA | Selected for the Next Round";
 
-            String emailBody = "<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px; line-height: 1.6; color: #334155;\">" +
-                    "<p>Dear " + escapeHtml(candidateName) + ",</p>" +
-                    "<p>Congratulations!</p>" +
-                    "<p>We are pleased to inform you that you have successfully cleared the <strong>Test Round</strong> of our recruitment process.</p>" +
-                    "<p>We are pleased to invite you to the <strong>Technical Interview</strong>. Please find your interview details below:</p>" +
-                    "<div style=\"background-color: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin: 20px 0;\">" +
-                    "<p style=\"margin: 5px 0;\"><strong>Interview Date:</strong> " + dateFormatted + "</p>" +
-                    "<p style=\"margin: 5px 0;\"><strong>Interview Time:</strong> " + timeFormatted + "</p>" +
-                    "<p style=\"margin: 5px 0;\"><strong>Platform:</strong> Google Meet</p>" +
-                    "<p style=\"margin: 5px 0;\"><strong>Meeting Link:</strong> <a href=\"" + meetingLink + "\" style=\"color: #004AAD; text-decoration: underline;\">" + meetingLink + "</a></p>" +
-                    "</div>" +
-                    "<p><strong>Important Instructions:</strong></p>" +
-                    "<ul>" +
-                    "<li>Join the meeting <strong>10 minutes before</strong> the scheduled time.</li>" +
-                    "<li>Ensure you have a stable internet connection, a working microphone, and a camera.</li>" +
-                    "<li>If you are unable to attend at the scheduled time, please inform us in advance by replying to this email.</li>" +
-                    "</ul>" +
-                    "<p>We appreciate your effort and wish you continued success in the upcoming stage of the recruitment process.</p>" +
-                    "<p>Best Regards,</p>" +
-                    "<p><strong>The BETA Team</strong></p>" +
-                    "</div>";
+            int year = java.time.LocalDate.now().getYear();
+            String emailBody = "<!DOCTYPE html>\n" +
+                    "<html>\n" +
+                    "<head>\n" +
+                    "  <meta charset=\"utf-8\">\n" +
+                    "  <title>" + subject + "</title>\n" +
+                    "</head>\n" +
+                    "<body style=\"margin: 0; padding: 0; background-color: #f4f5f7; font-family: 'Roboto', Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n" +
+                    "  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f4f5f7; padding: 40px 0;\">\n" +
+                    "    <tr>\n" +
+                    "      <td align=\"center\">\n" +
+                    "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 48px;\">\n" +
+                    "          <!-- Centered Logo -->\n" +
+                    "          <tr>\n" +
+                    "            <td align=\"center\" style=\"padding-bottom: 12px;\">\n" +
+                    "              <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 60px; width: auto; display: block; margin: 0 auto;\" />\n" +
+                    "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 10px; font-family: 'Roboto', Arial, sans-serif;\">" + escapeHtml(savedApp.getEmail()) + "</span>\n" +
+                    "            </td>\n" +
+                    "          </tr>\n" +
+                    "          <!-- Divider -->\n" +
+                    "          <tr>\n" +
+                    "            <td style=\"padding: 12px 0 24px 0;\">\n" +
+                    "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
+                    "            </td>\n" +
+                    "          </tr>\n" +
+                    "          <!-- Content Body -->\n" +
+                    "          <tr>\n" +
+                    "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.8; text-align: left;\">\n" +
+                    "              <p style=\"margin: 0 0 24px 0;\">Dear " + escapeHtml(candidateName) + ",</p>\n" +
+                    "              <p style=\"margin: 0 0 24px 0;\">Congratulations!</p>\n" +
+                    "              <p style=\"margin: 0 0 24px 0;\">We are pleased to inform you that you have successfully cleared the <strong>Test Round</strong> of our recruitment process.</p>\n" +
+                    "              <p style=\"margin: 0 0 24px 0;\">We are pleased to invite you to the <strong>Technical Interview</strong>. Please find your interview details below:</p>\n" +
+                    "              <div style=\"background-color: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; margin: 24px 0;\">\n" +
+                    "                <p style=\"margin: 8px 0;\"><strong>Interview Date:</strong> " + dateFormatted + "</p>\n" +
+                    "                <p style=\"margin: 8px 0;\"><strong>Interview Time:</strong> " + timeFormatted + "</p>\n" +
+                    "                <p style=\"margin: 8px 0;\"><strong>Platform:</strong> Google Meet</p>\n" +
+                    "                <p style=\"margin: 8px 0;\"><strong>Meeting Link:</strong> <a href=\"" + meetingLink + "\" style=\"color: #004AAD; text-decoration: underline;\">" + meetingLink + "</a></p>\n" +
+                    "              </div>\n" +
+                    "              <p style=\"margin: 24px 0 12px 0;\"><strong>Important Instructions:</strong></p>\n" +
+                    "              <ul style=\"margin: 0 0 24px 0; padding-left: 20px;\">\n" +
+                    "                <li style=\"margin-bottom: 8px;\">Join the meeting <strong>10 minutes before</strong> the scheduled time.</li>\n" +
+                    "                <li style=\"margin-bottom: 8px;\">Ensure you have a stable internet connection, a working microphone, and a camera.</li>\n" +
+                    "                <li style=\"margin-bottom: 8px;\">If you are unable to attend at the scheduled time, please inform us in advance by replying to this email.</li>\n" +
+                    "              </ul>\n" +
+                    "              <p style=\"margin: 0 0 36px 0;\">We appreciate your effort and wish you continued success in the upcoming stage of the recruitment process.</p>\n" +
+                    "              <p style=\"margin: 0 0 8px 0;\">Best Regards,<br><br>\n" +
+                    "                <strong>The BETA Team</strong>\n" +
+                    "              </p>\n" +
+                    "            </td>\n" +
+                    "          </tr>\n" +
+                    "          <!-- Footer Divider -->\n" +
+                    "          <tr>\n" +
+                    "            <td style=\"padding: 36px 0 20px 0;\">\n" +
+                    "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
+                    "            </td>\n" +
+                    "          </tr>\n" +
+                    "          <!-- Footer -->\n" +
+                    "          <tr>\n" +
+                    "            <td align=\"center\" style=\"color: #70757a; font-family: 'Roboto', Arial, sans-serif; font-size: 12px; line-height: 1.5; text-align: center;\">\n" +
+                    "              This is an automated notification. Please do not reply directly to this email.<br>\n" +
+                    "              &copy; " + year + " BETA. All rights reserved.\n" +
+                    "            </td>\n" +
+                    "          </tr>\n" +
+                    "        </table>\n" +
+                    "      </td>\n" +
+                    "    </tr>\n" +
+                    "  </table>\n" +
+                    "</body>\n" +
+                    "</html>";
 
             emailService.sendEmail(savedApp.getEmail(), subject, emailBody, true);
         } catch (Exception e) {
@@ -245,26 +293,74 @@ public class AdminJobApplicationService {
             String candidateName = savedApp.getFullName() != null ? savedApp.getFullName() : "Candidate";
             String subject = "BETA – HR Round Interview Invitation";
 
-            String emailBody = "<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px; line-height: 1.6; color: #334155;\">" +
-                    "<p>Dear " + escapeHtml(candidateName) + ",</p>" +
-                    "<p>Congratulations!</p>" +
-                    "<p>We are pleased to inform you that we have reviewed your <strong>Task Assessment</strong>, and based on your submission.</p>" +
-                    "<p>Following the successful review of your Task Assessment, you have been shortlisted for the <strong>HR Round</strong>. The interview will be conducted in person at our office.</p>" +
-                    "<div style=\"background-color: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin: 20px 0;\">" +
-                    "<p style=\"margin: 5px 0;\"><strong>Interview Date:</strong> " + dateFormatted + "</p>" +
-                    "<p style=\"margin: 5px 0;\"><strong>Interview Time:</strong> " + timeFormatted + "</p>" +
-                    "<p style=\"margin: 5px 0;\"><strong>Venue:</strong> <a href=\"" + mapsUrl + "\" style=\"color: #004AAD; text-decoration: underline;\">" + locationFormatted + "</a></p>" +
-                    "</div>" +
-                    "<p><strong>Important Instructions:</strong></p>" +
-                    "<ul>" +
-                    "<li>Please report to the venue <strong>10 minutes before</strong> the scheduled interview time.</li>" +
-                    "<li>Carry your laptop for the interview.</li>" +
-                    "<li>Bring an updated copy of your resume.</li>" +
-                    "</ul>" +
-                    "<p>We look forward to meeting you in the HR Round.</p>" +
-                    "<p>Best Regards,</p>" +
-                    "<p><strong>The BETA Team</strong></p>" +
-                    "</div>";
+            int year = java.time.LocalDate.now().getYear();
+            String emailBody = "<!DOCTYPE html>\n" +
+                    "<html>\n" +
+                    "<head>\n" +
+                    "  <meta charset=\"utf-8\">\n" +
+                    "  <title>" + subject + "</title>\n" +
+                    "</head>\n" +
+                    "<body style=\"margin: 0; padding: 0; background-color: #f4f5f7; font-family: 'Roboto', Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n" +
+                    "  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f4f5f7; padding: 40px 0;\">\n" +
+                    "    <tr>\n" +
+                    "      <td align=\"center\">\n" +
+                    "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 48px;\">\n" +
+                    "          <!-- Centered Logo -->\n" +
+                    "          <tr>\n" +
+                    "            <td align=\"center\" style=\"padding-bottom: 12px;\">\n" +
+                    "              <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 60px; width: auto; display: block; margin: 0 auto;\" />\n" +
+                    "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 10px; font-family: 'Roboto', Arial, sans-serif;\">" + escapeHtml(savedApp.getEmail()) + "</span>\n" +
+                    "            </td>\n" +
+                    "          </tr>\n" +
+                    "          <!-- Divider -->\n" +
+                    "          <tr>\n" +
+                    "            <td style=\"padding: 12px 0 24px 0;\">\n" +
+                    "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
+                    "            </td>\n" +
+                    "          </tr>\n" +
+                    "          <!-- Content Body -->\n" +
+                    "          <tr>\n" +
+                    "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.8; text-align: left;\">\n" +
+                    "              <p style=\"margin: 0 0 24px 0;\">Dear " + escapeHtml(candidateName) + ",</p>\n" +
+                    "              <p style=\"margin: 0 0 24px 0;\">Congratulations!</p>\n" +
+                    "              <p style=\"margin: 0 0 24px 0;\">We are pleased to inform you that we have reviewed your <strong>Task Assessment</strong>, and based on your submission.</p>\n" +
+                    "              <p style=\"margin: 0 0 24px 0;\">Following the successful review of your Task Assessment, you have been shortlisted for the <strong>HR Round</strong>. The interview will be conducted in person at our office.</p>\n" +
+                    "              <div style=\"background-color: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; margin: 24px 0;\">\n" +
+                    "                <p style=\"margin: 8px 0;\"><strong>Interview Date:</strong> " + dateFormatted + "</p>\n" +
+                    "                <p style=\"margin: 8px 0;\"><strong>Interview Time:</strong> " + timeFormatted + "</p>\n" +
+                    "                <p style=\"margin: 8px 0;\"><strong>Venue:</strong> <a href=\"" + mapsUrl + "\" style=\"color: #004AAD; text-decoration: underline;\">" + locationFormatted + "</a></p>\n" +
+                    "              </div>\n" +
+                    "              <p style=\"margin: 24px 0 12px 0;\"><strong>Important Instructions:</strong></p>\n" +
+                    "              <ul style=\"margin: 0 0 24px 0; padding-left: 20px;\">\n" +
+                    "                <li style=\"margin-bottom: 8px;\">Please report to the venue <strong>10 minutes before</strong> the scheduled interview time.</li>\n" +
+                    "                <li style=\"margin-bottom: 8px;\">Carry your laptop for the interview.</li>\n" +
+                    "                <li style=\"margin-bottom: 8px;\">Bring an updated copy of your resume.</li>\n" +
+                    "              </ul>\n" +
+                    "              <p style=\"margin: 0 0 36px 0;\">We look forward to meeting you in the HR Round.</p>\n" +
+                    "              <p style=\"margin: 0 0 8px 0;\">Best Regards,<br><br>\n" +
+                    "                <strong>The BETA Team</strong>\n" +
+                    "              </p>\n" +
+                    "            </td>\n" +
+                    "          </tr>\n" +
+                    "          <!-- Footer Divider -->\n" +
+                    "          <tr>\n" +
+                    "            <td style=\"padding: 36px 0 20px 0;\">\n" +
+                    "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
+                    "            </td>\n" +
+                    "          </tr>\n" +
+                    "          <!-- Footer -->\n" +
+                    "          <tr>\n" +
+                    "            <td align=\"center\" style=\"color: #70757a; font-family: 'Roboto', Arial, sans-serif; font-size: 12px; line-height: 1.5; text-align: center;\">\n" +
+                    "              This is an automated notification. Please do not reply directly to this email.<br>\n" +
+                    "              &copy; " + year + " BETA. All rights reserved.\n" +
+                    "            </td>\n" +
+                    "          </tr>\n" +
+                    "        </table>\n" +
+                    "      </td>\n" +
+                    "    </tr>\n" +
+                    "  </table>\n" +
+                    "</body>\n" +
+                    "</html>";
 
             emailService.sendEmail(savedApp.getEmail(), subject, emailBody, true);
         } catch (Exception e) {

@@ -120,42 +120,42 @@ public class EmailService {
                 +
                 "    <tr>\n" +
                 "      <td align=\"center\">\n" +
-                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 40px;\">\n"
+                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 48px;\">\n"
                 +
                 "          <!-- Centered Logo -->\n" +
                 "          <tr>\n" +
-                "            <td align=\"center\" style=\"padding-bottom: 10px;\">\n" +
+                "            <td align=\"center\" style=\"padding-bottom: 12px;\">\n" +
                 "              <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 60px; width: auto; display: block; margin: 0 auto;\" />\n"
                 +
-                "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 8px; font-family: 'Roboto', Arial, sans-serif;\">"
+                "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 10px; font-family: 'Roboto', Arial, sans-serif;\">"
                 + escapeHtml(candidateEmail) + "</span>\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
                 "          <!-- Divider -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"padding: 10px 0 20px 0;\">\n" +
+                "            <td style=\"padding: 12px 0 24px 0;\">\n" +
                 "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
                 "          <!-- Content Body -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.6; text-align: left;\">\n"
+                "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.8; text-align: left;\">\n"
                 +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                Dear <strong>" + escapeHtml(candidateName) + "</strong>,\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
-                "                Thank you for your interest in pursuing a career with <strong>BETA</strong>.\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
+                "                Thank you for your interest in pursuing a career with <strong>BETA</strong> and for applying for the position of <strong>" + escapeHtml(jobTitle) + "</strong>.\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                We have successfully received your application. Our hiring team will review your profile, and any further updates will be shared with you via <strong>BNXmail</strong> soon.\n"
                 +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 30px 0;\">\n" +
+                "              <p style=\"margin: 0 0 36px 0;\">\n" +
                 "                Thank you once again for considering <strong>BETA</strong> as part of your professional journey. We wish you every success and look forward to staying in touch.\n"
                 +
                 "              </p>\n" +
-                "              <p style=\"margin: 0;\">\n" +
+                "              <p style=\"margin: 0 0 8px 0;\">\n" +
                 "                Best Regards,<br><br>\n" +
                 "                <strong>The BETA Team</strong>\n" +
                 "              </p>\n" +
@@ -163,7 +163,7 @@ public class EmailService {
                 "          </tr>\n" +
                 "          <!-- Footer Divider -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"padding: 30px 0 15px 0;\">\n" +
+                "            <td style=\"padding: 36px 0 20px 0;\">\n" +
                 "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
@@ -198,54 +198,54 @@ public class EmailService {
                 +
                 "    <tr>\n" +
                 "      <td align=\"center\">\n" +
-                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 40px;\">\n"
+                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 48px;\">\n"
                 +
                 "          <!-- Centered Logo -->\n" +
                 "          <tr>\n" +
-                "            <td align=\"center\" style=\"padding-bottom: 10px;\">\n" +
+                "            <td align=\"center\" style=\"padding-bottom: 12px;\">\n" +
                 "              <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 60px; width: auto; display: block; margin: 0 auto;\" />\n"
                 +
-                "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 8px; font-family: 'Roboto', Arial, sans-serif;\">"
+                "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 10px; font-family: 'Roboto', Arial, sans-serif;\">"
                 + escapeHtml(candidateEmail) + "</span>\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
                 "          <!-- Divider -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"padding: 10px 0 20px 0;\">\n" +
+                "            <td style=\"padding: 12px 0 24px 0;\">\n" +
                 "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
                 "          <!-- Content Body -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.6; text-align: left;\">\n"
+                "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.8; text-align: left;\">\n"
                 +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                Dear <strong>" + escapeHtml(candidateName) + "</strong>,\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                We are delighted to have received your application.\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                We are pleased to inform you that your profile has been reviewed and shortlisted for the next stage of our recruitment process.\n"
                 +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 10px 0;\">\n" +
+                "              <p style=\"margin: 0 0 12px 0;\">\n" +
                 "                Our hiring process consists of the following four stages:\n" +
                 "              </p>\n" +
-                "              <ol style=\"margin: 0 0 20px 0; padding-left: 20px;\">\n" +
-                "                <li style=\"margin-bottom: 5px;\">Test Round</li>\n" +
-                "                <li style=\"margin-bottom: 5px;\">Online Round</li>\n" +
-                "                <li style=\"margin-bottom: 5px;\">Technical Interview</li>\n" +
-                "                <li style=\"margin-bottom: 5px;\">HR Interview</li>\n" +
+                "              <ol style=\"margin: 0 0 24px 0; padding-left: 20px;\">\n" +
+                "                <li style=\"margin-bottom: 8px;\">Test Round</li>\n" +
+                "                <li style=\"margin-bottom: 8px;\">Online Round</li>\n" +
+                "                <li style=\"margin-bottom: 8px;\">Technical Interview</li>\n" +
+                "                <li style=\"margin-bottom: 8px;\">HR Interview</li>\n" +
                 "              </ol>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                The Test Round details and assessment link will be shared with you soon via <strong>BNXmail</strong>.\n"
                 +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 30px 0;\">\n" +
+                "              <p style=\"margin: 0 0 36px 0;\">\n" +
                 "                We appreciate your interest in <strong>BETA</strong> and wish you every success.\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0;\">\n" +
+                "              <p style=\"margin: 0 0 8px 0;\">\n" +
                 "                Best Regards,<br><br>\n" +
                 "                <strong>The BETA Team</strong>\n" +
                 "              </p>\n" +
@@ -253,7 +253,7 @@ public class EmailService {
                 "          </tr>\n" +
                 "          <!-- Footer Divider -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"padding: 30px 0 15px 0;\">\n" +
+                "            <td style=\"padding: 36px 0 20px 0;\">\n" +
                 "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
@@ -288,47 +288,47 @@ public class EmailService {
                 +
                 "    <tr>\n" +
                 "      <td align=\"center\">\n" +
-                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 40px;\">\n"
+                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 48px;\">\n"
                 +
                 "          <!-- Centered Logo -->\n" +
                 "          <tr>\n" +
-                "            <td align=\"center\" style=\"padding-bottom: 10px;\">\n" +
+                "            <td align=\"center\" style=\"padding-bottom: 12px;\">\n" +
                 "              <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 60px; width: auto; display: block; margin: 0 auto;\" />\n"
                 +
-                "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 8px; font-family: 'Roboto', Arial, sans-serif;\">"
+                "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 10px; font-family: 'Roboto', Arial, sans-serif;\">"
                 + escapeHtml(candidateEmail) + "</span>\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
                 "          <!-- Divider -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"padding: 10px 0 20px 0;\">\n" +
+                "            <td style=\"padding: 12px 0 24px 0;\">\n" +
                 "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
                 "          <!-- Content Body -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.6; text-align: left;\">\n"
+                "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.8; text-align: left;\">\n"
                 +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                Dear " + escapeHtml(candidateName) + ",\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                Thank you for your interest in <strong>BETA</strong> and for taking the time to participate in our recruitment process.\n"
                 +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                After careful consideration, we regret to inform you that you have not been selected to proceed further in the recruitment process.\n"
                 +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                We sincerely appreciate the time, effort, and interest you have shown in joining our organization. While we are unable to move forward with your application at this time, we encourage you to apply for future opportunities at <strong>BETA</strong> that match your skills and experience.\n"
                 +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 30px 0;\">\n" +
+                "              <p style=\"margin: 0 0 36px 0;\">\n" +
                 "                We wish you every success in your future career and thank you once again for considering <strong>BETA</strong>.\n"
                 +
                 "              </p>\n" +
-                "              <p style=\"margin: 0;\">\n" +
+                "              <p style=\"margin: 0 0 8px 0;\">\n" +
                 "                Best Regards,<br><br>\n" +
                 "                <strong>The BETA Team</strong>\n" +
                 "              </p>\n" +
@@ -336,7 +336,7 @@ public class EmailService {
                 "          </tr>\n" +
                 "          <!-- Footer Divider -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"padding: 30px 0 15px 0;\">\n" +
+                "            <td style=\"padding: 36px 0 20px 0;\">\n" +
                 "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
@@ -382,74 +382,74 @@ public class EmailService {
                 +
                 "    <tr>\n" +
                 "      <td align=\"center\">\n" +
-                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 40px;\">\n"
+                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 48px;\">\n"
                 +
                 "          <!-- Centered Logo -->\n" +
                 "          <tr>\n" +
-                "            <td align=\"center\" style=\"padding-bottom: 10px;\">\n" +
+                "            <td align=\"center\" style=\"padding-bottom: 12px;\">\n" +
                 "              <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 60px; width: auto; display: block; margin: 0 auto;\" />\n"
                 +
-                "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 8px; font-family: 'Roboto', Arial, sans-serif;\">"
+                "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 10px; font-family: 'Roboto', Arial, sans-serif;\">"
                 + escapeHtml(candidateEmail) + "</span>\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
                 "          <!-- Divider -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"padding: 10px 0 20px 0;\">\n" +
+                "            <td style=\"padding: 12px 0 24px 0;\">\n" +
                 "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
                 "          <!-- Content Body -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.6; text-align: left;\">\n"
+                "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.8; text-align: left;\">\n"
                 +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                Dear " + escapeHtml(candidateName) + ",\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                We are delighted to have received your application.\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                We are pleased to inform you that your profile has been reviewed and shortlisted for the next stage of our recruitment process.\n"
                 +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 10px 0;\">\n" +
+                "              <p style=\"margin: 0 0 12px 0;\">\n" +
                 "                Our hiring process consists of the following four stages:\n" +
                 "              </p>\n" +
-                "              <ol style=\"margin: 0 0 20px 0; padding-left: 20px;\">\n" +
-                "                <li style=\"margin-bottom: 5px;\">Test Round</li>\n" +
-                "                <li style=\"margin-bottom: 5px;\">Technical Interview</li>\n" +
-                "                <li style=\"margin-bottom: 5px;\">Task Assessment</li>\n" +
-                "                <li style=\"margin-bottom: 5px;\">HR Interview</li>\n" +
+                "              <ol style=\"margin: 0 0 24px 0; padding-left: 20px;\">\n" +
+                "                <li style=\"margin-bottom: 8px;\">Test Round</li>\n" +
+                "                <li style=\"margin-bottom: 8px;\">Technical Interview</li>\n" +
+                "                <li style=\"margin-bottom: 8px;\">Task Assessment</li>\n" +
+                "                <li style=\"margin-bottom: 8px;\">HR Interview</li>\n" +
                 "              </ol>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                Please complete the Test Round using the assessment link provided below.\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                <strong>Assessment Link :</strong> <a href=\"" + assessmentLink
                 + "\" style=\"color: #004AAD; text-decoration: underline;\">" + assessmentLink + "</a>\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 10px 0;\">\n" +
+                "              <p style=\"margin: 0 0 12px 0;\">\n" +
                 "                <strong>Important Instructions :</strong>\n" +
                 "              </p>\n" +
-                "              <ul style=\"margin: 0 0 20px 0; padding-left: 20px;\">\n" +
-                "                <li style=\"margin-bottom: 5px;\">This assessment link is valid for 24 hours from the time this email is sent. Once the 24-hour period expires, the link will be automatically deactivated and will no longer be accessible.</li>\n"
+                "              <ul style=\"margin: 0 0 24px 0; padding-left: 20px;\">\n" +
+                "                <li style=\"margin-bottom: 8px;\">This assessment link is valid for 24 hours from the time this email is sent. Once the 24-hour period expires, the link will be automatically deactivated and will no longer be accessible.</li>\n"
                 +
-                "                <li style=\"margin-bottom: 5px;\">You are allowed a maximum of two attempts to complete this assessment.</li>\n"
+                "                <li style=\"margin-bottom: 8px;\">You are allowed a maximum of two attempts to complete this assessment.</li>\n"
                 +
-                "                <li style=\"margin-bottom: 5px;\">Please ensure you submit your final attempt carefully, as no additional attempts will be provided.</li>\n"
+                "                <li style=\"margin-bottom: 8px;\">Please ensure you submit your final attempt carefully, as no additional attempts will be provided.</li>\n"
                 +
-                "                <li style=\"margin-bottom: 5px;\">Complete the assessment within the specified time limit.</li>\n"
+                "                <li style=\"margin-bottom: 8px;\">Complete the assessment within the specified time limit.</li>\n"
                 +
                 "              </ul>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                Candidates who successfully complete the Test Round will receive further instructions via <strong>BNXmail</strong>.\n"
                 +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 30px 0;\">\n" +
+                "              <p style=\"margin: 0 0 36px 0;\">\n" +
                 "                We wish you the very best for the Test Round.\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0;\">\n" +
+                "              <p style=\"margin: 0 0 8px 0;\">\n" +
                 "                Best Regards,<br><br>\n" +
                 "                <strong>The BETA Team</strong>\n" +
                 "              </p>\n" +
@@ -457,7 +457,7 @@ public class EmailService {
                 "          </tr>\n" +
                 "          <!-- Footer Divider -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"padding: 30px 0 15px 0;\">\n" +
+                "            <td style=\"padding: 36px 0 20px 0;\">\n" +
                 "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
@@ -506,69 +506,69 @@ public class EmailService {
                 +
                 "    <tr>\n" +
                 "      <td align=\"center\">\n" +
-                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 40px;\">\n"
+                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 48px;\">\n"
                 +
                 "          <!-- Centered Logo -->\n" +
                 "          <tr>\n" +
-                "            <td align=\"center\" style=\"padding-bottom: 10px;\">\n" +
+                "            <td align=\"center\" style=\"padding-bottom: 12px;\">\n" +
                 "              <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 60px; width: auto; display: block; margin: 0 auto;\">\n"
                 +
-                "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 8px; font-family: 'Roboto', Arial, sans-serif;\">"
+                "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 10px; font-family: 'Roboto', Arial, sans-serif;\">"
                 + escapeHtml(app.getEmail()) + "</span>\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
                 "          <!-- Divider -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"padding: 10px 0 20px 0;\">\n" +
+                "            <td style=\"padding: 12px 0 24px 0;\">\n" +
                 "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
                 "          <!-- Content Body -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.6; text-align: left;\">\n"
+                "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.8; text-align: left;\">\n"
                 +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                Dear " + escapeHtml(candidateName) + ",\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                Congratulations!\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                We are pleased to inform you that you have successfully cleared the <em>Technical Interview</em> of our recruitment process.\n"
                 +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                You have been shortlisted for the <em>Task Assessment</em>.\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                Please complete the <em>Task</em> provided below.\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 5px 0;\">\n" +
+                "              <p style=\"margin: 0 0 8px 0;\">\n" +
                 "                <strong>Task Assessment :</strong>\n" +
                 "              </p>\n" +
-                "              <div style=\"background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 15px; margin-bottom: 20px; font-family: inherit; font-size: 14px; white-space: pre-line; color: #333;\">\n"
+                "              <div style=\"background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px; margin-bottom: 24px; font-family: inherit; font-size: 14px; white-space: pre-line; color: #333; line-height: 1.6;\">\n"
                 +
                 "                " + escapeHtml(taskDescription) + "\n" +
                 "              </div>\n" +
-                "              <p style=\"margin: 0 0 5px 0;\">\n" +
+                "              <p style=\"margin: 0 0 8px 0;\">\n" +
                 "                <strong>Paste GitHub Repository Link :</strong>\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                <a href=\"" + taskLink + "\" style=\"color: #004AAD; text-decoration: underline;\">"
                 + taskLink + "</a>\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                Please ensure that your GitHub repository is accessible and contains all the required project files before submitting.\n"
                 +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 20px 0; color: #d93025; font-weight: bold;\">\n" +
+                "              <p style=\"margin: 0 0 24px 0; color: #d93025; font-weight: bold;\">\n" +
                 "                Important: You are required to complete the Technical Task and submit your GitHub repository link within 48 hours of receiving this email. Please note that submissions received after the deadline may not be considered.\n"
                 +
                 "              </p>\n" +
-                "              <p style=\"margin: 0 0 30px 0;\">\n" +
+                "              <p style=\"margin: 0 0 36px 0;\">\n" +
                 "                We wish you the very best for the Technical Task.\n" +
                 "              </p>\n" +
-                "              <p style=\"margin: 0;\">\n" +
+                "              <p style=\"margin: 0 0 8px 0;\">\n" +
                 "                Best Regards,<br><br>\n" +
                 "                <strong>The BETA Team</strong>\n" +
                 "              </p>\n" +
@@ -576,7 +576,7 @@ public class EmailService {
                 "          </tr>\n" +
                 "          <!-- Footer Divider -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"padding: 30px 0 15px 0;\">\n" +
+                "            <td style=\"padding: 36px 0 20px 0;\">\n" +
                 "              <hr style=\"border: 0; border-top: 1px solid #dadce0; margin: 0;\" />\n" +
                 "            </td>\n" +
                 "          </tr>\n" +

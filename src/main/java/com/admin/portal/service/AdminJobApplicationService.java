@@ -174,10 +174,10 @@ public class AdminJobApplicationService {
                     "          <!-- Content Body -->\n" +
                     "          <tr>\n" +
                     "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.8; text-align: left;\">\n" +
-                    "              <p style=\"margin: 0 0 24px 0;\">Dear " + escapeHtml(candidateName) + ",</p>\n" +
+                    "              <p style=\"margin: 0 0 24px 0;\">Dear <strong>" + escapeHtml(candidateName) + "</strong>,</p>\n" +
                     "              <p style=\"margin: 0 0 24px 0;\">Congratulations!</p>\n" +
-                    "              <p style=\"margin: 0 0 24px 0;\">We are pleased to inform you that you have successfully cleared the <strong>Test Round</strong> of our recruitment process.</p>\n" +
-                    "              <p style=\"margin: 0 0 24px 0;\">We are pleased to invite you to the <strong>Technical Interview</strong>. Please find your interview details below:</p>\n" +
+                    "              <p style=\"margin: 0 0 24px 0;\">We are pleased to inform you that you have successfully cleared the <strong>Test Round</strong> for the position of <strong>" + escapeHtml(jobTitle) + "</strong> and have progressed to the second stage of our recruitment process.</p>\n" +
+                    "              <p style=\"margin: 0 0 24px 0;\">We are delighted to invite you to attend the <strong>Technical Interview</strong>. Please find your interview details below.</p>\n" +
                     "              <div style=\"background-color: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; margin: 24px 0;\">\n" +
                     "                <p style=\"margin: 8px 0;\"><strong>Interview Date:</strong> " + dateFormatted + "</p>\n" +
                     "                <p style=\"margin: 8px 0;\"><strong>Interview Time:</strong> " + timeFormatted + "</p>\n" +
@@ -264,6 +264,13 @@ public class AdminJobApplicationService {
         
         // Format date/time and send HR interview email
         try {
+            String jobTitle = "the Position";
+            if (savedApp.getJobId() != null && jobService != null) {
+                jobTitle = jobService.getJobById(savedApp.getJobId())
+                        .map(job -> job.getTitle())
+                        .orElse("the Position");
+            }
+
             String dateFormatted = "";
             if (savedApp.getHrInterviewDate() != null) {
                 dateFormatted = savedApp.getHrInterviewDate().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -321,22 +328,22 @@ public class AdminJobApplicationService {
                     "          <!-- Content Body -->\n" +
                     "          <tr>\n" +
                     "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.8; text-align: left;\">\n" +
-                    "              <p style=\"margin: 0 0 24px 0;\">Dear " + escapeHtml(candidateName) + ",</p>\n" +
+                    "              <p style=\"margin: 0 0 24px 0;\">Dear <strong>" + escapeHtml(candidateName) + "</strong>,</p>\n" +
                     "              <p style=\"margin: 0 0 24px 0;\">Congratulations!</p>\n" +
-                    "              <p style=\"margin: 0 0 24px 0;\">We are pleased to inform you that we have reviewed your <strong>Task Assessment</strong>, and based on your submission.</p>\n" +
-                    "              <p style=\"margin: 0 0 24px 0;\">Following the successful review of your Task Assessment, you have been shortlisted for the <strong>HR Round</strong>. The interview will be conducted in person at our office.</p>\n" +
+                    "              <p style=\"margin: 0 0 24px 0;\">We are pleased to inform you that we have reviewed your <strong>Task Assessment</strong> for the position of <strong>" + escapeHtml(jobTitle) + "</strong>. Based on your submission, you have been shortlisted for the <em>final stage (HR Round)</em> of our recruitment process.</p>\n" +
+                    "              <p style=\"margin: 0 0 24px 0;\">The <em>HR Round</em> will be conducted as an in-person interview at our office.</p>\n" +
                     "              <div style=\"background-color: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; margin: 24px 0;\">\n" +
                     "                <p style=\"margin: 8px 0;\"><strong>Interview Date:</strong> " + dateFormatted + "</p>\n" +
                     "                <p style=\"margin: 8px 0;\"><strong>Interview Time:</strong> " + timeFormatted + "</p>\n" +
                     "                <p style=\"margin: 8px 0;\"><strong>Venue:</strong> <a href=\"" + mapsUrl + "\" style=\"color: #004AAD; text-decoration: underline;\">" + locationFormatted + "</a></p>\n" +
                     "              </div>\n" +
-                    "              <p style=\"margin: 24px 0 12px 0;\"><strong>Important Instructions:</strong></p>\n" +
+                    "              <p style=\"margin: 24px 0 12px 0;\"><strong>Important Instructions :</strong></p>\n" +
                     "              <ul style=\"margin: 0 0 24px 0; padding-left: 20px;\">\n" +
                     "                <li style=\"margin-bottom: 8px;\">Please report to the venue <strong>10 minutes before</strong> the scheduled interview time.</li>\n" +
                     "                <li style=\"margin-bottom: 8px;\">Carry your laptop for the interview.</li>\n" +
                     "                <li style=\"margin-bottom: 8px;\">Bring an updated copy of your resume.</li>\n" +
                     "              </ul>\n" +
-                    "              <p style=\"margin: 0 0 36px 0;\">We look forward to meeting you in the HR Round.</p>\n" +
+                    "              <p style=\"margin: 0 0 36px 0;\">We wish you success in the HR Round and look forward to meeting you in person.</p>\n" +
                     "              <p style=\"margin: 0 0 8px 0;\">Best Regards,<br><br>\n" +
                     "                <strong>The BETA Team</strong>\n" +
                     "              </p>\n" +

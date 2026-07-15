@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +28,10 @@ public class EmailService {
 
     @Value("${mail.from.name:Beta Softnet}")
     private String fromName;
+
+    @Autowired
+    @Lazy
+    private JobService jobService;
 
     private static final String EMAIL_API_URL = "https://api.bnxmail.com/api/mail/public/send";
 
@@ -234,8 +240,8 @@ public class EmailService {
                 "              </p>\n" +
                 "              <ol style=\"margin: 0 0 24px 0; padding-left: 20px;\">\n" +
                 "                <li style=\"margin-bottom: 8px;\">Test Round</li>\n" +
-                "                <li style=\"margin-bottom: 8px;\">Online Round</li>\n" +
                 "                <li style=\"margin-bottom: 8px;\">Technical Interview</li>\n" +
+                "                <li style=\"margin-bottom: 8px;\">Task Assessment</li>\n" +
                 "                <li style=\"margin-bottom: 8px;\">HR Interview</li>\n" +
                 "              </ol>\n" +
                 "              <p style=\"margin: 0 0 24px 0;\">\n" +
@@ -360,14 +366,22 @@ public class EmailService {
         String candidateName = app.getFullName() != null ? app.getFullName() : "Candidate";
         String candidateEmail = app.getEmail();
         String assessmentLink = "https://www.beta-softnet.com/careers/assessment?id=" + app.getId();
-        String subject = "BETA Recruitment – Test Round Invitation";
+        
+        String jobTitle = "the Position";
+        if (app.getJobId() != null && jobService != null) {
+            jobTitle = jobService.getJobById(app.getJobId())
+                    .map(job -> job.getTitle())
+                    .orElse("the Position");
+        }
 
-        String body = getAssessmentEmailTemplate(candidateName, candidateEmail, assessmentLink);
+        String subject = "BETA – Test Round Invitation";
+
+        String body = getAssessmentEmailTemplate(candidateName, candidateEmail, assessmentLink, jobTitle);
 
         sendEmail(candidateEmail, subject, body, true);
     }
 
-    private String getAssessmentEmailTemplate(String candidateName, String candidateEmail, String assessmentLink) {
+    private String getAssessmentEmailTemplate(String candidateName, String candidateEmail, String assessmentLink, String jobTitle) {
         int year = LocalDate.now().getYear();
 
         return "<!DOCTYPE html>\n" +
@@ -404,14 +418,13 @@ public class EmailService {
                 "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.8; text-align: left;\">\n"
                 +
                 "              <p style=\"margin: 0 0 24px 0;\">\n" +
-                "                Dear " + escapeHtml(candidateName) + ",\n" +
+                "                Dear <strong>" + escapeHtml(candidateName) + "</strong>,\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 24px 0;\">\n" +
                 "                We are delighted to have received your application.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 24px 0;\">\n" +
-                "                We are pleased to inform you that your profile has been reviewed and shortlisted for the next stage of our recruitment process.\n"
-                +
+                "                We are pleased to inform you that your application for the position of <strong>" + escapeHtml(jobTitle) + "</strong> has been reviewed, and you have been shortlisted for the first stage of our recruitment process.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 12px 0;\">\n" +
                 "                Our hiring process consists of the following four stages:\n" +
@@ -490,9 +503,16 @@ public class EmailService {
 
     public void sendTaskAssessmentEmail(JobApplication app, String taskDescription) {
         String candidateName = app.getFullName() != null ? app.getFullName() : "Candidate";
-        String subject = "BETA - You Have Successfully Cleared the Technical Interview";
+        String subject = "BETA - Successfully Cleared the Technical Interview";
         int year = java.time.LocalDate.now().getYear();
-        String taskLink = "https://www.beta-softnet.com/careers?id=" + app.getId();
+        String taskLink = "https://www.beta-softnet.com/careers/task-assessment?id=" + app.getId();
+
+        String jobTitle = "the Position";
+        if (app.getJobId() != null && jobService != null) {
+            jobTitle = jobService.getJobById(app.getJobId())
+                    .map(job -> job.getTitle())
+                    .orElse("the Position");
+        }
 
         String body = "<!DOCTYPE html>\n" +
                 "<html>\n" +
@@ -500,21 +520,16 @@ public class EmailService {
                 "  <meta charset=\"utf-8\">\n" +
                 "  <title>" + subject + "</title>\n" +
                 "</head>\n" +
-                "<body style=\"margin: 0; padding: 0; background-color: #f4f5f7; font-family: 'Roboto', Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n"
-                +
-                "  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f4f5f7; padding: 40px 0;\">\n"
-                +
+                "<body style=\"margin: 0; padding: 0; background-color: #f4f5f7; font-family: 'Roboto', Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n" +
+                "  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f4f5f7; padding: 40px 0;\">\n" +
                 "    <tr>\n" +
                 "      <td align=\"center\">\n" +
-                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 48px;\">\n"
-                +
+                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 48px;\">\n" +
                 "          <!-- Centered Logo -->\n" +
                 "          <tr>\n" +
                 "            <td align=\"center\" style=\"padding-bottom: 12px;\">\n" +
-                "              <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 60px; width: auto; display: block; margin: 0 auto;\">\n"
-                +
-                "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 10px; font-family: 'Roboto', Arial, sans-serif;\">"
-                + escapeHtml(app.getEmail()) + "</span>\n" +
+                "              <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 60px; width: auto; display: block; margin: 0 auto;\">\n" +
+                "              <span style=\"font-size: 13px; color: #5f6368; display: block; margin-top: 10px; font-family: 'Roboto', Arial, sans-serif;\">" + escapeHtml(app.getEmail()) + "</span>\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
                 "          <!-- Divider -->\n" +
@@ -525,48 +540,42 @@ public class EmailService {
                 "          </tr>\n" +
                 "          <!-- Content Body -->\n" +
                 "          <tr>\n" +
-                "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.8; text-align: left;\">\n"
-                +
+                "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.8; text-align: left;\">\n" +
                 "              <p style=\"margin: 0 0 24px 0;\">\n" +
-                "                Dear " + escapeHtml(candidateName) + ",\n" +
+                "                Dear <strong>" + escapeHtml(candidateName) + "</strong>,\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 24px 0;\">\n" +
-                "                Congratulations!\n" +
+                "                Congratulations !\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 24px 0;\">\n" +
-                "                We are pleased to inform you that you have successfully cleared the <em>Technical Interview</em> of our recruitment process.\n"
-                +
+                "                We are pleased to inform you that you have successfully cleared the <strong>Technical Interview</strong> for the position of <strong>" + escapeHtml(jobTitle) + "</strong> and have progressed to the third stage of our recruitment process.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 24px 0;\">\n" +
-                "                You have been shortlisted for the <em>Task Assessment</em>.\n" +
+                "                You have been shortlisted for the <strong>Task Assessment</strong> .\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 24px 0;\">\n" +
-                "                Please complete the <em>Task</em> provided below.\n" +
+                "                Please complete the Task provided below.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 8px 0;\">\n" +
                 "                <strong>Task Assessment :</strong>\n" +
                 "              </p>\n" +
-                "              <div style=\"background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px; margin-bottom: 24px; font-family: inherit; font-size: 14px; white-space: pre-line; color: #333; line-height: 1.6;\">\n"
-                +
+                "              <div style=\"background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px; margin-bottom: 24px; font-family: inherit; font-size: 14px; white-space: pre-line; color: #333; line-height: 1.6;\">\n" +
                 "                " + escapeHtml(taskDescription) + "\n" +
                 "              </div>\n" +
                 "              <p style=\"margin: 0 0 8px 0;\">\n" +
                 "                <strong>Paste GitHub Repository Link :</strong>\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 24px 0;\">\n" +
-                "                <a href=\"" + taskLink + "\" style=\"color: #004AAD; text-decoration: underline;\">"
-                + taskLink + "</a>\n" +
+                "                <a href=\"" + taskLink + "\" style=\"color: #004AAD; text-decoration: underline;\">" + taskLink + "</a>\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 24px 0;\">\n" +
-                "                Please ensure that your GitHub repository is accessible and contains all the required project files before submitting.\n"
-                +
+                "                Please ensure that your GitHub repository is accessible and contains all the required project files before submitting.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 24px 0; color: #d93025; font-weight: bold;\">\n" +
-                "                Important: You are required to complete the Technical Task and submit your GitHub repository link within 48 hours of receiving this email. Please note that submissions received after the deadline may not be considered.\n"
-                +
+                "                Important : You are required to complete the Task and submit your GitHub repository link within 48 hours of receiving this email. Please note that submissions received after the deadline may not be considered.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 36px 0;\">\n" +
-                "                We wish you the very best for the Technical Task.\n" +
+                "                We wish you the very best for the Task Assessment.\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 8px 0;\">\n" +
                 "                Best Regards,<br><br>\n" +
@@ -582,10 +591,9 @@ public class EmailService {
                 "          </tr>\n" +
                 "          <!-- Footer -->\n" +
                 "          <tr>\n" +
-                "            <td align=\"center\" style=\"color: #70757a; font-family: 'Roboto', Arial, sans-serif; font-size: 12px; line-height: 1.5; text-align: center;\">\n"
-                +
+                "            <td align=\"center\" style=\"color: #70757a; font-family: 'Roboto', Arial, sans-serif; font-size: 12px; line-height: 1.5; text-align: center;\">\n" +
                 "              This is an automated notification. Please do not reply directly to this email.<br>\n" +
-                "              &copy; " + year + " BETA. All rights reserved.\n" +
+                "              &copy; " + year + " " + escapeHtml(fromName) + ". All rights reserved.\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
                 "        </table>\n" +

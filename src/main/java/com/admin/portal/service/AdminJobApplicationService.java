@@ -143,10 +143,11 @@ public class AdminJobApplicationService {
 
             String meetingLink = savedApp.getInterviewLink() != null ? savedApp.getInterviewLink() : "";
 
+            String candidateName = savedApp.getFullName() != null ? savedApp.getFullName() : "Candidate";
             String subject = "BETA | Selected for the Next Round";
 
             String emailBody = "<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px; line-height: 1.6; color: #334155;\">" +
-                    "<p>Dear Candidate,</p>" +
+                    "<p>Dear " + escapeHtml(candidateName) + ",</p>" +
                     "<p>Congratulations!</p>" +
                     "<p>We are pleased to inform you that you have successfully cleared the <strong>Test Round</strong> of our recruitment process.</p>" +
                     "<p>We are pleased to invite you to the <strong>Technical Interview</strong>. Please find your interview details below:</p>" +
@@ -241,10 +242,11 @@ public class AdminJobApplicationService {
                 mapsUrl += locationFormatted;
             }
 
+            String candidateName = savedApp.getFullName() != null ? savedApp.getFullName() : "Candidate";
             String subject = "BETA – HR Round Interview Invitation";
 
             String emailBody = "<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px; line-height: 1.6; color: #334155;\">" +
-                    "<p>Dear Candidate,</p>" +
+                    "<p>Dear " + escapeHtml(candidateName) + ",</p>" +
                     "<p>Congratulations!</p>" +
                     "<p>We are pleased to inform you that we have reviewed your <strong>Task Assessment</strong>, and based on your submission.</p>" +
                     "<p>Following the successful review of your Task Assessment, you have been shortlisted for the <strong>HR Round</strong>. The interview will be conducted in person at our office.</p>" +
@@ -291,5 +293,16 @@ public class AdminJobApplicationService {
             case "PENDING": return "Candidates";
             default: return status;
         }
+    }
+
+    private String escapeHtml(String input) {
+        if (input == null) {
+            return "";
+        }
+        return input.replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\"", "&quot;")
+                .replace("'", "&#x27;");
     }
 }

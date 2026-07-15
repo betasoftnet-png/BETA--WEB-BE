@@ -310,7 +310,7 @@ public class EmailService {
                 "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.6; text-align: left;\">\n"
                 +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
-                "                Dear Candidate,\n" +
+                "                Dear " + escapeHtml(candidateName) + ",\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
                 "                Thank you for your interest in <strong>BETA</strong> and for taking the time to participate in our recruitment process.\n"
@@ -359,7 +359,7 @@ public class EmailService {
     public void sendAssessmentEmail(JobApplication app) {
         String candidateName = app.getFullName() != null ? app.getFullName() : "Candidate";
         String candidateEmail = app.getEmail();
-        String assessmentLink = "https://www.beta-softnet.com/careers/assessment/?id=" + app.getId();
+        String assessmentLink = "https://www.beta-softnet.com/careers/assessment?id=" + app.getId();
         String subject = "BETA Recruitment – Test Round Invitation";
 
         String body = getAssessmentEmailTemplate(candidateName, candidateEmail, assessmentLink);
@@ -404,7 +404,7 @@ public class EmailService {
                 "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.6; text-align: left;\">\n"
                 +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
-                "                Dear Candidate,\n" +
+                "                Dear " + escapeHtml(candidateName) + ",\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
                 "                We are delighted to have received your application.\n" +
@@ -489,6 +489,7 @@ public class EmailService {
     }
 
     public void sendTaskAssessmentEmail(JobApplication app, String taskDescription) {
+        String candidateName = app.getFullName() != null ? app.getFullName() : "Candidate";
         String subject = "BETA - You Have Successfully Cleared the Technical Interview";
         int year = java.time.LocalDate.now().getYear();
         String taskLink = "https://www.beta-softnet.com/careers?id=" + app.getId();
@@ -527,7 +528,7 @@ public class EmailService {
                 "            <td style=\"color: #202124; font-family: 'Roboto', Arial, sans-serif; font-size: 15px; line-height: 1.6; text-align: left;\">\n"
                 +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
-                "                Dear Candidate,\n" +
+                "                Dear " + escapeHtml(candidateName) + ",\n" +
                 "              </p>\n" +
                 "              <p style=\"margin: 0 0 20px 0;\">\n" +
                 "                Congratulations!\n" +

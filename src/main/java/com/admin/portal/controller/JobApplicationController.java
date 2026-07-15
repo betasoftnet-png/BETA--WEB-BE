@@ -33,7 +33,7 @@ public class JobApplicationController {
 
         if (jobApplicationService.hasAlreadyApplied(jobId, email)) {
             return ResponseEntity.badRequest()
-                    .body("You have already applied for this job opening with this email address.");
+                    .body("You have already applied for this job using this email address.");
         }
 
         // Create uploads folder

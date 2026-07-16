@@ -5,6 +5,7 @@ import com.admin.portal.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,9 @@ public class JobService {
     public Job createJob(Job job) {
         if (job.getStatus() == null) {
             job.setStatus("ACTIVE");
+        }
+        if (job.getPostedDate() == null) {
+            job.setPostedDate(LocalDate.now());
         }
         return jobRepository.save(job);
     }

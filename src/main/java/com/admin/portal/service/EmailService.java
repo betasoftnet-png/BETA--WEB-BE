@@ -126,7 +126,7 @@ public class EmailService {
                 +
                 "    <tr>\n" +
                 "      <td align=\"center\">\n" +
-                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 48px;\">\n"
+                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 32px;\">\n"
                 +
                 "          <!-- Centered Logo -->\n" +
                 "          <tr>\n" +
@@ -204,7 +204,7 @@ public class EmailService {
                 +
                 "    <tr>\n" +
                 "      <td align=\"center\">\n" +
-                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 48px;\">\n"
+                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 32px;\">\n"
                 +
                 "          <!-- Centered Logo -->\n" +
                 "          <tr>\n" +
@@ -240,7 +240,7 @@ public class EmailService {
                 "              </p>\n" +
                 "              <ol style=\"margin: 0 0 24px 0; padding-left: 20px;\">\n" +
                 "                <li style=\"margin-bottom: 8px;\">Test Round</li>\n" +
-                "                <li style=\"margin-bottom: 8px;\">Technical Interview</li>\n" +
+                "                <li style=\"margin-bottom: 8px;\">Technical Assessment</li>\n" +
                 "                <li style=\"margin-bottom: 8px;\">Task Assessment</li>\n" +
                 "                <li style=\"margin-bottom: 8px;\">HR Interview</li>\n" +
                 "              </ol>\n" +
@@ -294,7 +294,7 @@ public class EmailService {
                 +
                 "    <tr>\n" +
                 "      <td align=\"center\">\n" +
-                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 48px;\">\n"
+                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 32px;\">\n"
                 +
                 "          <!-- Centered Logo -->\n" +
                 "          <tr>\n" +
@@ -396,7 +396,7 @@ public class EmailService {
                 +
                 "    <tr>\n" +
                 "      <td align=\"center\">\n" +
-                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 48px;\">\n"
+                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 32px;\">\n"
                 +
                 "          <!-- Centered Logo -->\n" +
                 "          <tr>\n" +
@@ -431,7 +431,7 @@ public class EmailService {
                 "              </p>\n" +
                 "              <ol style=\"margin: 0 0 24px 0; padding-left: 20px;\">\n" +
                 "                <li style=\"margin-bottom: 8px;\">Test Round</li>\n" +
-                "                <li style=\"margin-bottom: 8px;\">Technical Interview</li>\n" +
+                "                <li style=\"margin-bottom: 8px;\">Technical Assessment</li>\n" +
                 "                <li style=\"margin-bottom: 8px;\">Task Assessment</li>\n" +
                 "                <li style=\"margin-bottom: 8px;\">HR Interview</li>\n" +
                 "              </ol>\n" +
@@ -524,7 +524,7 @@ public class EmailService {
                 "  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f4f5f7; padding: 40px 0;\">\n" +
                 "    <tr>\n" +
                 "      <td align=\"center\">\n" +
-                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 48px;\">\n" +
+                "        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #dadce0; border-radius: 8px; overflow: hidden; padding: 32px;\">\n" +
                 "          <!-- Centered Logo -->\n" +
                 "          <tr>\n" +
                 "            <td align=\"center\" style=\"padding-bottom: 12px;\">\n" +

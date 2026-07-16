@@ -1,7 +1,7 @@
 package com.admin.portal.entity;
 
 import java.time.LocalDate;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 @Entity
@@ -29,6 +29,9 @@ public class JobApplication {
     private String coverLetter;
 
     private LocalDate appliedDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private java.time.LocalDateTime appliedTime;
 
     @Transient
     private String jobTitle;
@@ -157,6 +160,14 @@ public class JobApplication {
 
     public void setAppliedDate(LocalDate appliedDate) {
         this.appliedDate = appliedDate;
+    }
+
+    public java.time.LocalDateTime getAppliedTime() {
+        return appliedTime;
+    }
+
+    public void setAppliedTime(java.time.LocalDateTime appliedTime) {
+        this.appliedTime = appliedTime;
     }
 
     public LocalDate getInterviewDate() {

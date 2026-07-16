@@ -30,8 +30,9 @@ public class JobApplicationService {
         // Applied date is today
         LocalDate appliedDate = LocalDate.now();
 
-        // Set applied date
+        // Set applied date and time
         application.setAppliedDate(appliedDate);
+        application.setAppliedTime(java.time.LocalDateTime.now());
 
         // Validate interview date (if provided)
         if (application.getInterviewDate() != null) {

@@ -80,6 +80,7 @@ public class JobApplicationController {
         application.setResume(fileName);
 
         application.setAppliedDate(appliedDate);
+        application.setAppliedTime(java.time.LocalDateTime.now());
         application.setInterviewDate(selectedInterviewDate);
         application.setInterviewTime(interviewTime);
 

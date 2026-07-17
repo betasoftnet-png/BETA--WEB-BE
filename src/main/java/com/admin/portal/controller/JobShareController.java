@@ -10,6 +10,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@CrossOrigin(origins = {
+    "https://www.beta-softnet.com",
+    "https://beta-softnet.com",
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",
+    "http://localhost:5176"
+})
 @Controller
 @RequestMapping("/share/jobs")
 public class JobShareController {
@@ -38,7 +46,9 @@ public class JobShareController {
 
     @GetMapping(value = "/{id}", produces = MediaType.TEXT_HTML_VALUE)
     @ResponseBody
-    public ResponseEntity<String> shareJob(@PathVariable Long id) {
+    public ResponseEntity<String> shareJob(
+            @PathVariable Long id,
+            @RequestParam(required = false) String redirect) {
 
         try {
             Optional<Job> jobOpt = jobService.getJobById(id);
@@ -62,10 +72,17 @@ public class JobShareController {
             String ogDesc     = truncate(description.isEmpty()
                     ? title + " at Beta Softnet" : description, 200);
 
+            String targetUrl = (redirect != null && !redirect.trim().isEmpty()) ? redirect : CAREERS_URL;
+            if (targetUrl.contains("?")) {
+                targetUrl += "&job=" + id;
+            } else {
+                targetUrl += "?job=" + id;
+            }
+
             String html = buildLandingPage(
                     esc(title), esc(department), esc(location), esc(type),
                     esc(experience), esc(salary), esc(description),
-                    shareUrl, esc(ogDesc)
+                    shareUrl, esc(ogDesc), targetUrl
             );
 
             return ResponseEntity.ok()
@@ -85,7 +102,7 @@ public class JobShareController {
     private String buildLandingPage(
             String title, String dept, String location, String type,
             String experience, String salary, String rawDescription,
-            String shareUrl, String ogDesc) {
+            String shareUrl, String ogDesc, String targetUrl) {
 
         // Build the pills row (only non-empty values)
         StringBuilder pills = new StringBuilder();
@@ -271,7 +288,7 @@ public class JobShareController {
                 : "")
 
              + "      <div class=\"cta-wrap\">\n"
-             + "        <a href=\"" + CAREERS_URL + "\" class=\"cta\">View on Careers Page &rarr;</a>\n"
+             + "        <a href=\"" + targetUrl + "\" class=\"cta\">View on Careers Page &rarr;</a>\n"
              + "      </div>\n"
              + "    </div>\n"
              + "  </div>\n"

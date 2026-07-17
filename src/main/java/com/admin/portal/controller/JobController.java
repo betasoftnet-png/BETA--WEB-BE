@@ -3,6 +3,7 @@ package com.admin.portal.controller;
 import com.admin.portal.entity.Job;
 import com.admin.portal.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,8 +33,10 @@ public class JobController {
 
     // Get Job By ID
     @GetMapping("/{id}")
-    public Optional<Job> getJobById(@PathVariable Long id) {
-        return jobService.getJobById(id);
+    public ResponseEntity<Job> getJobById(@PathVariable Long id) {
+        return jobService.getJobById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     // Update Job

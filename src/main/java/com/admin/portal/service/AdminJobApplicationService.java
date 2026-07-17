@@ -188,7 +188,6 @@ public class AdminJobApplicationService {
                     "              <ul style=\"margin: 0 0 24px 0; padding-left: 20px;\">\n" +
                     "                <li style=\"margin-bottom: 8px;\">Join the meeting <strong>10 minutes before</strong> the scheduled time.</li>\n" +
                     "                <li style=\"margin-bottom: 8px;\">Ensure you have a stable internet connection, a working microphone, and a camera.</li>\n" +
-                    "                <li style=\"margin-bottom: 8px;\">If you are unable to attend at the scheduled time, please inform us in advance by replying to this email.</li>\n" +
                     "              </ul>\n" +
                     "              <p style=\"margin: 0 0 36px 0;\">We appreciate your effort and wish you continued success in the upcoming stage of the recruitment process.</p>\n" +
                     "              <p style=\"margin: 0 0 8px 0;\">Best Regards,<br><br>\n" +

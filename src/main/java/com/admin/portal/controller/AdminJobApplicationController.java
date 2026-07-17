@@ -40,4 +40,14 @@ public class AdminJobApplicationController {
         String location = payload.get("location");
         return service.saveHrInterview(id, date, time, location);
     }
-}
+
+    /**
+     * Allows admin to manually set the job title for an application whose
+     * referenced job was permanently deleted from the database.
+     */
+    @PatchMapping({"/admin/applications/{id}/job-title", "/applications/{id}/job-title"})
+    public JobApplication updateJobTitle(@PathVariable Long id, @RequestBody java.util.Map<String, String> payload) {
+        String jobTitle = payload.get("jobTitle");
+        return service.updateJobTitle(id, jobTitle);
+    }
+}

@@ -50,6 +50,16 @@ public class JobApplicationService {
         // Default status
         application.setStatus("PENDING");
 
+        // Resolve and persist job details at submission time
+        // This ensures the application retains its position title even if the job is later deleted
+        if (application.getJobId() != null) {
+            jobService.getJobById(application.getJobId()).ifPresent(job -> {
+                application.setJobTitle(job.getTitle());
+                application.setJobDepartment(job.getDepartment());
+                application.setJobLocation(job.getLocation());
+            });
+        }
+
         JobApplication savedApp = repository.save(application);
 
         // Retrieve job title
@@ -86,11 +96,19 @@ public class JobApplicationService {
 
     public void populateJobDetails(JobApplication app) {
         if (app.getJobId() != null) {
-            jobService.getJobById(app.getJobId()).ifPresent(job -> {
-                app.setJobTitle(job.getTitle());
-                app.setJobDepartment(job.getDepartment());
-                app.setJobLocation(job.getLocation());
-            });
+            // Only look up the live job if one or more fields are missing.
+            // This preserves titles stored at submission time (or backfilled before deletion)
+            // even if the job has since been soft-deleted or is no longer available.
+            boolean titleMissing = (app.getJobTitle() == null || app.getJobTitle().isBlank());
+            boolean deptMissing  = (app.getJobDepartment() == null || app.getJobDepartment().isBlank());
+            boolean locMissing   = (app.getJobLocation()  == null || app.getJobLocation().isBlank());
+            if (titleMissing || deptMissing || locMissing) {
+                jobService.getJobById(app.getJobId()).ifPresent(job -> {
+                    if (titleMissing) app.setJobTitle(job.getTitle());
+                    if (deptMissing)  app.setJobDepartment(job.getDepartment());
+                    if (locMissing)   app.setJobLocation(job.getLocation());
+                });
+            }
         }
         boolean assigned = taskRepository.findByCandidate_Id(app.getId()).isPresent();
         app.setTaskAssigned(assigned);

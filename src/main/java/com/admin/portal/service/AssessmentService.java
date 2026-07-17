@@ -157,6 +157,9 @@ public class AssessmentService {
 
         int newAttempts = application.getAssessmentAttempts() + 1;
         application.setAssessmentAttempts(newAttempts);
+        if (newAttempts > 2) {
+            application.setStatus("Terminated (Malpractice)");
+        }
         jobApplicationRepository.save(application);
         return newAttempts;
     }

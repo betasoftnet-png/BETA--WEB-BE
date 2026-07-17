@@ -23,17 +23,20 @@ public class AdminJobApplicationService {
     private NotificationService notificationService;
 
     public List<JobApplication> getAllApplications() {
-        List<JobApplication> apps = repository.findAll();
-        for (JobApplication app : apps) {
-            if (app.getJobId() != null) {
-                jobService.getJobById(app.getJobId()).ifPresent(job -> {
-                    app.setJobTitle(job.getTitle());
-                    app.setJobDepartment(job.getDepartment());
-                    app.setJobLocation(job.getLocation());
-                });
-            }
-        }
-        return apps;
+        // JobTitleMigration (@PostConstruct) ensures job_title is backfilled in the DB
+        // at startup, so we can simply return the persisted values directly.
+        return repository.findAll();
+    }
+
+    /**
+     * Allows admin to manually set/correct the job title for an application
+     * whose referenced job was permanently hard-deleted from the database.
+     */
+    public JobApplication updateJobTitle(Long id, String jobTitle) {
+        JobApplication app = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Application not found"));
+        app.setJobTitle(jobTitle != null ? jobTitle.trim() : null);
+        return repository.save(app);
     }
 
     public JobApplication updateStatus(Long id, String status) {

@@ -33,13 +33,13 @@ public class JobApplication {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private java.time.LocalDateTime appliedTime;
 
-    @Transient
+    @Column(name = "job_title")
     private String jobTitle;
 
-    @Transient
+    @Column(name = "job_department")
     private String jobDepartment;
 
-    @Transient
+    @Column(name = "job_location")
     private String jobLocation;
 
     @Column(name = "github_link")

@@ -1,9 +1,12 @@
 package com.admin.portal.service;
 
 import com.admin.portal.entity.Job;
+import com.admin.portal.entity.JobApplication;
+import com.admin.portal.repository.AdminJobApplicationRepository;
 import com.admin.portal.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,6 +17,9 @@ public class JobService {
 
     @Autowired
     private JobRepository jobRepository;
+
+    @Autowired
+    private AdminJobApplicationRepository applicationRepository;
 
     // Create Job
     public Job createJob(Job job) {
@@ -59,8 +65,28 @@ public class JobService {
     }
 
     // Delete Job (Soft Delete)
+    // Before soft-deleting, backfill job_title / job_department / job_location
+    // into every application that referenced this job but never had those fields
+    // stored (i.e. legacy applications submitted when the fields were @Transient).
+    @Transactional
     public void deleteJob(Long id) {
         jobRepository.findById(id).ifPresent(job -> {
+            // Backfill any applications whose stored title is still null/blank
+            List<JobApplication> apps = applicationRepository.findAll().stream()
+                    .filter(a -> id.equals(a.getJobId()))
+                    .filter(a -> a.getJobTitle() == null || a.getJobTitle().isBlank())
+                    .collect(java.util.stream.Collectors.toList());
+
+            for (JobApplication app : apps) {
+                if (job.getTitle()      != null) app.setJobTitle(job.getTitle());
+                if (job.getDepartment() != null) app.setJobDepartment(job.getDepartment());
+                if (job.getLocation()   != null) app.setJobLocation(job.getLocation());
+            }
+            if (!apps.isEmpty()) {
+                applicationRepository.saveAll(apps);
+            }
+
+            // Now soft-delete the job
             job.setStatus("DELETED");
             jobRepository.save(job);
         });

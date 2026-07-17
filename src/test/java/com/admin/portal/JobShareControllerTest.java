@@ -22,3 +22,4 @@ public class JobShareControllerTest {
                .andDo(print());
     }
 }
+

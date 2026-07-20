@@ -50,4 +50,10 @@ public class AdminJobApplicationController {
         String jobTitle = payload.get("jobTitle");
         return service.updateJobTitle(id, jobTitle);
     }
+
+    @PutMapping({"/admin/applications/{id}/experience", "/applications/{id}/experience"})
+    public JobApplication updateExperience(@PathVariable Long id, @RequestBody java.util.Map<String, String> payload) {
+        String experience = payload.get("experience");
+        return service.updateExperience(id, experience);
+    }
 }

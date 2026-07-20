@@ -39,6 +39,13 @@ public class AdminJobApplicationService {
         return repository.save(app);
     }
 
+    public JobApplication updateExperience(Long id, String experience) {
+        JobApplication app = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Application not found"));
+        app.setExperience(experience != null ? experience.trim() : null);
+        return repository.save(app);
+    }
+
     public JobApplication updateStatus(Long id, String status) {
         JobApplication app = repository.findById(id).orElseThrow(() -> new RuntimeException("Application not found"));
         app.setStatus(status);

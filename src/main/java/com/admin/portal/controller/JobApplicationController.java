@@ -27,6 +27,7 @@ public class JobApplicationController {
             @RequestParam("email") String email,
             @RequestParam("phone") String phone,
             @RequestParam("coverLetter") String coverLetter,
+            @RequestParam(value = "experience", required = false) String experience,
             @RequestParam("interviewDate") String interviewDate,
             @RequestParam("interviewTime") String interviewTime,
             @RequestParam("resume") MultipartFile resume) throws IOException {
@@ -77,6 +78,7 @@ public class JobApplicationController {
         application.setEmail(email);
         application.setPhone(phone);
         application.setCoverLetter(coverLetter);
+        application.setExperience(experience != null && !experience.trim().isEmpty() ? experience.trim() : "Fresher");
         application.setResume(fileName);
 
         application.setAppliedDate(appliedDate);

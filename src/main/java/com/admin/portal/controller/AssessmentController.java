@@ -48,6 +48,16 @@ public class AssessmentController {
             @RequestParam(value = "increment", defaultValue = "true") boolean increment) {
         try {
             JobApplication app = jobApplicationRepository.findById(candidateId).orElse(null);
+            if (app != null) {
+                java.time.LocalDateTime expiry = app.getAssessmentExpiryTime();
+                if (expiry == null && app.getAssessmentSentTime() != null) {
+                    expiry = app.getAssessmentSentTime().plusHours(24);
+                }
+                if (expiry != null && java.time.LocalDateTime.now().isAfter(expiry)) {
+                    return ResponseEntity.badRequest().body("Assessment link has expired");
+                }
+            }
+
             if (app != null && Boolean.TRUE.equals(app.getAssessmentSubmitted())) {
                 String fullName = app.getFullName();
                 String jobTitle = "BNX Mail Strategist";

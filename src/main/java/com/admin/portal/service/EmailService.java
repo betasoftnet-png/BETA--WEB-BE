@@ -33,6 +33,10 @@ public class EmailService {
     @Lazy
     private JobService jobService;
 
+    @Autowired
+    @Lazy
+    private com.admin.portal.repository.JobApplicationRepository jobApplicationRepository;
+
     private static final String EMAIL_API_URL = "https://api.bnxmail.com/api/mail/public/send";
 
     /**
@@ -365,6 +369,19 @@ public class EmailService {
     }
 
     public void sendAssessmentEmail(JobApplication app) {
+        if (app != null && app.getAssessmentSentTime() == null) {
+            java.time.LocalDateTime now = java.time.LocalDateTime.now();
+            app.setAssessmentSentTime(now);
+            app.setAssessmentExpiryTime(now.plusHours(24));
+            if (jobApplicationRepository != null) {
+                try {
+                    jobApplicationRepository.save(app);
+                } catch (Exception e) {
+                    LOGGER.warning("Could not update assessment sent time for application #" + app.getId() + ": " + e.getMessage());
+                }
+            }
+        }
+
         String candidateName = app.getFullName() != null ? app.getFullName() : "Candidate";
         String candidateEmail = app.getEmail();
         String assessmentLink = "https://www.beta-softnet.com/careers/assessment?id=" + app.getId();

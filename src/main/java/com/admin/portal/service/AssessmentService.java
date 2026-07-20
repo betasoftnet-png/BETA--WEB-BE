@@ -61,6 +61,11 @@ public class AssessmentService {
             assessmentRepository.save(assessment);
         }
 
+        LocalDateTime sentTime = LocalDateTime.now();
+        LocalDateTime expiryTime = sentTime.plusHours(24);
+
+        application.setAssessmentSentTime(sentTime);
+        application.setAssessmentExpiryTime(expiryTime);
         application.setAptitudeStatus("Assessment Sent");
         application.setAssessmentAttempts(0);
         application.setAssessmentSubmitted(false);
@@ -84,6 +89,17 @@ public class AssessmentService {
         }
     }
 
+    private void checkAssessmentLinkExpiry(JobApplication application) {
+        if (application == null) return;
+        LocalDateTime expiryTime = application.getAssessmentExpiryTime();
+        if (expiryTime == null && application.getAssessmentSentTime() != null) {
+            expiryTime = application.getAssessmentSentTime().plusHours(24);
+        }
+        if (expiryTime != null && LocalDateTime.now().isAfter(expiryTime)) {
+            throw new RuntimeException("Assessment link has expired");
+        }
+    }
+
     // Get assigned questions for a candidate (without correct answers)
     @Transactional
     public List<QuestionDTO> getQuestionsForCandidate(Long candidateId) {
@@ -94,6 +110,8 @@ public class AssessmentService {
     public List<QuestionDTO> getQuestionsForCandidate(Long candidateId, boolean increment) {
         JobApplication application = jobApplicationRepository.findById(candidateId)
                 .orElseThrow(() -> new RuntimeException("Candidate application not found."));
+
+        checkAssessmentLinkExpiry(application);
 
         List<Assessment> assessments = assessmentRepository.findByCandidateId(candidateId);
         if (assessments.isEmpty()) {
@@ -151,6 +169,8 @@ public class AssessmentService {
         JobApplication application = jobApplicationRepository.findById(candidateId)
                 .orElseThrow(() -> new RuntimeException("Candidate application not found."));
 
+        checkAssessmentLinkExpiry(application);
+
         if (Boolean.TRUE.equals(application.getAssessmentSubmitted())) {
             throw new RuntimeException("Assessment already submitted.");
         }
@@ -168,6 +188,8 @@ public class AssessmentService {
     public Integer submitAssessment(Long candidateId, String timeTaken) {
         JobApplication application = jobApplicationRepository.findById(candidateId)
                 .orElseThrow(() -> new RuntimeException("Candidate application not found."));
+
+        checkAssessmentLinkExpiry(application);
 
         if (Boolean.TRUE.equals(application.getAssessmentSubmitted())) {
             throw new RuntimeException("Assessment already submitted.");

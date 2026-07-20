@@ -87,6 +87,14 @@ public class JobApplication {
     @Column(name = "assessment_time_taken")
     private String assessmentTimeTaken;
 
+    @Column(name = "assessment_sent_time")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private java.time.LocalDateTime assessmentSentTime;
+
+    @Column(name = "assessment_expiry_time")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private java.time.LocalDateTime assessmentExpiryTime;
+
     public JobApplication() {
     }
 
@@ -320,5 +328,21 @@ public class JobApplication {
 
     public void setHrInterviewLocation(String hrInterviewLocation) {
         this.hrInterviewLocation = hrInterviewLocation;
+    }
+
+    public java.time.LocalDateTime getAssessmentSentTime() {
+        return assessmentSentTime;
+    }
+
+    public void setAssessmentSentTime(java.time.LocalDateTime assessmentSentTime) {
+        this.assessmentSentTime = assessmentSentTime;
+    }
+
+    public java.time.LocalDateTime getAssessmentExpiryTime() {
+        return assessmentExpiryTime;
+    }
+
+    public void setAssessmentExpiryTime(java.time.LocalDateTime assessmentExpiryTime) {
+        this.assessmentExpiryTime = assessmentExpiryTime;
     }
 }

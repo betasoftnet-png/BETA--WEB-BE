@@ -19,6 +19,11 @@ public class AdminJobApplicationController {
         return service.getAllApplications();
     }
 
+    @GetMapping({"/admin/applications/{id}", "/applications/{id}"})
+    public JobApplication getApplicationById(@PathVariable Long id) {
+        return service.getApplicationById(id);
+    }
+
     @PutMapping({"/admin/applications/{id}/status", "/applications/{id}/status"})
     public JobApplication updateApplicationStatus(@PathVariable Long id, @RequestBody java.util.Map<String, String> payload) {
         String status = payload.get("status");

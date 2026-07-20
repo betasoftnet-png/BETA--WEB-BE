@@ -28,6 +28,10 @@ public class AdminJobApplicationService {
         return repository.findAll();
     }
 
+    public JobApplication getApplicationById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Application not found"));
+    }
+
     /**
      * Allows admin to manually set/correct the job title for an application
      * whose referenced job was permanently hard-deleted from the database.

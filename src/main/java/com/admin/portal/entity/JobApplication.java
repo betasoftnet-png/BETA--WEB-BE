@@ -95,6 +95,17 @@ public class JobApplication {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private java.time.LocalDateTime assessmentExpiryTime;
 
+    @Column(name = "assessment_token", unique = true)
+    private String assessmentToken;
+
+    @PrePersist
+    public void generateAssessmentToken() {
+        if (this.assessmentToken == null || this.assessmentToken.trim().isEmpty()) {
+            this.assessmentToken = java.util.UUID.randomUUID().toString();
+        }
+    }
+
+
     public JobApplication() {
     }
 
@@ -344,5 +355,16 @@ public class JobApplication {
 
     public void setAssessmentExpiryTime(java.time.LocalDateTime assessmentExpiryTime) {
         this.assessmentExpiryTime = assessmentExpiryTime;
+    }
+
+    public String getAssessmentToken() {
+        if (this.assessmentToken == null || this.assessmentToken.trim().isEmpty()) {
+            this.assessmentToken = java.util.UUID.randomUUID().toString();
+        }
+        return assessmentToken;
+    }
+
+    public void setAssessmentToken(String assessmentToken) {
+        this.assessmentToken = assessmentToken;
     }
 }

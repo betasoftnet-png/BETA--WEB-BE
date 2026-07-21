@@ -64,6 +64,10 @@ public class AssessmentService {
         LocalDateTime sentTime = LocalDateTime.now();
         LocalDateTime expiryTime = sentTime.plusHours(24);
 
+        if (application.getAssessmentToken() == null || application.getAssessmentToken().trim().isEmpty()) {
+            application.setAssessmentToken(java.util.UUID.randomUUID().toString());
+        }
+
         application.setAssessmentSentTime(sentTime);
         application.setAssessmentExpiryTime(expiryTime);
         application.setAptitudeStatus("Assessment Sent");
@@ -163,6 +167,35 @@ public class AssessmentService {
 
         return questionDTOs;
     }
+
+    // Get assigned questions for admin view without candidate attempt/submission restrictions
+    @Transactional(readOnly = true)
+    public List<QuestionDTO> getAssignedQuestionsForAdmin(Long candidateId) {
+        List<Assessment> assessments = assessmentRepository.findByCandidateId(candidateId);
+        List<QuestionDTO> questionDTOs = new ArrayList<>();
+
+        for (Assessment assessment : assessments) {
+            Question question = questionRepository
+                    .findById(assessment.getQuestionId())
+                    .orElse(null);
+
+            if (question != null) {
+                QuestionDTO dto = new QuestionDTO();
+                dto.setId(question.getId());
+                dto.setQuestion(question.getQuestion());
+                dto.setOptionA(question.getOptionA());
+                dto.setOptionB(question.getOptionB());
+                dto.setOptionC(question.getOptionC());
+                dto.setOptionD(question.getOptionD());
+                dto.setDuration(assessment.getDuration());
+
+                questionDTOs.add(dto);
+            }
+        }
+
+        return questionDTOs;
+    }
+
 
     @Transactional
     public Integer incrementAssessmentAttempts(Long candidateId) {

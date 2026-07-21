@@ -369,22 +369,28 @@ public class EmailService {
     }
 
     public void sendAssessmentEmail(JobApplication app) {
-        if (app != null && app.getAssessmentSentTime() == null) {
-            java.time.LocalDateTime now = java.time.LocalDateTime.now();
-            app.setAssessmentSentTime(now);
-            app.setAssessmentExpiryTime(now.plusHours(24));
+        if (app != null) {
+            if (app.getAssessmentToken() == null || app.getAssessmentToken().trim().isEmpty()) {
+                app.setAssessmentToken(java.util.UUID.randomUUID().toString());
+            }
+            if (app.getAssessmentSentTime() == null) {
+                java.time.LocalDateTime now = java.time.LocalDateTime.now();
+                app.setAssessmentSentTime(now);
+                app.setAssessmentExpiryTime(now.plusHours(24));
+            }
             if (jobApplicationRepository != null) {
                 try {
                     jobApplicationRepository.save(app);
                 } catch (Exception e) {
-                    LOGGER.warning("Could not update assessment sent time for application #" + app.getId() + ": " + e.getMessage());
+                    LOGGER.warning("Could not update assessment info for application #" + app.getId() + ": " + e.getMessage());
                 }
             }
         }
 
-        String candidateName = app.getFullName() != null ? app.getFullName() : "Candidate";
-        String candidateEmail = app.getEmail();
-        String assessmentLink = "https://www.beta-softnet.com/careers/assessment?id=" + app.getId();
+        String candidateName = app != null && app.getFullName() != null ? app.getFullName() : "Candidate";
+        String candidateEmail = app != null ? app.getEmail() : "";
+        String token = (app != null && app.getAssessmentToken() != null) ? app.getAssessmentToken() : "";
+        String assessmentLink = "https://www.beta-softnet.com/careers/assessment?token=" + token;
 
         String jobTitle = "the Position";
         if (app.getJobId() != null && jobService != null) {
@@ -531,10 +537,22 @@ public class EmailService {
     }
 
     public void sendTaskAssessmentEmail(JobApplication app, String taskDescription) {
-        String candidateName = app.getFullName() != null ? app.getFullName() : "Candidate";
+        String candidateName = app != null && app.getFullName() != null ? app.getFullName() : "Candidate";
         String subject = "BETA - Successfully Cleared the Technical Interview";
         int year = java.time.LocalDate.now().getYear();
-        String taskLink = "https://www.beta-softnet.com/careers/task-assessment?id=" + app.getId();
+
+        if (app != null && (app.getAssessmentToken() == null || app.getAssessmentToken().trim().isEmpty())) {
+            app.setAssessmentToken(java.util.UUID.randomUUID().toString());
+            if (jobApplicationRepository != null) {
+                try {
+                    jobApplicationRepository.save(app);
+                } catch (Exception e) {
+                    LOGGER.warning("Could not update assessment token for task assessment #" + app.getId() + ": " + e.getMessage());
+                }
+            }
+        }
+        String token = (app != null && app.getAssessmentToken() != null) ? app.getAssessmentToken() : (app != null ? String.valueOf(app.getId()) : "");
+        String taskLink = "https://www.beta-softnet.com/careers/task-assessment?token=" + token;
 
         String jobTitle = "the Position";
         if (app.getJobId() != null && jobService != null) {

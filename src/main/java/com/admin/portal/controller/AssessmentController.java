@@ -41,24 +41,55 @@ public class AssessmentController {
         return "Assessment sent successfully";
     }
 
+    // Admin gets assigned questions for candidate details view
+    @GetMapping("/admin/{candidateId}")
+    public ResponseEntity<?> getAssignedQuestionsForAdmin(@PathVariable Long candidateId) {
+        try {
+            List<QuestionDTO> questions = assessmentService.getAssignedQuestionsForAdmin(candidateId);
+            return ResponseEntity.ok(questions);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+    }
+
+    private JobApplication resolveApplication(String identifier) {
+        if (identifier == null || identifier.trim().isEmpty()) {
+            return null;
+        }
+        String idStr = identifier.trim();
+        java.util.Optional<JobApplication> byToken = jobApplicationRepository.findByAssessmentToken(idStr);
+        if (byToken.isPresent()) {
+            return byToken.get();
+        }
+        try {
+            Long id = Long.parseLong(idStr);
+            return jobApplicationRepository.findById(id).orElse(null);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
     // Candidate gets assigned questions
-    @GetMapping("/{candidateId}")
+    @GetMapping("/{identifier}")
     public ResponseEntity<?> getQuestions(
-            @PathVariable Long candidateId,
+            @PathVariable String identifier,
             @RequestParam(value = "increment", defaultValue = "true") boolean increment) {
         try {
-            JobApplication app = jobApplicationRepository.findById(candidateId).orElse(null);
-            if (app != null) {
-                java.time.LocalDateTime expiry = app.getAssessmentExpiryTime();
-                if (expiry == null && app.getAssessmentSentTime() != null) {
-                    expiry = app.getAssessmentSentTime().plusHours(24);
-                }
-                if (expiry != null && java.time.LocalDateTime.now().isAfter(expiry)) {
-                    return ResponseEntity.badRequest().body("Assessment link has expired");
-                }
+            JobApplication app = resolveApplication(identifier);
+            if (app == null) {
+                return ResponseEntity.badRequest().body("Invalid or expired assessment token.");
+            }
+            Long candidateId = app.getId();
+
+            java.time.LocalDateTime expiry = app.getAssessmentExpiryTime();
+            if (expiry == null && app.getAssessmentSentTime() != null) {
+                expiry = app.getAssessmentSentTime().plusHours(24);
+            }
+            if (expiry != null && java.time.LocalDateTime.now().isAfter(expiry)) {
+                return ResponseEntity.badRequest().body("Assessment link has expired");
             }
 
-            if (app != null && Boolean.TRUE.equals(app.getAssessmentSubmitted())) {
+            if (Boolean.TRUE.equals(app.getAssessmentSubmitted())) {
                 String fullName = app.getFullName();
                 String jobTitle = "BNX Mail Strategist";
                 if (app.getJobId() != null) {
@@ -69,6 +100,7 @@ public class AssessmentController {
                 }
                 return ResponseEntity.ok(java.util.Map.of(
                         "candidateId", candidateId,
+                        "assessmentToken", app.getAssessmentToken() != null ? app.getAssessmentToken() : "",
                         "candidateName", (fullName != null) ? fullName : "Guest Candidate",
                         "jobTitle", jobTitle,
                         "questions", java.util.Collections.emptyList(),
@@ -79,7 +111,7 @@ public class AssessmentController {
 
             List<QuestionDTO> questions = assessmentService.getQuestionsForCandidate(candidateId, increment);
 
-            app = jobApplicationRepository.findById(candidateId).orElse(null);
+            app = jobApplicationRepository.findById(candidateId).orElse(app);
             String fullName = (app != null) ? app.getFullName() : "Guest Candidate";
             String jobTitle = "BNX Mail Strategist";
 
@@ -93,6 +125,7 @@ public class AssessmentController {
             int attempts = (app != null) ? app.getAssessmentAttempts() : 0;
             return ResponseEntity.ok(java.util.Map.of(
                     "candidateId", candidateId,
+                    "assessmentToken", (app != null && app.getAssessmentToken() != null) ? app.getAssessmentToken() : "",
                     "candidateName", fullName,
                     "jobTitle", jobTitle,
                     "questions", questions,
@@ -103,10 +136,14 @@ public class AssessmentController {
     }
 
     // Candidate switches tab or navigates away (security violation)
-    @PostMapping("/{candidateId}/increment-attempt")
-    public ResponseEntity<?> incrementAttempt(@PathVariable Long candidateId) {
+    @PostMapping("/{identifier}/increment-attempt")
+    public ResponseEntity<?> incrementAttempt(@PathVariable String identifier) {
         try {
-            Integer attempts = assessmentService.incrementAssessmentAttempts(candidateId);
+            JobApplication app = resolveApplication(identifier);
+            if (app == null) {
+                return ResponseEntity.badRequest().body("Invalid or expired assessment token.");
+            }
+            Integer attempts = assessmentService.incrementAssessmentAttempts(app.getId());
             return ResponseEntity.ok(attempts);
         } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
@@ -114,12 +151,16 @@ public class AssessmentController {
     }
 
     // Candidate submits/finalizes assessment
-    @PostMapping("/{candidateId}/submit")
+    @PostMapping("/{identifier}/submit")
     public ResponseEntity<?> submitAssessment(
-            @PathVariable Long candidateId,
+            @PathVariable String identifier,
             @RequestParam(value = "timeTaken", required = false) String timeTaken) {
         try {
-            Integer score = assessmentService.submitAssessment(candidateId, timeTaken);
+            JobApplication app = resolveApplication(identifier);
+            if (app == null) {
+                return ResponseEntity.badRequest().body("Invalid or expired assessment token.");
+            }
+            Integer score = assessmentService.submitAssessment(app.getId(), timeTaken);
             return ResponseEntity.ok(java.util.Map.of("message", "Assessment submitted successfully.", "score", score));
         } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());

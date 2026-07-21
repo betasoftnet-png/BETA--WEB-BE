@@ -218,6 +218,22 @@ public class AssessmentService {
     }
 
     @Transactional
+    public void resetAssessment(Long candidateId) {
+        JobApplication application = jobApplicationRepository.findById(candidateId)
+                .orElseThrow(() -> new RuntimeException("Candidate application not found."));
+
+        application.setAssessmentAttempts(0);
+        application.setAssessmentSubmitted(false);
+        application.setAssessmentSentTime(LocalDateTime.now());
+        application.setAssessmentExpiryTime(LocalDateTime.now().plusHours(48));
+        if ("Terminated (Malpractice)".equalsIgnoreCase(application.getStatus()) || "Terminated".equalsIgnoreCase(application.getStatus())) {
+            application.setStatus("Applied");
+        }
+        application.setAptitudeStatus("Assessment Sent");
+        jobApplicationRepository.save(application);
+    }
+
+    @Transactional
     public Integer submitAssessment(Long candidateId, String timeTaken) {
         JobApplication application = jobApplicationRepository.findById(candidateId)
                 .orElseThrow(() -> new RuntimeException("Candidate application not found."));

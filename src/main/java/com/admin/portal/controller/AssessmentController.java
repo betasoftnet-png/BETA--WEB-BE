@@ -73,7 +73,7 @@ public class AssessmentController {
     @GetMapping("/{identifier}")
     public ResponseEntity<?> getQuestions(
             @PathVariable String identifier,
-            @RequestParam(value = "increment", defaultValue = "true") boolean increment) {
+            @RequestParam(value = "increment", defaultValue = "false") boolean increment) {
         try {
             JobApplication app = resolveApplication(identifier);
             if (app == null) {
@@ -130,6 +130,21 @@ public class AssessmentController {
                     "jobTitle", jobTitle,
                     "questions", questions,
                     "attempts", attempts));
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+    }
+
+    // Admin resets candidate attempts / re-opens assessment
+    @PostMapping("/{identifier}/reset")
+    public ResponseEntity<?> resetAssessment(@PathVariable String identifier) {
+        try {
+            JobApplication app = resolveApplication(identifier);
+            if (app == null) {
+                return ResponseEntity.badRequest().body("Invalid assessment token or candidate ID.");
+            }
+            assessmentService.resetAssessment(app.getId());
+            return ResponseEntity.ok(java.util.Map.of("message", "Assessment reset successfully. Candidate can now open and take the test."));
         } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }

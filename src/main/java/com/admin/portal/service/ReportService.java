@@ -14,8 +14,28 @@ public class ReportService {
     @Autowired
     private ReportRepository reportRepository;
 
-    // Save a new report
+    // Save or update a report to ensure uniqueness per candidateId
     public Report saveReport(Report report) {
+        if (report.getCandidateId() != null) {
+            List<Report> existing = reportRepository.findByCandidateId(report.getCandidateId());
+            if (existing != null && !existing.isEmpty()) {
+                Report first = existing.get(0);
+                first.setMessage(report.getMessage());
+                first.setStatus(report.getStatus());
+                first.setReportedAt(java.time.LocalDateTime.now());
+                if (report.getJobId() != null) {
+                    first.setJobId(report.getJobId());
+                }
+                if (report.getCandidateName() != null) {
+                    first.setCandidateName(report.getCandidateName());
+                }
+                if (report.getEmail() != null) {
+                    first.setEmail(report.getEmail());
+                }
+                return reportRepository.save(first);
+            }
+        }
+        report.setReportedAt(java.time.LocalDateTime.now());
         return reportRepository.save(report);
     }
 

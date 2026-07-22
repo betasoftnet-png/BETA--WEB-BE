@@ -60,7 +60,6 @@ public class JobApplication {
     @Column(name = "hr_interview_location")
     private String hrInterviewLocation;
 
-
     @Column(name = "interview_link")
     private String interviewLink;
 
@@ -104,7 +103,6 @@ public class JobApplication {
             this.assessmentToken = java.util.UUID.randomUUID().toString();
         }
     }
-
 
     public JobApplication() {
     }
@@ -366,5 +364,51 @@ public class JobApplication {
 
     public void setAssessmentToken(String assessmentToken) {
         this.assessmentToken = assessmentToken;
+    }
+
+    public int getPipelineStage() {
+        // Stage 0: Application - always completed on submission.
+        // Stage 1: Assessment - completed when assessmentSubmitted is true or
+        // aptitudeStatus is "Completed"
+        boolean stage1Completed = Boolean.TRUE.equals(getAssessmentSubmitted())
+                || "Completed".equalsIgnoreCase(getAptitudeStatus());
+        if (!stage1Completed) {
+            return 1;
+        }
+
+        // Stage 2: Technical Interview - completed when status is REVIEWED (Interview
+        // Completed) or later, OR when a task has been assigned.
+        String s = getStatus();
+        String statusLower = s != null ? s.toLowerCase().trim() : "";
+        boolean stage2Completed = "reviewed".equalsIgnoreCase(statusLower)
+                || "accepted".equalsIgnoreCase(statusLower)
+                || "joined".equalsIgnoreCase(statusLower)
+                || "selected".equalsIgnoreCase(statusLower)
+                || "approved".equalsIgnoreCase(statusLower)
+                || "offer sent".equalsIgnoreCase(statusLower)
+                || Boolean.TRUE.equals(getTaskAssigned());
+        if (!stage2Completed) {
+            return 2;
+        }
+
+        // Stage 3: Task Assessment - completed when githubLink is present
+        boolean stage3Completed = getGithubLink() != null && !getGithubLink().trim().isEmpty();
+        if (!stage3Completed) {
+            return 3;
+        }
+
+        // Stage 4: HR Interview - completed when status is ACCEPTED or JOINED or
+        // selected/approved/offer sent.
+        boolean stage4Completed = "accepted".equalsIgnoreCase(statusLower)
+                || "joined".equalsIgnoreCase(statusLower)
+                || "selected".equalsIgnoreCase(statusLower)
+                || "approved".equalsIgnoreCase(statusLower)
+                || "offer sent".equalsIgnoreCase(statusLower);
+        if (!stage4Completed) {
+            return 4;
+        }
+
+        // Stage 5: Offer
+        return 5;
     }
 }

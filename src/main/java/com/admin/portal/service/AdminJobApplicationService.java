@@ -170,71 +170,84 @@ public class AdminJobApplicationService {
                     "  <title>" + subject + "</title>\n" +
                     "  <style>\n" +
                     "    @media only screen and (max-width: 620px) {\n" +
-                    "      .email-container {\n" +
-                    "        width: 100% !important;\n" +
-                    "        max-width: 100% !important;\n" +
+                    "      .email-content-cell {\n" +
                     "        padding: 32px 20px !important;\n" +
-                    "        border-radius: 8px !important;\n" +
                     "      }\n" +
-                    "      .email-wrapper {\n" +
+                    "      .email-wrapper-cell {\n" +
                     "        padding: 24px 12px !important;\n" +
                     "      }\n" +
                     "    }\n" +
                     "  </style>\n" +
                     "</head>\n" +
                     "<body style=\"margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n" +
-                    "  <table class=\"email-wrapper\" role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f8fafc; padding: 40px 0;\">\n" +
+                    "  <table class=\"email-wrapper\" role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f8fafc;\">\n" +
                     "    <tr>\n" +
-                    "      <td align=\"center\">\n" +
-                    "        <table class=\"email-container\" role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; padding: 40px 44px; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.045); width: 100%; max-width: 580px;\">\n" +
-                    "          <!-- Centered Logo -->\n" +
+                    "      <td align=\"center\" class=\"email-wrapper-cell\" style=\"padding: 40px 16px;\">\n" +
+                    "        <table class=\"email-container\" role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.045); width: 100%; max-width: 580px;\">\n" +
                     "          <tr>\n" +
-                    "            <td align=\"center\" style=\"padding-bottom: 8px;\">\n" +
-                    "              <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 56px; width: auto; display: block; margin: 0 auto;\" />\n" +
-                    "              <span style=\"font-size: 13px; color: #64748b; font-weight: 500; display: block; margin-top: 8px; font-family: inherit;\">" + escapeHtml(savedApp.getEmail()) + "</span>\n" +
-                    "            </td>\n" +
-                    "          </tr>\n" +
-                    "          <!-- Divider -->\n" +
-                    "          <tr>\n" +
-                    "            <td style=\"padding: 16px 0 24px 0;\">\n" +
-                    "              <hr style=\"border: 0; border-top: 1px solid #e2e8f0; margin: 0;\" />\n" +
-                    "            </td>\n" +
-                    "          </tr>\n" +
-                    "          <!-- Content Body -->\n" +
-                    "          <tr>\n" +
-                    "            <td style=\"color: #334155; font-family: inherit; font-size: 15px; line-height: 1.6; text-align: left;\">\n" +
-                    "              <p style=\"margin: 0 0 16px 0;\">Dear <strong>" + escapeHtml(candidateName) + "</strong>,</p>\n" +
-                    "              <p style=\"margin: 0 0 16px 0;\">Congratulations!</p>\n" +
-                    "              <p style=\"margin: 0 0 16px 0;\">We are pleased to inform you that you have successfully cleared the <strong>Test Round</strong> for the position of <strong>" + escapeHtml(jobTitle) + "</strong> and have progressed to the second stage of our recruitment process.</p>\n" +
-                    "              <p style=\"margin: 0 0 16px 0;\">We are delighted to invite you to attend the <strong>Technical Interview</strong>. Please find your interview details below.</p>\n" +
-                    "              <div style=\"background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px 24px; margin: 20px 0;\">\n" +
-                    "                <p style=\"margin: 0 0 10px 0; font-size: 14px; color: #334155; line-height: 1.6;\"><strong style=\"color: #0f172a; font-weight: 600;\">Interview Date:</strong> " + dateFormatted + "</p>\n" +
-                    "                <p style=\"margin: 0 0 10px 0; font-size: 14px; color: #334155; line-height: 1.6;\"><strong style=\"color: #0f172a; font-weight: 600;\">Interview Time:</strong> " + timeFormatted + "</p>\n" +
-                    "                <p style=\"margin: 0 0 10px 0; font-size: 14px; color: #334155; line-height: 1.6;\"><strong style=\"color: #0f172a; font-weight: 600;\">Platform:</strong> Google Meet</p>\n" +
-                    "                <p style=\"margin: 0; font-size: 14px; color: #334155; line-height: 1.6;\"><strong style=\"color: #0f172a; font-weight: 600;\">Meeting Link:</strong> <a href=\"" + meetingLink + "\" style=\"color: #0284c7; text-decoration: underline; font-weight: 600;\">" + meetingLink + "</a></p>\n" +
-                    "              </div>\n" +
-                    "              <p style=\"margin: 0 0 12px 0; font-size: 15px; color: #0f172a; font-weight: 600;\">Important Instructions:</p>\n" +
-                    "              <ul style=\"margin: 0 0 24px 0; padding-left: 0; list-style-type: none; color: #334155; font-size: 15px; line-height: 1.6;\">\n" +
-                    "                <li style=\"margin-bottom: 10px;\">Join the meeting <strong>10 minutes before</strong> the scheduled time.</li>\n" +
-                    "                <li style=\"margin-bottom: 10px;\">Ensure you have a stable internet connection, a working microphone, and a camera.</li>\n" +
-                    "              </ul>\n" +
-                    "              <p style=\"margin: 0 0 24px 0;\">We appreciate your effort and wish you continued success in the upcoming stage of the recruitment process.</p>\n" +
-                    "              <p style=\"margin: 0;\">Best Regards,<br><br>\n" +
-                    "                <strong style=\"color: #0f172a;\">The BETA Team</strong>\n" +
-                    "              </p>\n" +
-                    "            </td>\n" +
-                    "          </tr>\n" +
-                    "          <!-- Footer Divider -->\n" +
-                    "          <tr>\n" +
-                    "            <td style=\"padding: 32px 0 20px 0;\">\n" +
-                    "              <hr style=\"border: 0; border-top: 1px solid #e2e8f0; margin: 0;\" />\n" +
-                    "            </td>\n" +
-                    "          </tr>\n" +
-                    "          <!-- Footer -->\n" +
-                    "          <tr>\n" +
-                    "            <td align=\"center\" style=\"color: #64748b; font-family: inherit; font-size: 12px; line-height: 1.6; text-align: center;\">\n" +
-                    "              This is an automated notification. Please do not reply directly to this email.<br>\n" +
-                    "              &copy; " + year + " BETA. All rights reserved.\n" +
+                    "            <td class=\"email-content-cell\" style=\"padding: 40px 44px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;\">\n" +
+                    "              <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n" +
+                    "                <!-- Centered Logo -->\n" +
+                    "                <tr>\n" +
+                    "                  <td align=\"center\" style=\"padding-bottom: 8px;\">\n" +
+                    "                    <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 56px; width: auto; display: block; margin: 0 auto;\" />\n" +
+                    "                    <span style=\"font-size: 13px; color: #64748b; font-weight: 500; display: block; margin-top: 8px; font-family: inherit;\">" + escapeHtml(savedApp.getEmail()) + "</span>\n" +
+                    "                  </td>\n" +
+                    "                </tr>\n" +
+                    "                <!-- Divider -->\n" +
+                    "                <tr>\n" +
+                    "                  <td style=\"padding: 16px 0 24px 0;\">\n" +
+                    "                    <hr style=\"border: 0; border-top: 1px solid #e2e8f0; margin: 0;\" />\n" +
+                    "                  </td>\n" +
+                    "                </tr>\n" +
+                    "                <!-- Content Body -->\n" +
+                    "                <tr>\n" +
+                    "                  <td style=\"color: #334155; font-family: inherit; font-size: 15px; line-height: 1.6; text-align: left;\">\n" +
+                    "                    <p style=\"margin: 0 0 16px 0;\">Dear <strong>" + escapeHtml(candidateName) + "</strong>,</p>\n" +
+                    "                    <p style=\"margin: 0 0 16px 0;\">Congratulations!</p>\n" +
+                    "                    <p style=\"margin: 0 0 16px 0;\">We are pleased to inform you that you have successfully cleared the <strong>Test Round</strong> for the position of <strong>" + escapeHtml(jobTitle) + "</strong> and have progressed to the second stage of our recruitment process.</p>\n" +
+                    "                    <p style=\"margin: 0 0 16px 0;\">We are delighted to invite you to attend the <strong>Technical Interview</strong>. Please find your interview details below.</p>\n" +
+                    "                    <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"width: 100%;\">\n" +
+                    "                      <tr>\n" +
+                    "                        <td style=\"padding: 16px 0 20px 0;\">\n" +
+                    "                          <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; width: 100%;\">\n" +
+                    "                            <tr>\n" +
+                    "                              <td style=\"padding: 20px 24px; font-family: inherit;\">\n" +
+                    "                                <p style=\"margin: 0 0 10px 0; font-size: 14px; color: #334155; line-height: 1.6;\"><strong style=\"color: #0f172a; font-weight: 600;\">Interview Date:</strong> " + dateFormatted + "</p>\n" +
+                    "                                <p style=\"margin: 0 0 10px 0; font-size: 14px; color: #334155; line-height: 1.6;\"><strong style=\"color: #0f172a; font-weight: 600;\">Interview Time:</strong> " + timeFormatted + "</p>\n" +
+                    "                                <p style=\"margin: 0 0 10px 0; font-size: 14px; color: #334155; line-height: 1.6;\"><strong style=\"color: #0f172a; font-weight: 600;\">Platform:</strong> Google Meet</p>\n" +
+                    "                                <p style=\"margin: 0; font-size: 14px; color: #334155; line-height: 1.6;\"><strong style=\"color: #0f172a; font-weight: 600;\">Meeting Link:</strong> <a href=\"" + meetingLink + "\" style=\"color: #0284c7; text-decoration: underline; font-weight: 600;\">" + meetingLink + "</a></p>\n" +
+                    "                              </td>\n" +
+                    "                            </tr>\n" +
+                    "                          </table>\n" +
+                    "                        </td>\n" +
+                    "                      </tr>\n" +
+                    "                    </table>\n" +
+                    "                    <p style=\"margin: 0 0 12px 0; font-size: 15px; color: #0f172a; font-weight: 600;\">Important Instructions:</p>\n" +
+                    "                    <ul style=\"margin: 0 0 24px 0; padding-left: 0; list-style-type: none; color: #334155; font-size: 15px; line-height: 1.6;\">\n" +
+                    "                      <li style=\"margin-bottom: 10px;\">Join the meeting <strong>10 minutes before</strong> the scheduled time.</li>\n" +
+                    "                      <li style=\"margin-bottom: 10px;\">Ensure you have a stable internet connection, a working microphone, and a camera.</li>\n" +
+                    "                    </ul>\n" +
+                    "                    <p style=\"margin: 0 0 24px 0;\">We appreciate your effort and wish you continued success in the upcoming stage of the recruitment process.</p>\n" +
+                    "                    <p style=\"margin: 0;\">Best Regards,<br><br>\n" +
+                    "                      <strong style=\"color: #0f172a;\">The BETA Team</strong>\n" +
+                    "                    </p>\n" +
+                    "                  </td>\n" +
+                    "                </tr>\n" +
+                    "                <!-- Footer Divider -->\n" +
+                    "                <tr>\n" +
+                    "                  <td style=\"padding: 32px 0 20px 0;\">\n" +
+                    "                    <hr style=\"border: 0; border-top: 1px solid #e2e8f0; margin: 0;\" />\n" +
+                    "                  </td>\n" +
+                    "                </tr>\n" +
+                    "                <!-- Footer -->\n" +
+                    "                <tr>\n" +
+                    "                  <td align=\"center\" style=\"color: #64748b; font-family: inherit; font-size: 12px; line-height: 1.6; text-align: center;\">\n" +
+                    "                    This is an automated notification. Please do not reply directly to this email.<br>\n" +
+                    "                    &copy; " + year + " BETA. All rights reserved.\n" +
+                    "                  </td>\n" +
+                    "                </tr>\n" +
+                    "              </table>\n" +
                     "            </td>\n" +
                     "          </tr>\n" +
                     "        </table>\n" +
@@ -341,71 +354,84 @@ public class AdminJobApplicationService {
                     "  <title>" + subject + "</title>\n" +
                     "  <style>\n" +
                     "    @media only screen and (max-width: 620px) {\n" +
-                    "      .email-container {\n" +
-                    "        width: 100% !important;\n" +
-                    "        max-width: 100% !important;\n" +
+                    "      .email-content-cell {\n" +
                     "        padding: 32px 20px !important;\n" +
-                    "        border-radius: 8px !important;\n" +
                     "      }\n" +
-                    "      .email-wrapper {\n" +
+                    "      .email-wrapper-cell {\n" +
                     "        padding: 24px 12px !important;\n" +
                     "      }\n" +
                     "    }\n" +
                     "  </style>\n" +
                     "</head>\n" +
                     "<body style=\"margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n" +
-                    "  <table class=\"email-wrapper\" role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f8fafc; padding: 40px 0;\">\n" +
+                    "  <table class=\"email-wrapper\" role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f8fafc;\">\n" +
                     "    <tr>\n" +
-                    "      <td align=\"center\">\n" +
-                    "        <table class=\"email-container\" role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; padding: 40px 44px; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.045); width: 100%; max-width: 580px;\">\n" +
-                    "          <!-- Centered Logo -->\n" +
+                    "      <td align=\"center\" class=\"email-wrapper-cell\" style=\"padding: 40px 16px;\">\n" +
+                    "        <table class=\"email-container\" role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"580\" style=\"background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.045); width: 100%; max-width: 580px;\">\n" +
                     "          <tr>\n" +
-                    "            <td align=\"center\" style=\"padding-bottom: 8px;\">\n" +
-                    "              <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 56px; width: auto; display: block; margin: 0 auto;\" />\n" +
-                    "              <span style=\"font-size: 13px; color: #64748b; font-weight: 500; display: block; margin-top: 8px; font-family: inherit;\">" + escapeHtml(savedApp.getEmail()) + "</span>\n" +
-                    "            </td>\n" +
-                    "          </tr>\n" +
-                    "          <!-- Divider -->\n" +
-                    "          <tr>\n" +
-                    "            <td style=\"padding: 16px 0 24px 0;\">\n" +
-                    "              <hr style=\"border: 0; border-top: 1px solid #e2e8f0; margin: 0;\" />\n" +
-                    "            </td>\n" +
-                    "          </tr>\n" +
-                    "          <!-- Content Body -->\n" +
-                    "          <tr>\n" +
-                    "            <td style=\"color: #334155; font-family: inherit; font-size: 15px; line-height: 1.6; text-align: left;\">\n" +
-                    "              <p style=\"margin: 0 0 16px 0;\">Dear <strong>" + escapeHtml(candidateName) + "</strong>,</p>\n" +
-                    "              <p style=\"margin: 0 0 16px 0;\">Congratulations!</p>\n" +
-                    "              <p style=\"margin: 0 0 16px 0;\">We are pleased to inform you that we have reviewed your <strong>Task Assessment</strong> for the position of <strong>" + escapeHtml(jobTitle) + "</strong>. Based on your submission, you have been shortlisted for the <em>final stage (HR Round)</em> of our recruitment process.</p>\n" +
-                    "              <p style=\"margin: 0 0 16px 0;\">The <em>HR Round</em> will be conducted as an in-person interview at our office.</p>\n" +
-                    "              <div style=\"background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px 24px; margin: 20px 0;\">\n" +
-                    "                <p style=\"margin: 0 0 10px 0; font-size: 14px; color: #334155; line-height: 1.6;\"><strong style=\"color: #0f172a; font-weight: 600;\">Interview Date:</strong> " + dateFormatted + "</p>\n" +
-                    "                <p style=\"margin: 0 0 10px 0; font-size: 14px; color: #334155; line-height: 1.6;\"><strong style=\"color: #0f172a; font-weight: 600;\">Interview Time:</strong> " + timeFormatted + "</p>\n" +
-                    "                <p style=\"margin: 0; font-size: 14px; color: #334155; line-height: 1.6;\"><strong style=\"color: #0f172a; font-weight: 600;\">Venue:</strong> <a href=\"" + mapsUrl + "\" style=\"color: #0284c7; text-decoration: underline; font-weight: 600;\">" + locationFormatted + "</a></p>\n" +
-                    "              </div>\n" +
-                    "              <p style=\"margin: 0 0 12px 0; font-size: 15px; color: #0f172a; font-weight: 600;\">Important Instructions:</p>\n" +
-                    "              <ul style=\"margin: 0 0 24px 0; padding-left: 0; list-style-type: none; color: #334155; font-size: 15px; line-height: 1.6;\">\n" +
-                    "                <li style=\"margin-bottom: 10px;\">Please report to the venue <strong>10 minutes before</strong> the scheduled interview time.</li>\n" +
-                    "                <li style=\"margin-bottom: 10px;\">Carry your laptop for the interview.</li>\n" +
-                    "                <li style=\"margin-bottom: 10px;\">Bring an updated copy of your resume.</li>\n" +
-                    "              </ul>\n" +
-                    "              <p style=\"margin: 0 0 24px 0;\">We wish you success in the HR Round and look forward to meeting you in person.</p>\n" +
-                    "              <p style=\"margin: 0;\">Best Regards,<br><br>\n" +
-                    "                <strong style=\"color: #0f172a;\">The BETA Team</strong>\n" +
-                    "              </p>\n" +
-                    "            </td>\n" +
-                    "          </tr>\n" +
-                    "          <!-- Footer Divider -->\n" +
-                    "          <tr>\n" +
-                    "            <td style=\"padding: 32px 0 20px 0;\">\n" +
-                    "              <hr style=\"border: 0; border-top: 1px solid #e2e8f0; margin: 0;\" />\n" +
-                    "            </td>\n" +
-                    "          </tr>\n" +
-                    "          <!-- Footer -->\n" +
-                    "          <tr>\n" +
-                    "            <td align=\"center\" style=\"color: #64748b; font-family: inherit; font-size: 12px; line-height: 1.6; text-align: center;\">\n" +
-                    "              This is an automated notification. Please do not reply directly to this email.<br>\n" +
-                    "              &copy; " + year + " BETA. All rights reserved.\n" +
+                    "            <td class=\"email-content-cell\" style=\"padding: 40px 44px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;\">\n" +
+                    "              <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n" +
+                    "                <!-- Centered Logo -->\n" +
+                    "                <tr>\n" +
+                    "                  <td align=\"center\" style=\"padding-bottom: 8px;\">\n" +
+                    "                    <img src=\"https://beta-softnet.com/logo.png\" alt=\"BETA Logo\" style=\"height: 56px; width: auto; display: block; margin: 0 auto;\" />\n" +
+                    "                    <span style=\"font-size: 13px; color: #64748b; font-weight: 500; display: block; margin-top: 8px; font-family: inherit;\">" + escapeHtml(savedApp.getEmail()) + "</span>\n" +
+                    "                  </td>\n" +
+                    "                </tr>\n" +
+                    "                <!-- Divider -->\n" +
+                    "                <tr>\n" +
+                    "                  <td style=\"padding: 16px 0 24px 0;\">\n" +
+                    "                    <hr style=\"border: 0; border-top: 1px solid #e2e8f0; margin: 0;\" />\n" +
+                    "                  </td>\n" +
+                    "                </tr>\n" +
+                    "                <!-- Content Body -->\n" +
+                    "                <tr>\n" +
+                    "                  <td style=\"color: #334155; font-family: inherit; font-size: 15px; line-height: 1.6; text-align: left;\">\n" +
+                    "                    <p style=\"margin: 0 0 16px 0;\">Dear <strong>" + escapeHtml(candidateName) + "</strong>,</p>\n" +
+                    "                    <p style=\"margin: 0 0 16px 0;\">Congratulations!</p>\n" +
+                    "                    <p style=\"margin: 0 0 16px 0;\">We are pleased to inform you that we have reviewed your <strong>Task Assessment</strong> for the position of <strong>" + escapeHtml(jobTitle) + "</strong>. Based on your submission, you have been shortlisted for the <em>final stage (HR Round)</em> of our recruitment process.</p>\n" +
+                    "                    <p style=\"margin: 0 0 16px 0;\">The <em>HR Round</em> will be conducted as an in-person interview at our office.</p>\n" +
+                    "                    <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"width: 100%;\">\n" +
+                    "                      <tr>\n" +
+                    "                        <td style=\"padding: 16px 0 20px 0;\">\n" +
+                    "                          <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; width: 100%;\">\n" +
+                    "                            <tr>\n" +
+                    "                              <td style=\"padding: 20px 24px; font-family: inherit;\">\n" +
+                    "                                <p style=\"margin: 0 0 10px 0; font-size: 14px; color: #334155; line-height: 1.6;\"><strong style=\"color: #0f172a; font-weight: 600;\">Interview Date:</strong> " + dateFormatted + "</p>\n" +
+                    "                                <p style=\"margin: 0 0 10px 0; font-size: 14px; color: #334155; line-height: 1.6;\"><strong style=\"color: #0f172a; font-weight: 600;\">Interview Time:</strong> " + timeFormatted + "</p>\n" +
+                    "                                <p style=\"margin: 0; font-size: 14px; color: #334155; line-height: 1.6;\"><strong style=\"color: #0f172a; font-weight: 600;\">Venue:</strong> <a href=\"" + mapsUrl + "\" style=\"color: #0284c7; text-decoration: underline; font-weight: 600;\">" + locationFormatted + "</a></p>\n" +
+                    "                              </td>\n" +
+                    "                            </tr>\n" +
+                    "                          </table>\n" +
+                    "                        </td>\n" +
+                    "                      </tr>\n" +
+                    "                    </table>\n" +
+                    "                    <p style=\"margin: 0 0 12px 0; font-size: 15px; color: #0f172a; font-weight: 600;\">Important Instructions:</p>\n" +
+                    "                    <ul style=\"margin: 0 0 24px 0; padding-left: 0; list-style-type: none; color: #334155; font-size: 15px; line-height: 1.6;\">\n" +
+                    "                      <li style=\"margin-bottom: 10px;\">Please report to the venue <strong>10 minutes before</strong> the scheduled interview time.</li>\n" +
+                    "                      <li style=\"margin-bottom: 10px;\">Carry your laptop for the interview.</li>\n" +
+                    "                      <li style=\"margin-bottom: 10px;\">Bring an updated copy of your resume.</li>\n" +
+                    "                    </ul>\n" +
+                    "                    <p style=\"margin: 0 0 24px 0;\">We wish you success in the HR Round and look forward to meeting you in person.</p>\n" +
+                    "                    <p style=\"margin: 0;\">Best Regards,<br><br>\n" +
+                    "                      <strong style=\"color: #0f172a;\">The BETA Team</strong>\n" +
+                    "                    </p>\n" +
+                    "                  </td>\n" +
+                    "                </tr>\n" +
+                    "                <!-- Footer Divider -->\n" +
+                    "                <tr>\n" +
+                    "                  <td style=\"padding: 32px 0 20px 0;\">\n" +
+                    "                    <hr style=\"border: 0; border-top: 1px solid #e2e8f0; margin: 0;\" />\n" +
+                    "                  </td>\n" +
+                    "                </tr>\n" +
+                    "                <!-- Footer -->\n" +
+                    "                <tr>\n" +
+                    "                  <td align=\"center\" style=\"color: #64748b; font-family: inherit; font-size: 12px; line-height: 1.6; text-align: center;\">\n" +
+                    "                    This is an automated notification. Please do not reply directly to this email.<br>\n" +
+                    "                    &copy; " + year + " BETA. All rights reserved.\n" +
+                    "                  </td>\n" +
+                    "                </tr>\n" +
+                    "              </table>\n" +
                     "            </td>\n" +
                     "          </tr>\n" +
                     "        </table>\n" +

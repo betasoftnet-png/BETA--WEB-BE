@@ -100,9 +100,7 @@ public class AssessmentService {
             expiryTime = application.getAssessmentSentTime().plusHours(24);
         }
         if (expiryTime != null && LocalDateTime.now().isAfter(expiryTime)) {
-            // Auto-extend expiry for 48 hours to ensure test opens
-            application.setAssessmentExpiryTime(LocalDateTime.now().plusHours(48));
-            jobApplicationRepository.save(application);
+            throw new RuntimeException("This assessment link has expired. Please contact the administrator.");
         }
     }
 

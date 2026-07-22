@@ -86,7 +86,7 @@ public class AssessmentController {
                 expiry = app.getAssessmentSentTime().plusHours(24);
             }
             if (expiry != null && java.time.LocalDateTime.now().isAfter(expiry)) {
-                return ResponseEntity.badRequest().body("Assessment link has expired");
+                return ResponseEntity.badRequest().body("This assessment link has expired. Please contact the administrator.");
             }
 
             if (Boolean.TRUE.equals(app.getAssessmentSubmitted())) {

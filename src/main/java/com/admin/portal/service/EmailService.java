@@ -257,12 +257,12 @@ public class EmailService {
                 "                    <p style=\"margin: 0 0 12px 0;\">\n" +
                 "                      Our hiring process consists of the following four stages:\n" +
                 "                    </p>\n" +
-                "                    <ul style=\"margin: 0 0 20px 0; padding-left: 20px; color: #334155; font-size: 15px; line-height: 1.6; list-style-type: disc;\">\n" +
-                "                      <li style=\"margin-bottom: 10px; padding-left: 4px;\">Test Round</li>\n" +
-                "                      <li style=\"margin-bottom: 10px; padding-left: 4px;\">Technical Assessment</li>\n" +
+                "                    <ol style=\"margin: 0 0 20px 0; padding-left: 20px; color: #334155; font-size: 15px; line-height: 1.6; list-style-type: decimal;\">\n" +
+                "                      <li style=\"margin-bottom: 10px; padding-left: 4px;\">Test Assessment</li>\n" +
+                "                      <li style=\"margin-bottom: 10px; padding-left: 4px;\">Technical Interview</li>\n" +
                 "                      <li style=\"margin-bottom: 10px; padding-left: 4px;\">Task Assessment</li>\n" +
                 "                      <li style=\"margin-bottom: 10px; padding-left: 4px;\">HR Interview</li>\n" +
-                "                    </ul>\n" +
+                "                    </ol>\n" +
                 "                    <p style=\"margin: 0 0 16px 0;\">\n" +
                 "                      The Test Round details and assessment link will be shared with you soon via <strong>BNXmail</strong>.\n" +
                 "                    </p>\n" +
@@ -482,12 +482,12 @@ public class EmailService {
                 "                    <p style=\"margin: 0 0 12px 0;\">\n" +
                 "                      Our hiring process consists of the following four stages:\n" +
                 "                    </p>\n" +
-                "                    <ul style=\"margin: 0 0 20px 0; padding-left: 20px; color: #334155; font-size: 15px; line-height: 1.6; list-style-type: disc;\">\n" +
-                "                      <li style=\"margin-bottom: 10px; padding-left: 4px;\">Test Round</li>\n" +
-                "                      <li style=\"margin-bottom: 10px; padding-left: 4px;\">Technical Assessment</li>\n" +
+                "                    <ol style=\"margin: 0 0 20px 0; padding-left: 20px; color: #334155; font-size: 15px; line-height: 1.6; list-style-type: decimal;\">\n" +
+                "                      <li style=\"margin-bottom: 10px; padding-left: 4px;\">Test Assessment</li>\n" +
+                "                      <li style=\"margin-bottom: 10px; padding-left: 4px;\">Technical Interview</li>\n" +
                 "                      <li style=\"margin-bottom: 10px; padding-left: 4px;\">Task Assessment</li>\n" +
                 "                      <li style=\"margin-bottom: 10px; padding-left: 4px;\">HR Interview</li>\n" +
-                "                    </ul>\n" +
+                "                    </ol>\n" +
                 "                    <p style=\"margin: 0 0 16px 0;\">\n" +
                 "                      Please complete the Test Round using the assessment link provided below.\n" +
                 "                    </p>\n" +

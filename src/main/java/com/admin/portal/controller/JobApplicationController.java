@@ -88,9 +88,13 @@ public class JobApplicationController {
 
         application.setStatus("PENDING");
 
-        jobApplicationService.save(application);
-
-        return ResponseEntity.ok("Application submitted successfully.");
+        try {
+            jobApplicationService.save(application);
+            return ResponseEntity.ok("Application submitted successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body("Failed to submit application: " + e.getMessage());
+        }
     }
 
     @GetMapping("/my-applications")

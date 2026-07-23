@@ -26,6 +26,7 @@ public class JobApplication {
 
     private String resume;
 
+    @Column(columnDefinition = "TEXT")
     private String coverLetter;
 
     private LocalDate appliedDate;

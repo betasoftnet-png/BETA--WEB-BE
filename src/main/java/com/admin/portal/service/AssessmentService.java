@@ -157,6 +157,7 @@ public class AssessmentService {
             if (application.getAssessmentStartTime() == null) {
                 application.setAssessmentStartTime(java.time.LocalDateTime.now());
             }
+            application.setAptitudeStatus("Started");
             jobApplicationRepository.save(application);
         } else {
             if (application.getAssessmentAttempts() > 2) {

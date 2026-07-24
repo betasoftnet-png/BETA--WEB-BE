@@ -49,8 +49,19 @@ public class AdminJobApplicationService {
             repository.save(app);
         }
 
-        if ("BLOCKED".equalsIgnoreCase(app.getStatus())) {
-            return;
+        String currentStatus = app.getStatus();
+        if (currentStatus != null) {
+            String norm = currentStatus.toUpperCase().trim();
+            if (norm.equals("BLOCKED") || 
+                norm.equals("REJECTED") || 
+                norm.equals("ACCEPTED") || 
+                norm.equals("SELECTED") || 
+                norm.equals("APPROVED") || 
+                norm.equals("JOINED") || 
+                norm.equals("TERMINATED") || 
+                norm.equals("TERMINATED (MALPRACTICE)")) {
+                return;
+            }
         }
         if (Boolean.TRUE.equals(app.getAssessmentSubmitted())) {
             return;

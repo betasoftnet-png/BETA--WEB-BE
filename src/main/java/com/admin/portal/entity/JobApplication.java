@@ -412,4 +412,16 @@ public class JobApplication {
         // Stage 5: Offer
         return 5;
     }
+
+    public String getFormattedAppliedTime() {
+        if (this.appliedTime == null) {
+            return "";
+        }
+        try {
+            java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("hh:mm a");
+            return this.appliedTime.format(formatter);
+        } catch (Exception e) {
+            return "";
+        }
+    }
 }

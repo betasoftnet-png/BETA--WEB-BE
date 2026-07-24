@@ -123,17 +123,6 @@ public class EmailService {
                 "<head>\n" +
                 "  <meta charset=\"utf-8\">\n" +
                 "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-                "  <title>Acknowledgement of Your Job Application</title>\n" +
-                "  <style>\n" +
-                "    @media only screen and (max-width: 620px) {\n" +
-                "      .email-content-cell {\n" +
-                "        padding: 32px 20px !important;\n" +
-                "      }\n" +
-                "      .email-wrapper-cell {\n" +
-                "        padding: 24px 12px !important;\n" +
-                "      }\n" +
-                "    }\n" +
-                "  </style>\n" +
                 "</head>\n" +
                 "<body style=\"margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n" +
                 "  <table class=\"email-wrapper\" role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f8fafc;\">\n" +
@@ -209,17 +198,6 @@ public class EmailService {
                 "<head>\n" +
                 "  <meta charset=\"utf-8\">\n" +
                 "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-                "  <title>BETA Recruitment – Test Round Invitation</title>\n" +
-                "  <style>\n" +
-                "    @media only screen and (max-width: 620px) {\n" +
-                "      .email-content-cell {\n" +
-                "        padding: 32px 20px !important;\n" +
-                "      }\n" +
-                "      .email-wrapper-cell {\n" +
-                "        padding: 24px 12px !important;\n" +
-                "      }\n" +
-                "    }\n" +
-                "  </style>\n" +
                 "</head>\n" +
                 "<body style=\"margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n" +
                 "  <table class=\"email-wrapper\" role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f8fafc;\">\n" +
@@ -307,17 +285,6 @@ public class EmailService {
                 "<head>\n" +
                 "  <meta charset=\"utf-8\">\n" +
                 "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-                "  <title>BETA – Thank You for Your Interest</title>\n" +
-                "  <style>\n" +
-                "    @media only screen and (max-width: 620px) {\n" +
-                "      .email-content-cell {\n" +
-                "        padding: 32px 20px !important;\n" +
-                "      }\n" +
-                "      .email-wrapper-cell {\n" +
-                "        padding: 24px 12px !important;\n" +
-                "      }\n" +
-                "    }\n" +
-                "  </style>\n" +
                 "</head>\n" +
                 "<body style=\"margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n" +
                 "  <table class=\"email-wrapper\" role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f8fafc;\">\n" +
@@ -434,17 +401,6 @@ public class EmailService {
                 "<head>\n" +
                 "  <meta charset=\"utf-8\">\n" +
                 "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-                "  <title>BETA Recruitment – Test Round Invitation</title>\n" +
-                "  <style>\n" +
-                "    @media only screen and (max-width: 620px) {\n" +
-                "      .email-content-cell {\n" +
-                "        padding: 32px 20px !important;\n" +
-                "      }\n" +
-                "      .email-wrapper-cell {\n" +
-                "        padding: 24px 12px !important;\n" +
-                "      }\n" +
-                "    }\n" +
-                "  </style>\n" +
                 "</head>\n" +
                 "<body style=\"margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n" +
                 "  <table class=\"email-wrapper\" role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f8fafc;\">\n" +
@@ -592,17 +548,6 @@ public class EmailService {
                 "<head>\n" +
                 "  <meta charset=\"utf-8\">\n" +
                 "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-                "  <title>" + subject + "</title>\n" +
-                "  <style>\n" +
-                "    @media only screen and (max-width: 620px) {\n" +
-                "      .email-content-cell {\n" +
-                "        padding: 32px 20px !important;\n" +
-                "      }\n" +
-                "      .email-wrapper-cell {\n" +
-                "        padding: 24px 12px !important;\n" +
-                "      }\n" +
-                "    }\n" +
-                "  </style>\n" +
                 "</head>\n" +
                 "<body style=\"margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;\">\n" +
                 "  <table class=\"email-wrapper\" role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #f8fafc;\">\n" +

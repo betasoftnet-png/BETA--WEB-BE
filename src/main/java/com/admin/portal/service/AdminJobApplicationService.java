@@ -23,13 +23,54 @@ public class AdminJobApplicationService {
     private NotificationService notificationService;
 
     public List<JobApplication> getAllApplications() {
-        // JobTitleMigration (@PostConstruct) ensures job_title is backfilled in the DB
-        // at startup, so we can simply return the persisted values directly.
-        return repository.findAll();
+        List<JobApplication> apps = repository.findAll();
+        for (JobApplication app : apps) {
+            checkAndForceBlockStatus(app);
+        }
+        return apps;
     }
 
     public JobApplication getApplicationById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Application not found"));
+        JobApplication app = repository.findById(id).orElseThrow(() -> new RuntimeException("Application not found"));
+        checkAndForceBlockStatus(app);
+        return app;
+    }
+
+    private void checkAndForceBlockStatus(JobApplication app) {
+        if (app == null) return;
+        if ("BLOCKED".equalsIgnoreCase(app.getStatus())) {
+            return;
+        }
+        if (Boolean.TRUE.equals(app.getAssessmentSubmitted())) {
+            return;
+        }
+        if (app.getAssessmentSentTime() == null && app.getAssessmentToken() == null) {
+            return;
+        }
+
+        boolean shouldBlock = false;
+
+        // 1. Check max attempts
+        if (app.getAssessmentAttempts() != null && app.getAssessmentAttempts() >= 2) {
+            java.time.LocalDateTime startTime = app.getAssessmentStartTime();
+            if (startTime == null || java.time.LocalDateTime.now().isAfter(startTime.plusMinutes(45))) {
+                shouldBlock = true;
+            }
+        }
+
+        // 2. Check expiry
+        java.time.LocalDateTime expiryTime = app.getAssessmentExpiryTime();
+        if (expiryTime == null && app.getAssessmentSentTime() != null) {
+            expiryTime = app.getAssessmentSentTime().plusHours(24);
+        }
+        if (expiryTime != null && java.time.LocalDateTime.now().isAfter(expiryTime)) {
+            shouldBlock = true;
+        }
+
+        if (shouldBlock) {
+            app.setStatus("BLOCKED");
+            repository.save(app);
+        }
     }
 
     /**

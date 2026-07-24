@@ -100,6 +100,10 @@ public class AssessmentService {
             expiryTime = application.getAssessmentSentTime().plusHours(24);
         }
         if (expiryTime != null && LocalDateTime.now().isAfter(expiryTime)) {
+            if (!"BLOCKED".equalsIgnoreCase(application.getStatus()) && !Boolean.TRUE.equals(application.getAssessmentSubmitted())) {
+                application.setStatus("BLOCKED");
+                jobApplicationRepository.save(application);
+            }
             throw new RuntimeException("This assessment link has expired. Please contact the administrator.");
         }
     }
@@ -143,6 +147,10 @@ public class AssessmentService {
 
         if (increment) {
             if (application.getAssessmentAttempts() >= 2) {
+                if (!"BLOCKED".equalsIgnoreCase(application.getStatus())) {
+                    application.setStatus("BLOCKED");
+                    jobApplicationRepository.save(application);
+                }
                 throw new RuntimeException("You have already started or accessed this assessment 2 times. You are not allowed to attend or submit again.");
             }
             application.setAssessmentAttempts(application.getAssessmentAttempts() + 1);
@@ -152,6 +160,10 @@ public class AssessmentService {
             jobApplicationRepository.save(application);
         } else {
             if (application.getAssessmentAttempts() > 2) {
+                if (!"BLOCKED".equalsIgnoreCase(application.getStatus())) {
+                    application.setStatus("BLOCKED");
+                    jobApplicationRepository.save(application);
+                }
                 throw new RuntimeException("You have already started or accessed this assessment 2 times. You are not allowed to attend or submit again.");
             }
         }
@@ -226,7 +238,7 @@ public class AssessmentService {
         int newAttempts = application.getAssessmentAttempts() + 1;
         application.setAssessmentAttempts(newAttempts);
         if (newAttempts > 2) {
-            application.setStatus("Terminated (Malpractice)");
+            application.setStatus("BLOCKED");
         }
         jobApplicationRepository.save(application);
         return newAttempts;
@@ -241,7 +253,7 @@ public class AssessmentService {
         application.setAssessmentSubmitted(false);
         application.setAssessmentSentTime(LocalDateTime.now());
         application.setAssessmentExpiryTime(LocalDateTime.now().plusHours(48));
-        if ("Terminated (Malpractice)".equalsIgnoreCase(application.getStatus()) || "Terminated".equalsIgnoreCase(application.getStatus())) {
+        if ("BLOCKED".equalsIgnoreCase(application.getStatus()) || "Terminated (Malpractice)".equalsIgnoreCase(application.getStatus()) || "Terminated".equalsIgnoreCase(application.getStatus())) {
             application.setStatus("Applied");
         }
         application.setAptitudeStatus("Assessment Sent");

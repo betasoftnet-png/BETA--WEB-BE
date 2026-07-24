@@ -38,6 +38,17 @@ public class AdminJobApplicationService {
 
     private void checkAndForceBlockStatus(JobApplication app) {
         if (app == null) return;
+
+        // Backfill appliedTime if it is missing (for legacy records)
+        if (app.getAppliedTime() == null) {
+            if (app.getAppliedDate() != null) {
+                app.setAppliedTime(app.getAppliedDate().atStartOfDay().plusHours(10));
+            } else {
+                app.setAppliedTime(java.time.LocalDateTime.now());
+            }
+            repository.save(app);
+        }
+
         if ("BLOCKED".equalsIgnoreCase(app.getStatus())) {
             return;
         }

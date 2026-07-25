@@ -14,8 +14,24 @@ public class ReportService {
     @Autowired
     private ReportRepository reportRepository;
 
+    @Autowired
+    private com.admin.portal.repository.JobApplicationRepository jobApplicationRepository;
+
     // Save or update a report to ensure uniqueness per candidateId
     public Report saveReport(Report report) {
+        // Automatically resolve/correct candidateId if we can find a matching application by email & jobId
+        if (report.getEmail() != null && report.getJobId() != null) {
+            List<com.admin.portal.entity.JobApplication> apps = jobApplicationRepository.findByEmailIgnoreCase(report.getEmail().trim());
+            if (apps != null) {
+                for (com.admin.portal.entity.JobApplication app : apps) {
+                    if (app.getJobId() != null && app.getJobId().equals(report.getJobId())) {
+                        report.setCandidateId(app.getId());
+                        break;
+                    }
+                }
+            }
+        }
+
         if (report.getCandidateId() != null) {
             List<Report> existing = reportRepository.findByCandidateId(report.getCandidateId());
             if (existing != null && !existing.isEmpty()) {

@@ -14,13 +14,16 @@ public class TaskAssessmentService {
     private final TaskAssessmentRepository taskRepository;
     private final JobApplicationRepository jobRepository;
     private final EmailService emailService;
+    private final NotificationService notificationService;
 
     public TaskAssessmentService(TaskAssessmentRepository taskRepository,
             JobApplicationRepository jobRepository,
-            EmailService emailService) {
+            EmailService emailService,
+            NotificationService notificationService) {
         this.taskRepository = taskRepository;
         this.jobRepository = jobRepository;
         this.emailService = emailService;
+        this.notificationService = notificationService;
     }
 
     public TaskAssessment assignTask(Long candidateId, TaskRequest request) {
@@ -46,6 +49,17 @@ public class TaskAssessmentService {
 
         // Send email
         emailService.sendTaskAssessmentEmail(candidate, request.getTaskDescription());
+
+        // Create notification
+        try {
+            notificationService.createNotification(
+                candidateId,
+                "Task Assessment Assigned",
+                "A new Task Assessment has been assigned to you. Please check your dashboard or email for details."
+            );
+        } catch (Exception e) {
+            System.err.println("Failed to create task assessment assigned notification: " + e.getMessage());
+        }
 
         return savedTask;
     }

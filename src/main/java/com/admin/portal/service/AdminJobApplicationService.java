@@ -320,8 +320,8 @@ public class AdminJobApplicationService {
                     : "";
             notificationService.createNotification(
                     savedApp.getId(),
-                    "Interview Scheduled",
-                    "Your interview has been scheduled for " + savedApp.getInterviewDate() + " at "
+                    "Online Interview Scheduled",
+                    "Your online interview has been scheduled for " + savedApp.getInterviewDate() + " at "
                             + savedApp.getInterviewTime() + "." + linkInfo);
         } catch (Exception e) {
             System.err.println("Failed to create interview scheduled notification: " + e.getMessage());
@@ -485,6 +485,17 @@ public class AdminJobApplicationService {
             emailService.sendEmail(savedApp.getEmail(), subject, emailBody, true);
         } catch (Exception e) {
             System.err.println("Error sending HR interview email: " + e.getMessage());
+        }
+
+        // Create notification
+        try {
+            notificationService.createNotification(
+                    savedApp.getId(),
+                    "HR Interview Scheduled",
+                    "Your HR Interview has been scheduled for " + savedApp.getHrInterviewDate() + " at "
+                            + savedApp.getHrInterviewTime() + " at " + savedApp.getHrInterviewLocation() + ".");
+        } catch (Exception e) {
+            System.err.println("Failed to create HR interview scheduled notification: " + e.getMessage());
         }
 
         if (savedApp.getJobId() != null) {

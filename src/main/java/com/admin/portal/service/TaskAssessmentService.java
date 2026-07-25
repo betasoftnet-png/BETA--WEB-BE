@@ -65,14 +65,31 @@ public class TaskAssessmentService {
     }
 
     public TaskAssessment getTask(Long candidateId) {
-
-        return taskRepository.findByCandidate_Id(candidateId)
+        TaskAssessment task = taskRepository.findByCandidate_Id(candidateId)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
+
+        if (task.getAssignedAt() != null && java.time.LocalDateTime.now().isAfter(task.getAssignedAt().plusHours(48))) {
+            if (!"EXPIRED".equalsIgnoreCase(task.getStatus()) && !"SUBMITTED".equalsIgnoreCase(task.getStatus())) {
+                task.setStatus("EXPIRED");
+                taskRepository.save(task);
+            }
+            throw new RuntimeException("This task assessment link has expired.");
+        }
+
+        return task;
     }
 
     public TaskAssessment submitTask(Long candidateId, String githubLink) {
         TaskAssessment task = taskRepository.findByCandidate_Id(candidateId)
                 .orElseThrow(() -> new RuntimeException("Task assessment not found for candidate"));
+
+        if (task.getAssignedAt() != null && java.time.LocalDateTime.now().isAfter(task.getAssignedAt().plusHours(48))) {
+            if (!"EXPIRED".equalsIgnoreCase(task.getStatus()) && !"SUBMITTED".equalsIgnoreCase(task.getStatus())) {
+                task.setStatus("EXPIRED");
+                taskRepository.save(task);
+            }
+            throw new RuntimeException("This task assessment link has expired.");
+        }
 
         if ("SUBMITTED".equalsIgnoreCase(task.getStatus())) {
             throw new RuntimeException("Task has already been submitted");
@@ -84,6 +101,19 @@ public class TaskAssessmentService {
 
         task.setStatus("SUBMITTED");
         task.setSubmittedAt(java.time.LocalDateTime.now());
-        return taskRepository.save(task);
+        TaskAssessment savedTask = taskRepository.save(task);
+
+        // Create notification
+        try {
+            notificationService.createNotification(
+                candidateId,
+                "Task Assessment Submitted",
+                "Your GitHub repository solution link has been successfully submitted and is under review."
+            );
+        } catch (Exception e) {
+            System.err.println("Failed to create task assessment submitted notification: " + e.getMessage());
+        }
+
+        return savedTask;
     }
 }

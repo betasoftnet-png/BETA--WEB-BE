@@ -259,6 +259,17 @@ public class AssessmentService {
         }
         application.setAptitudeStatus("Assessment Sent");
         jobApplicationRepository.save(application);
+
+        // Create notification
+        try {
+            notificationService.createNotification(
+                candidateId,
+                "Assessment Reset",
+                "Your test round assessment attempts have been reset. You can now retake the online test."
+            );
+        } catch (Exception e) {
+            System.err.println("Failed to create assessment reset notification: " + e.getMessage());
+        }
     }
 
     @Transactional

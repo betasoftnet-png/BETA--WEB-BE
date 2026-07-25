@@ -152,7 +152,7 @@ public class AdminJobApplicationService {
             } else if ("SHORTLISTED".equalsIgnoreCase(status)) {
                 title = "Application Shortlisted";
                 message = "Great news! Your profile has been shortlisted for the next stage.";
-            } else if ("SCHEDULED".equalsIgnoreCase(status)) {
+            } else if ("SCHEDULED".equalsIgnoreCase(status) || "INTERVIEW SCHEDULED".equalsIgnoreCase(status)) {
                 title = "Interview Scheduled";
                 message = "Your interview has been scheduled. Please check your dashboard for details.";
             } else if ("REVIEWED".equalsIgnoreCase(status)) {
@@ -161,6 +161,27 @@ public class AdminJobApplicationService {
             } else if ("JOINED".equalsIgnoreCase(status)) {
                 title = "Onboarding Started";
                 message = "Welcome to the team! Your onboarding process has started.";
+            } else if ("ROUND 1 APTITUDE".equalsIgnoreCase(status) || "APTITUDE".equalsIgnoreCase(status)) {
+                title = "Test Assessment Assigned";
+                message = "A new online test assessment has been assigned to you. Please check your dashboard to start.";
+            } else if ("ROUND 2 TECHNICAL".equalsIgnoreCase(status) || "TECHNICAL".equalsIgnoreCase(status)) {
+                title = "Technical Interview Selection";
+                message = "Congratulations! You have been selected for the Round 2 Technical Interview.";
+            } else if ("ROUND 3 BRAND AWARENESS".equalsIgnoreCase(status) || "BRAND".equalsIgnoreCase(status)) {
+                title = "Brand Awareness Stage";
+                message = "You have progressed to the Round 3 Brand Awareness stage.";
+            } else if ("TASK ASSESSMENT".equalsIgnoreCase(status) || "TASK".equalsIgnoreCase(status)) {
+                title = "Task Assessment Assigned";
+                message = "A new Task Assessment has been assigned to you. Please check your dashboard for task details.";
+            } else if ("HR INTERVIEW".equalsIgnoreCase(status) || "HR_INTERVIEW".equalsIgnoreCase(status)) {
+                title = "HR Interview Scheduled";
+                message = "Your HR Interview has been scheduled. Please check your dashboard for interview slots.";
+            } else if ("BLOCKED".equalsIgnoreCase(status)) {
+                title = "Assessment Link Blocked";
+                message = "Your assessment link has been blocked or has expired.";
+            } else if ("TERMINATED".equalsIgnoreCase(status) || "TERMINATED (MALPRACTICE)".equalsIgnoreCase(status)) {
+                title = "Assessment Terminated";
+                message = "Your assessment was terminated due to malpractice or browser tab-switching detection.";
             }
 
             notificationService.createNotification(savedApp.getId(), title, message);

@@ -88,8 +88,13 @@ public class AssessmentService {
                 "Assessment Assigned",
                 "A new Test Round assessment has been assigned to you. Please check your dashboard or email for details."
             );
+            notificationService.createNotification(
+                0L,
+                "Quiz Assessment Sent",
+                "Quiz Assessment sent to " + savedApp.getFullName() + " for position " + (savedApp.getJobTitle() != null ? savedApp.getJobTitle() : "the Applied Position")
+            );
         } catch (Exception e) {
-            System.err.println("Failed to create assessment assigned notification: " + e.getMessage());
+            System.err.println("Failed to create assessment assigned notifications: " + e.getMessage());
         }
     }
 

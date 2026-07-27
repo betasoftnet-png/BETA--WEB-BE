@@ -57,8 +57,13 @@ public class TaskAssessmentService {
                 "Task Assessment Assigned",
                 "A new Task Assessment has been assigned to you. Please check your dashboard or email for details."
             );
+            notificationService.createNotification(
+                0L,
+                "Task Assessment Sent",
+                "Task Assessment sent to " + candidate.getFullName() + " for position " + (candidate.getJobTitle() != null ? candidate.getJobTitle() : "the Applied Position")
+            );
         } catch (Exception e) {
-            System.err.println("Failed to create task assessment assigned notification: " + e.getMessage());
+            System.err.println("Failed to create task assessment assigned notifications: " + e.getMessage());
         }
 
         return savedTask;

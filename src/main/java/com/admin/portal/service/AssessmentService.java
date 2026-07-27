@@ -104,7 +104,7 @@ public class AssessmentService {
                 application.setStatus("BLOCKED");
                 jobApplicationRepository.save(application);
             }
-            throw new RuntimeException("This assessment link has expired. Please contact the administrator.");
+            throw new RuntimeException("Assessment link has expired");
         }
     }
 
@@ -253,7 +253,7 @@ public class AssessmentService {
         application.setAssessmentAttempts(0);
         application.setAssessmentSubmitted(false);
         application.setAssessmentSentTime(LocalDateTime.now());
-        application.setAssessmentExpiryTime(LocalDateTime.now().plusHours(48));
+        application.setAssessmentExpiryTime(LocalDateTime.now().plusHours(24));
         if ("BLOCKED".equalsIgnoreCase(application.getStatus()) || "Terminated (Malpractice)".equalsIgnoreCase(application.getStatus()) || "Terminated".equalsIgnoreCase(application.getStatus())) {
             application.setStatus("Applied");
         }

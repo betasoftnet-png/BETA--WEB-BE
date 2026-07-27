@@ -31,6 +31,13 @@ public class TaskAssessmentController {
         if (byToken.isPresent()) {
             return byToken.get().getId();
         }
+        if (s.contains(":")) {
+            s = s.split(":")[0];
+            byToken = jobApplicationRepository.findByAssessmentToken(s);
+            if (byToken.isPresent()) {
+                return byToken.get().getId();
+            }
+        }
         try {
             return Long.parseLong(s);
         } catch (NumberFormatException e) {

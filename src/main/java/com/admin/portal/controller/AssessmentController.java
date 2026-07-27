@@ -61,6 +61,13 @@ public class AssessmentController {
         if (byToken.isPresent()) {
             return byToken.get();
         }
+        if (idStr.contains(":")) {
+            idStr = idStr.split(":")[0];
+            byToken = jobApplicationRepository.findByAssessmentToken(idStr);
+            if (byToken.isPresent()) {
+                return byToken.get();
+            }
+        }
         try {
             Long id = Long.parseLong(idStr);
             return jobApplicationRepository.findById(id).orElse(null);

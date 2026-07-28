@@ -43,6 +43,14 @@ public class EmailService {
      * Sends a generic email using the external syper.com public mail API.
      */
     public boolean sendEmail(String to, String subject, String body, boolean isHtml) {
+        if ("YOUR_PUBLIC_MAIL_TOKEN".equals(mailToken)) {
+            LOGGER.info("[MOCK MAIL SENDER] Active Token is set to default placeholder. Simulating successful email transmission:");
+            LOGGER.info("To: " + to);
+            LOGGER.info("Subject: " + subject);
+            LOGGER.info("IsHtml: " + isHtml);
+            LOGGER.info("Body:\n" + body);
+            return true;
+        }
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);

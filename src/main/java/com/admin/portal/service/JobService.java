@@ -91,4 +91,14 @@ public class JobService {
             jobRepository.save(job);
         });
     }
+
+    @Transactional
+    public void deleteJobPermanently(Long id) {
+        Job job = jobRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Job not found."));
+        if (!"DELETED".equalsIgnoreCase(job.getStatus())) {
+            throw new RuntimeException("Only soft-deleted jobs (status is DELETED) can be permanently deleted.");
+        }
+        jobRepository.delete(job);
+    }
 }

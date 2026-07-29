@@ -51,4 +51,16 @@ public class JobController {
     public void deleteJob(@PathVariable Long id) {
         jobService.deleteJob(id);
     }
+
+    // Permanent Delete Job (only if status is DELETED)
+    @DeleteMapping("/{id}/permanent")
+    public ResponseEntity<?> deleteJobPermanently(@PathVariable Long id) {
+        try {
+            jobService.deleteJobPermanently(id);
+            return ResponseEntity.ok(java.util.Map.of("message", "Job permanently deleted successfully."));
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+    }
+
 }

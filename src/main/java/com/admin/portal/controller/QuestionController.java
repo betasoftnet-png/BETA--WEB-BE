@@ -50,4 +50,9 @@ public class QuestionController {
     public List<QuestionDTO> getQuestionsForCandidate() {
         return questionService.getQuestionsForCandidate();
     }
+
+    @GetMapping("/skill")
+    public List<Question> getQuestionsBySkill(@RequestParam String skill) {
+        return questionService.getQuestionsBySkill(skill);
+    }
 }

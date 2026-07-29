@@ -62,4 +62,8 @@ public class QuestionService {
             return dto;
         }).collect(Collectors.toList());
     }
+
+    public List<Question> getQuestionsBySkill(String skill) {
+        return questionRepository.findBySkillIgnoreCase(skill);
+    }
 }

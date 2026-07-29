@@ -57,6 +57,7 @@ public class QuestionService {
             dto.setOptionB(question.getOptionB());
             dto.setOptionC(question.getOptionC());
             dto.setOptionD(question.getOptionD());
+            dto.setSkill(question.getSkill());
 
             return dto;
         }).collect(Collectors.toList());

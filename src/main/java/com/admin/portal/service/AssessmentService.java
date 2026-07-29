@@ -193,6 +193,7 @@ public class AssessmentService {
                 dto.setOptionC(question.getOptionC());
                 dto.setOptionD(question.getOptionD());
                 dto.setDuration(assessment.getDuration());
+                dto.setSkill(question.getSkill());
 
                 questionDTOs.add(dto);
             }
@@ -221,6 +222,7 @@ public class AssessmentService {
                 dto.setOptionC(question.getOptionC());
                 dto.setOptionD(question.getOptionD());
                 dto.setDuration(assessment.getDuration());
+                dto.setSkill(question.getSkill());
 
                 questionDTOs.add(dto);
             }

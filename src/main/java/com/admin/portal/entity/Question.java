@@ -27,6 +27,8 @@ public class Question {
     @Column(name = "correct_answer")
     private String correctAnswer;
 
+    private String skill;
+
     // Default constructor (required by JPA/Jackson)
     public Question() {
     }
@@ -81,5 +83,13 @@ public class Question {
 
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
+    }
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
     }
 }

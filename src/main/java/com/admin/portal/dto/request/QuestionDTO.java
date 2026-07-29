@@ -69,4 +69,14 @@ public class QuestionDTO {
     public void setDuration(Integer duration) {
         this.duration = duration;
     }
+
+    private String skill;
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
+    }
 }

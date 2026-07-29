@@ -105,8 +105,8 @@ public class AssessmentService {
             expiryTime = application.getAssessmentSentTime().plusHours(24);
         }
         if (expiryTime != null && LocalDateTime.now().isAfter(expiryTime)) {
-            if (!"BLOCKED".equalsIgnoreCase(application.getStatus()) && !Boolean.TRUE.equals(application.getAssessmentSubmitted())) {
-                application.setStatus("BLOCKED");
+            if (!"Blocked".equalsIgnoreCase(application.getAptitudeStatus()) && !Boolean.TRUE.equals(application.getAssessmentSubmitted())) {
+                application.setAptitudeStatus("Blocked");
                 jobApplicationRepository.save(application);
             }
             throw new RuntimeException("Assessment link has expired");
@@ -152,8 +152,8 @@ public class AssessmentService {
 
         if (increment) {
             if (application.getAssessmentAttempts() >= 2) {
-                if (!"BLOCKED".equalsIgnoreCase(application.getStatus())) {
-                    application.setStatus("BLOCKED");
+                if (!"Blocked".equalsIgnoreCase(application.getAptitudeStatus())) {
+                    application.setAptitudeStatus("Blocked");
                     jobApplicationRepository.save(application);
                 }
                 throw new RuntimeException("You have already started or accessed this assessment 2 times. You are not allowed to attend or submit again.");
@@ -166,8 +166,8 @@ public class AssessmentService {
             jobApplicationRepository.save(application);
         } else {
             if (application.getAssessmentAttempts() > 2) {
-                if (!"BLOCKED".equalsIgnoreCase(application.getStatus())) {
-                    application.setStatus("BLOCKED");
+                if (!"Blocked".equalsIgnoreCase(application.getAptitudeStatus())) {
+                    application.setAptitudeStatus("Blocked");
                     jobApplicationRepository.save(application);
                 }
                 throw new RuntimeException("You have already started or accessed this assessment 2 times. You are not allowed to attend or submit again.");
@@ -246,7 +246,7 @@ public class AssessmentService {
         int newAttempts = application.getAssessmentAttempts() + 1;
         application.setAssessmentAttempts(newAttempts);
         if (newAttempts > 2) {
-            application.setStatus("BLOCKED");
+            application.setAptitudeStatus("Blocked");
         }
         jobApplicationRepository.save(application);
         return newAttempts;

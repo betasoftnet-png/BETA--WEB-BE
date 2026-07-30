@@ -67,7 +67,7 @@ public class EmailController {
             return isHtml;
         }
 
-        public void setHtml(boolean isHtml) {
+        public void setIsHtml(boolean isHtml) {
             this.isHtml = isHtml;
         }
 

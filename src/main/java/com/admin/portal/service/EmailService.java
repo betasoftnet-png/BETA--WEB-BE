@@ -61,7 +61,7 @@ public class EmailService {
             requestBody.put("subject", subject);
             requestBody.put("body", body);
             requestBody.put("isHtml", isHtml);
-            requestBody.put("html", isHtml);
+            requestBody.put("html", isHtml ? body : null);
             requestBody.put("fromName", fromName);
 
             HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestBody, headers);

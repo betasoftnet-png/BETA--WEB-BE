@@ -43,6 +43,7 @@ public class TaskAssessmentService {
         task.setSubmittedAt(null);
 
         candidate.setGithubLink(null);
+        candidate.setTaskAssessmentSentTime(java.time.LocalDateTime.now());
         jobRepository.save(candidate);
 
         TaskAssessment savedTask = taskRepository.save(task);

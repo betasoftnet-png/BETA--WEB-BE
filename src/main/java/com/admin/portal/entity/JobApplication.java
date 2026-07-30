@@ -91,6 +91,10 @@ public class JobApplication {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private java.time.LocalDateTime assessmentSentTime;
 
+    @Column(name = "task_assessment_sent_time")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private java.time.LocalDateTime taskAssessmentSentTime;
+
     @Column(name = "assessment_expiry_time")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private java.time.LocalDateTime assessmentExpiryTime;
@@ -346,6 +350,14 @@ public class JobApplication {
 
     public void setAssessmentSentTime(java.time.LocalDateTime assessmentSentTime) {
         this.assessmentSentTime = assessmentSentTime;
+    }
+
+    public java.time.LocalDateTime getTaskAssessmentSentTime() {
+        return taskAssessmentSentTime;
+    }
+
+    public void setTaskAssessmentSentTime(java.time.LocalDateTime taskAssessmentSentTime) {
+        this.taskAssessmentSentTime = taskAssessmentSentTime;
     }
 
     public java.time.LocalDateTime getAssessmentExpiryTime() {

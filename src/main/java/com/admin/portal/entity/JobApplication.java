@@ -99,6 +99,10 @@ public class JobApplication {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private java.time.LocalDateTime technicalInterviewSentTime;
 
+    @Column(name = "hr_interview_sent_time")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private java.time.LocalDateTime hrInterviewSentTime;
+
     @Column(name = "assessment_expiry_time")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private java.time.LocalDateTime assessmentExpiryTime;
@@ -370,6 +374,14 @@ public class JobApplication {
 
     public void setTechnicalInterviewSentTime(java.time.LocalDateTime technicalInterviewSentTime) {
         this.technicalInterviewSentTime = technicalInterviewSentTime;
+    }
+
+    public java.time.LocalDateTime getHrInterviewSentTime() {
+        return hrInterviewSentTime;
+    }
+
+    public void setHrInterviewSentTime(java.time.LocalDateTime hrInterviewSentTime) {
+        this.hrInterviewSentTime = hrInterviewSentTime;
     }
 
     public java.time.LocalDateTime getAssessmentExpiryTime() {

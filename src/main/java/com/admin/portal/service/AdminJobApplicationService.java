@@ -382,6 +382,7 @@ public class AdminJobApplicationService {
             finalLocation = "Beta Towers, No. 12, Main Road, Tiruvallur, Tamil Nadu 602001, India";
         }
         app.setHrInterviewLocation(finalLocation.trim());
+        app.setHrInterviewSentTime(java.time.LocalDateTime.now());
 
         JobApplication savedApp = repository.save(app);
 

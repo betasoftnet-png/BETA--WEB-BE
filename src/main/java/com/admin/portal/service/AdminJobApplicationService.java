@@ -300,8 +300,8 @@ public class AdminJobApplicationService {
                     "                    </table>\n" +
                     "                    <p style=\"margin: 0 0 12px 0; font-size: 15px; color: #0f172a; font-weight: 600;\">Important Instructions:</p>\n" +
                     "                    <ul style=\"margin: 0 0 24px 0; padding-left: 0; list-style-type: none; color: #334155; font-size: 15px; line-height: 1.6;\">\n" +
-                    "                      <li style=\"margin-bottom: 10px;\">Join the meeting <strong>10 minutes before</strong> the scheduled time.</li>\n" +
-                    "                      <li style=\"margin-bottom: 10px;\">Ensure you have a stable internet connection, a working microphone, and a camera.</li>\n" +
+                    "                      <li style=\"margin-bottom: 10px; list-style-type: none;\">&bull; &nbsp; Join the meeting <strong>10 minutes before</strong> the scheduled time.</li>\n" +
+                    "                      <li style=\"margin-bottom: 10px; list-style-type: none;\">&bull; &nbsp; Ensure you have a stable internet connection, a working microphone, and a camera.</li>\n" +
                     "                    </ul>\n" +
                     "                    <p style=\"margin: 0 0 24px 0;\">We appreciate your effort and wish you continued success in the upcoming stage of the recruitment process.</p>\n" +
                     "                    <p style=\"margin: 0;\">Best Regards,<br><br>\n" +
@@ -478,9 +478,9 @@ public class AdminJobApplicationService {
                     "                    </table>\n" +
                     "                    <p style=\"margin: 0 0 12px 0; font-size: 15px; color: #0f172a; font-weight: 600;\">Important Instructions:</p>\n" +
                     "                    <ul style=\"margin: 0 0 24px 0; padding-left: 0; list-style-type: none; color: #334155; font-size: 15px; line-height: 1.6;\">\n" +
-                    "                      <li style=\"margin-bottom: 10px;\">Please report to the venue <strong>10 minutes before</strong> the scheduled interview time.</li>\n" +
-                    "                      <li style=\"margin-bottom: 10px;\">Carry your laptop for the interview.</li>\n" +
-                    "                      <li style=\"margin-bottom: 10px;\">Bring an updated copy of your resume.</li>\n" +
+                    "                      <li style=\"margin-bottom: 10px; list-style-type: none;\">&bull; &nbsp; Please report to the venue <strong>10 minutes before</strong> the scheduled interview time.</li>\n" +
+                    "                      <li style=\"margin-bottom: 10px; list-style-type: none;\">&bull; &nbsp; Carry your laptop for the interview.</li>\n" +
+                    "                      <li style=\"margin-bottom: 10px; list-style-type: none;\">&bull; &nbsp; Bring an updated copy of your resume.</li>\n" +
                     "                    </ul>\n" +
                     "                    <p style=\"margin: 0 0 24px 0;\">We wish you success in the HR Round and look forward to meeting you in person.</p>\n" +
                     "                    <p style=\"margin: 0;\">Best Regards,<br><br>\n" +

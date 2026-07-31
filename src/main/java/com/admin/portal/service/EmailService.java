@@ -474,10 +474,10 @@ public class EmailService {
                 "                      Important Instructions:\n" +
                 "                    </p>\n" +
                 "                    <ul style=\"margin: 0 0 24px 0; padding-left: 0; list-style-type: none; color: #334155; font-size: 15px; line-height: 1.6;\">\n" +
-                "                      <li style=\"margin-bottom: 10px;\">This assessment link is valid for 24 hours from the time this email is sent. Once the 24-hour period expires, the link will be automatically deactivated and will no longer be accessible.</li>\n" +
-                "                      <li style=\"margin-bottom: 10px;\">You are allowed a maximum of two attempts to complete this assessment.</li>\n" +
-                "                      <li style=\"margin-bottom: 10px;\">Please ensure you submit your final attempt carefully, as no additional attempts will be provided.</li>\n" +
-                "                      <li style=\"margin-bottom: 10px;\">Complete the assessment within the specified time limit.</li>\n" +
+                "                      <li style=\"margin-bottom: 10px; list-style-type: none;\">&bull; &nbsp; This assessment link is valid for 24 hours from the time this email is sent. Once the 24-hour period expires, the link will be automatically deactivated and will no longer be accessible.</li>\n" +
+                "                      <li style=\"margin-bottom: 10px; list-style-type: none;\">&bull; &nbsp; You are allowed a maximum of two attempts to complete this assessment.</li>\n" +
+                "                      <li style=\"margin-bottom: 10px; list-style-type: none;\">&bull; &nbsp; Please ensure you submit your final attempt carefully, as no additional attempts will be provided.</li>\n" +
+                "                      <li style=\"margin-bottom: 10px; list-style-type: none;\">&bull; &nbsp; Complete the assessment within the specified time limit.</li>\n" +
                 "                    </ul>\n" +
                 "                    <p style=\"margin: 0 0 20px 0;\">\n" +
                 "                      Candidates who successfully complete the Test Round will receive further instructions via <strong>BNXmail</strong>.\n" +

@@ -211,6 +211,7 @@ public class AdminJobApplicationService {
         app.setInterviewTime(timeStr != null ? timeStr.trim() : null);
         app.setInterviewLink(linkStr != null ? linkStr.trim() : null);
         app.setStatus("Technical Interview");
+        app.setTechnicalInterviewSentTime(java.time.LocalDateTime.now());
 
         JobApplication savedApp = repository.save(app);
 

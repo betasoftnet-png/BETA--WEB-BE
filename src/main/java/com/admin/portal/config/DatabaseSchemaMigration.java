@@ -25,9 +25,11 @@ public class DatabaseSchemaMigration implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
         try {
-            System.out.println("[DatabaseSchemaMigration] Verifying and updating experience column length...");
+            System.out.println("[DatabaseSchemaMigration] Verifying and updating column lengths...");
             // Execute ALTER TABLE to ensure experience column length is sufficient
             entityManager.createNativeQuery("ALTER TABLE job_applications MODIFY COLUMN experience VARCHAR(255)").executeUpdate();
+            // Execute ALTER TABLE to ensure cover_letter column type is TEXT
+            entityManager.createNativeQuery("ALTER TABLE job_applications MODIFY COLUMN cover_letter TEXT").executeUpdate();
             System.out.println("[DatabaseSchemaMigration] Database schema migration successfully completed.");
         } catch (Exception e) {
             // Log warning but don't crash startup if table doesn't exist yet or if there's a permissions issue

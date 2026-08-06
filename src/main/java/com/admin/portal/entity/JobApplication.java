@@ -404,49 +404,75 @@ public class JobApplication {
     }
 
     public int getPipelineStage() {
-        // Stage 0: Application - always completed on submission.
-        // Stage 1: Assessment - completed when assessmentSubmitted is true or
-        // aptitudeStatus is "Completed"
-        boolean stage1Completed = Boolean.TRUE.equals(getAssessmentSubmitted())
-                || "Completed".equalsIgnoreCase(getAptitudeStatus());
-        if (!stage1Completed) {
-            return 1;
-        }
-
-        // Stage 2: Technical Interview - completed when status is REVIEWED (Interview
-        // Completed) or later, OR when a task has been assigned.
         String s = getStatus();
         String statusLower = s != null ? s.toLowerCase().trim() : "";
+
+        // Evaluate stage 5: Offer
+        boolean stage5Completed = "joined".equalsIgnoreCase(statusLower);
+        boolean stage5Active = "accepted".equalsIgnoreCase(statusLower)
+                || "selected".equalsIgnoreCase(statusLower)
+                || "approved".equalsIgnoreCase(statusLower)
+                || "offer sent".equalsIgnoreCase(statusLower);
+        if (stage5Completed || stage5Active) {
+            return 5;
+        }
+
+        // Evaluate stage 4: HR Interview
+        boolean stage4Completed = "accepted".equalsIgnoreCase(statusLower)
+                || "joined".equalsIgnoreCase(statusLower)
+                || "selected".equalsIgnoreCase(statusLower)
+                || "approved".equalsIgnoreCase(statusLower)
+                || "offer sent".equalsIgnoreCase(statusLower);
+        boolean stage4Active = getHrInterviewDate() != null
+                || getHrInterviewTime() != null
+                || getHrInterviewLocation() != null
+                || "hr interview".equalsIgnoreCase(statusLower)
+                || "hr scheduled".equalsIgnoreCase(statusLower)
+                || "hr round".equalsIgnoreCase(statusLower)
+                || "hr".equalsIgnoreCase(statusLower);
+        if (stage4Completed || stage4Active) {
+            return 4;
+        }
+
+        // Evaluate stage 3: Task Assessment
+        boolean stage3Completed = getGithubLink() != null && !getGithubLink().trim().isEmpty();
+        boolean stage3Active = Boolean.TRUE.equals(getTaskAssigned())
+                || "task assessment".equalsIgnoreCase(statusLower)
+                || "task assigned".equalsIgnoreCase(statusLower)
+                || "task".equalsIgnoreCase(statusLower);
+        if (stage3Completed || stage3Active) {
+            return 3;
+        }
+
+        // Evaluate stage 2: Technical Interview
         boolean stage2Completed = "reviewed".equalsIgnoreCase(statusLower)
                 || "accepted".equalsIgnoreCase(statusLower)
                 || "joined".equalsIgnoreCase(statusLower)
                 || "selected".equalsIgnoreCase(statusLower)
                 || "approved".equalsIgnoreCase(statusLower)
                 || "offer sent".equalsIgnoreCase(statusLower)
-                || Boolean.TRUE.equals(getTaskAssigned());
-        if (!stage2Completed) {
+                || Boolean.TRUE.equals(getTaskAssigned())
+                || (getGithubLink() != null && !getGithubLink().trim().isEmpty())
+                || getHrInterviewDate() != null
+                || getHrInterviewTime() != null
+                || getHrInterviewLocation() != null;
+        boolean stage2Active = getInterviewDate() != null
+                || getInterviewTime() != null
+                || getInterviewLink() != null
+                || "technical interview".equalsIgnoreCase(statusLower)
+                || "interview scheduled".equalsIgnoreCase(statusLower)
+                || "scheduled".equalsIgnoreCase(statusLower)
+                || "technical".equalsIgnoreCase(statusLower)
+                || "round 2 technical".equalsIgnoreCase(statusLower)
+                || "technical assessment".equalsIgnoreCase(statusLower);
+        if (stage2Completed || stage2Active) {
             return 2;
         }
 
-        // Stage 3: Task Assessment - completed when githubLink is present
-        boolean stage3Completed = getGithubLink() != null && !getGithubLink().trim().isEmpty();
-        if (!stage3Completed) {
-            return 3;
-        }
-
-        // Stage 4: HR Interview - completed when status is ACCEPTED or JOINED or
-        // selected/approved/offer sent.
-        boolean stage4Completed = "accepted".equalsIgnoreCase(statusLower)
-                || "joined".equalsIgnoreCase(statusLower)
-                || "selected".equalsIgnoreCase(statusLower)
-                || "approved".equalsIgnoreCase(statusLower)
-                || "offer sent".equalsIgnoreCase(statusLower);
-        if (!stage4Completed) {
-            return 4;
-        }
-
-        // Stage 5: Offer
-        return 5;
+        // Evaluate stage 1: Assessment
+        boolean stage1Completed = Boolean.TRUE.equals(getAssessmentSubmitted())
+                || "Completed".equalsIgnoreCase(getAptitudeStatus());
+        return 1;
     }
 
     public String getFormattedAppliedTime() {

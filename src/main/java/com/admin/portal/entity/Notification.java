@@ -1,7 +1,8 @@
 package com.admin.portal.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import java.time.Instant;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "notifications")
@@ -20,7 +21,8 @@ public class Notification {
 
     private boolean isRead = false;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
+    private Instant createdAt = Instant.now();
 
     public Notification() {
     }
@@ -30,7 +32,7 @@ public class Notification {
         this.title = title;
         this.message = message;
         this.isRead = false;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = Instant.now();
     }
 
     public Long getId() {
@@ -69,7 +71,7 @@ public class Notification {
         isRead = read;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Instant getCreatedAt() {
         return createdAt;
     }
 }

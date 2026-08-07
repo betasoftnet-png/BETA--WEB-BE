@@ -82,7 +82,7 @@ public class JobApplicationController {
         application.setResume(fileName);
 
         application.setAppliedDate(appliedDate);
-        application.setAppliedTime(java.time.LocalDateTime.now());
+        application.setAppliedTime(java.time.LocalDateTime.now(java.time.ZoneOffset.UTC));
         application.setInterviewDate(selectedInterviewDate);
         application.setInterviewTime(interviewTime);
 

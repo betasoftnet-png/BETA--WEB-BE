@@ -44,7 +44,7 @@ public class AdminJobApplicationService {
             if (app.getAppliedDate() != null) {
                 app.setAppliedTime(app.getAppliedDate().atStartOfDay().plusHours(10));
             } else {
-                app.setAppliedTime(java.time.LocalDateTime.now());
+                app.setAppliedTime(java.time.LocalDateTime.now(java.time.ZoneOffset.UTC));
             }
             repository.save(app);
         }

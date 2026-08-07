@@ -32,7 +32,7 @@ public class JobApplicationService {
 
         // Set applied date and time
         application.setAppliedDate(appliedDate);
-        application.setAppliedTime(java.time.LocalDateTime.now());
+        application.setAppliedTime(java.time.LocalDateTime.now(java.time.ZoneOffset.UTC));
 
         // Validate interview date (if provided)
         if (application.getInterviewDate() != null) {

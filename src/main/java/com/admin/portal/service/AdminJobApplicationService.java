@@ -236,7 +236,7 @@ public class AdminJobApplicationService {
             if (timeFormatted != null && timeFormatted.contains(":")) {
                 try {
                     java.time.LocalTime timeObj = java.time.LocalTime.parse(timeFormatted.trim());
-                    timeFormatted = timeObj.format(java.time.format.DateTimeFormatter.ofPattern("hh:mm a"));
+                    timeFormatted = timeObj.format(java.time.format.DateTimeFormatter.ofPattern("hh:mm a", java.util.Locale.ENGLISH));
                 } catch (Exception ex) {
                     // Fallback to raw string
                 }
@@ -405,7 +405,7 @@ public class AdminJobApplicationService {
             if (timeFormatted != null && timeFormatted.contains(":")) {
                 try {
                     java.time.LocalTime timeObj = java.time.LocalTime.parse(timeFormatted.trim());
-                    timeFormatted = timeObj.format(java.time.format.DateTimeFormatter.ofPattern("hh:mm a"));
+                    timeFormatted = timeObj.format(java.time.format.DateTimeFormatter.ofPattern("hh:mm a", java.util.Locale.ENGLISH));
                 } catch (Exception ex) {
                     // Fallback to raw string
                 }

@@ -485,7 +485,7 @@ public class JobApplication {
             return "";
         }
         try {
-            java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("hh:mm a");
+            java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("hh:mm a", java.util.Locale.ENGLISH);
             return this.appliedTime.format(formatter);
         } catch (Exception e) {
             return "";

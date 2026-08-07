@@ -407,45 +407,45 @@ public class JobApplication {
         String s = getStatus();
         String statusLower = s != null ? s.toLowerCase().trim() : "";
 
-        // Evaluate stage 5: Offer
-        boolean stage5Completed = "joined".equalsIgnoreCase(statusLower);
-        boolean stage5Active = "accepted".equalsIgnoreCase(statusLower)
+        // Evaluate stage 6: Offer
+        boolean stage6Completed = "joined".equalsIgnoreCase(statusLower);
+        boolean stage6Active = "accepted".equalsIgnoreCase(statusLower)
                 || "selected".equalsIgnoreCase(statusLower)
                 || "approved".equalsIgnoreCase(statusLower)
                 || "offer sent".equalsIgnoreCase(statusLower);
-        if (stage5Completed || stage5Active) {
-            return 5;
+        if (stage6Completed || stage6Active) {
+            return 6;
         }
 
-        // Evaluate stage 4: HR Interview
-        boolean stage4Completed = "accepted".equalsIgnoreCase(statusLower)
+        // Evaluate stage 5: HR Interview
+        boolean stage5Completed = "accepted".equalsIgnoreCase(statusLower)
                 || "joined".equalsIgnoreCase(statusLower)
                 || "selected".equalsIgnoreCase(statusLower)
                 || "approved".equalsIgnoreCase(statusLower)
                 || "offer sent".equalsIgnoreCase(statusLower);
-        boolean stage4Active = getHrInterviewDate() != null
+        boolean stage5Active = getHrInterviewDate() != null
                 || getHrInterviewTime() != null
                 || getHrInterviewLocation() != null
                 || "hr interview".equalsIgnoreCase(statusLower)
                 || "hr scheduled".equalsIgnoreCase(statusLower)
                 || "hr round".equalsIgnoreCase(statusLower)
                 || "hr".equalsIgnoreCase(statusLower);
+        if (stage5Completed || stage5Active) {
+            return 5;
+        }
+
+        // Evaluate stage 4: Task Assessment
+        boolean stage4Completed = getGithubLink() != null && !getGithubLink().trim().isEmpty();
+        boolean stage4Active = Boolean.TRUE.equals(getTaskAssigned())
+                || "task assessment".equalsIgnoreCase(statusLower)
+                || "task assigned".equalsIgnoreCase(statusLower)
+                || "task".equalsIgnoreCase(statusLower);
         if (stage4Completed || stage4Active) {
             return 4;
         }
 
-        // Evaluate stage 3: Task Assessment
-        boolean stage3Completed = getGithubLink() != null && !getGithubLink().trim().isEmpty();
-        boolean stage3Active = Boolean.TRUE.equals(getTaskAssigned())
-                || "task assessment".equalsIgnoreCase(statusLower)
-                || "task assigned".equalsIgnoreCase(statusLower)
-                || "task".equalsIgnoreCase(statusLower);
-        if (stage3Completed || stage3Active) {
-            return 3;
-        }
-
-        // Evaluate stage 2: Technical Interview
-        boolean stage2Completed = "reviewed".equalsIgnoreCase(statusLower)
+        // Evaluate stage 3: Technical Interview
+        boolean stage3Completed = "reviewed".equalsIgnoreCase(statusLower)
                 || "accepted".equalsIgnoreCase(statusLower)
                 || "joined".equalsIgnoreCase(statusLower)
                 || "selected".equalsIgnoreCase(statusLower)
@@ -456,7 +456,7 @@ public class JobApplication {
                 || getHrInterviewDate() != null
                 || getHrInterviewTime() != null
                 || getHrInterviewLocation() != null;
-        boolean stage2Active = getInterviewDate() != null
+        boolean stage3Active = getInterviewDate() != null
                 || getInterviewTime() != null
                 || getInterviewLink() != null
                 || "technical interview".equalsIgnoreCase(statusLower)
@@ -465,13 +465,18 @@ public class JobApplication {
                 || "technical".equalsIgnoreCase(statusLower)
                 || "round 2 technical".equalsIgnoreCase(statusLower)
                 || "technical assessment".equalsIgnoreCase(statusLower);
-        if (stage2Completed || stage2Active) {
+        if (stage3Completed || stage3Active) {
+            return 3;
+        }
+
+        // Evaluate stage 2: Assessment
+        boolean stage2Completed = Boolean.TRUE.equals(getAssessmentSubmitted())
+                || "Completed".equalsIgnoreCase(getAptitudeStatus());
+        if (stage2Completed) {
             return 2;
         }
 
-        // Evaluate stage 1: Assessment
-        boolean stage1Completed = Boolean.TRUE.equals(getAssessmentSubmitted())
-                || "Completed".equalsIgnoreCase(getAptitudeStatus());
+        // Evaluate stage 1: Application (Default)
         return 1;
     }
 
